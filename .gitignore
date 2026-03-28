@@ -1,0 +1,22 @@
+# API keys and secrets — never commit
+.env
+
+# Photo files — local only, never commit
+data/photos/raw/*
+data/photos/baselines/*
+data/photos/mockups/*
+
+# Comparison images — only JSON metadata tracked
+data/photos/comparisons/*.jpg
+data/photos/comparisons/*.jpeg
+data/photos/comparisons/*.png
+
+# Migration backups — large, local only
+migrations/backups/
+
+# Postgres SQL dumps — local only (large, not for remote repo)
+backups/
+
+# Python cache
+__pycache__/
+*.pyc

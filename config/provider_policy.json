@@ -1,0 +1,24 @@
+{
+  "schema_version": "5.2",
+  "providers": {
+    "anthropic": {
+      "role": "primary",
+      "allowed_modes": ["chat", "timeline", "planning", "weekly_summary", "extraction", "onboarding", "design_approval"]
+    },
+    "google": {
+      "role": "image_and_embeddings",
+      "allowed_modes": ["photo_analysis", "mockup_generation", "design_generation", "embedding"]
+    },
+    "openai": {
+      "role": "fallback_only",
+      "allowed_modes": ["image_generation_fallback", "plant_lookup_fallback"],
+      "note": "Never route photo_analysis or photo_compare to OpenAI. That is Gemini only."
+    },
+    "elevenlabs": {
+      "role": "voice_output_only",
+      "allowed_modes": ["pwa_voice_session"],
+      "note": "Voice output only. Never routes reasoning, memory, or data through ElevenLabs."
+    }
+  },
+  "hard_fail_behavior": "degrade_gracefully_and_report_status"
+}

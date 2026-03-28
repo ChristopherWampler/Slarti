@@ -1,0 +1,21 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "system_health",
+  "last_model_call_at": null,
+  "active_provider": "anthropic",
+  "fallback_active": false,
+  "last_memory_write_at": null,
+  "last_weather_refresh_at": null,
+  "last_backup_at": null,
+  "last_git_push_at": null,
+  "git_push_failures_consecutive": 0,
+  "failed_jobs_24h": 0,
+  "queue_depth": 0,
+  "file_integrity": "ok",
+  "markitdown_last_used_at": null,
+  "proactive_posts_this_week": 0,
+  "proactive_posts_week_of": null,
+  "last_heartbeat_post_at": null,
+  "last_heartbeat_post_subject_id": null,
+  "notes": "Initial setup"
+}

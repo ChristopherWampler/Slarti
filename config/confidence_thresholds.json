@@ -1,0 +1,33 @@
+{
+  "schema_version": "5.2",
+  "thresholds": {
+    "low": {
+      "max": 0.49,
+      "behavior": "require_explicit_user_confirmation"
+    },
+    "medium": {
+      "min": 0.50,
+      "max": 0.79,
+      "behavior": "surface_before_saving",
+      "surface_channel": "originating_channel",
+      "surface_as": "@mention to message author",
+      "surface_prompt": "I noticed [observation] — want me to remember that?",
+      "expiry_hours": 24,
+      "expiry_behavior": "discard_and_log"
+    },
+    "high": {
+      "min": 0.80,
+      "behavior": "auto_save_and_log"
+    }
+  },
+  "overrides": {
+    "blueprint_dimensions": "always_require_confirmation_regardless_of_confidence",
+    "physical_measurements": "always_require_confirmation_regardless_of_confidence",
+    "design_approval": {
+      "min_confidence": 0.85,
+      "below_threshold_behavior": "ask_to_confirm"
+    },
+    "photo_observation_max": 0.95,
+    "user_confirmed_implicit": 1.0
+  }
+}
