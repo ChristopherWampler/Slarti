@@ -20,3 +20,6 @@ backups/
 # Python cache
 __pycache__/
 *.pyc
+
+# OpenClaw and app runtime logs (daily push logs tracked separately in logs/daily/)
+logs/*.log
