@@ -1,0 +1,2 @@
+# Postgres data directory — local only, never commit
+data/
