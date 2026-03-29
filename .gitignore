@@ -25,6 +25,9 @@ __pycache__/
 .claude/
 .openclaw/
 
+# Atomic write temp files
+data/system/*.tmp
+
 # Runtime logs — all ephemeral, never commit
 logs/
 !logs/.gitkeep
