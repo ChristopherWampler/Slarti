@@ -385,12 +385,63 @@ python3 scripts/weather_agent.py --test-heat 92 --dry-run
 
 ---
 
-## What's Left (Phases 9, 11–13)
+## Phase 11 — Image Modes A/B/C/D
+
+**Completed:** 2026-03-29
+
+### What was built
+
+| File | Purpose |
+|---|---|
+| `scripts/photo_agent.py` | Downloads Discord photo attachments, extracts EXIF via MarkItDown, writes `data/photos/metadata/[photo-id].json` |
+| `scripts/image_agent.py` | Generates mockup/concept images via Gemini `gemini-3-1-flash-image`, falls back to DALL-E 3, posts to Discord |
+| `data/photos/metadata/.gitkeep` | Keeps metadata directory tracked in git |
+| `AGENTS.md` | Expanded Mode A/B/C/D instructions: confidence scoring, vantage point prompting, approval detection, plant ID workflow |
+| `scripts/extraction_agent.py` | Now detects image attachments in sessions and triggers photo_agent.py |
+
+### Mode summary
+
+| Mode | What happens |
+|---|---|
+| A | Claude analyzes photo directly (multimodal), structured Observed/Inferred/Recommended with confidence scores. Vantage point asked once and stored. |
+| B | Claude acknowledges photo + emits `[MOCKUP_REQUEST]` marker → image_agent.py generates visual via Gemini → posted to Discord |
+| C | Claude iterates on design description → emits `[DESIGN_REQUEST]` → concept visual generated. Approval requires ≥0.85 confidence + clear intent. |
+| D | Claude IDs plant with dual confidence (ID confidence + care advice confidence). Cross-references `data/plants/`, emits `[PLANT_LOOKUP]` if local confidence < 0.70 |
+
+### Key decisions
+
+- **"Nano Banana Pro"** was the spec's code name for Google's Gemini image generation model — `gemini-3-1-flash-image`
+- **Photo analysis** handled by Claude directly (multimodal via OpenClaw passthrough) — no separate Gemini call needed for Modes A/D
+- **Image generation** (Modes B/C) handled by `image_agent.py` as a standalone script triggered by structured markers in Claude's responses
+- **DALL-E 3 fallback** via `--force-fallback` flag; kicks in automatically if Gemini image gen fails
+- **Vantage point** stored in bed entity `data/beds/[bed-id].json` — asked once, never again
+
+### Testing
+
+```bash
+# Mode B dry run
+python3 scripts/image_agent.py --mode b --photo data/photos/raw/test.jpg \
+    --request "add a trellis on the north side" --dry-run
+
+# Mode C dry run
+python3 scripts/image_agent.py --mode c \
+    --description "raised bed with tomatoes and basil" --dry-run
+
+# DALL-E fallback test
+python3 scripts/image_agent.py --mode c --description "test" --force-fallback --dry-run
+
+# Photo metadata dry run
+python3 scripts/photo_agent.py --photo-url https://example.com/test.jpg \
+    --session-id test-session --author emily --dry-run
+```
+
+---
+
+## What's Left (Phases 9, 12–13)
 
 | Phase | What it builds |
 |---|---|
 | 9 | `!setup` onboarding wizard — walks Emily through each garden bed one at a time (deferred) |
-| 11 | Photo modes A/B/C/D (Gemini analysis, Nano Banana mockups, EXIF extraction) |
 | 12 | Voice notes (Mode V), plant database seeding, weekly Sunday summary |
 | 13 | Voice PWA (ElevenLabs + FastAPI + Siri Shortcut on iPhone) |
 

@@ -78,9 +78,15 @@ def mark_session_processed(session_id: str):
     save_json_atomic(PROCESSED_LOG, sorted(processed))
 
 
-def parse_session(session_path: pathlib.Path) -> list[dict]:
-    """Parse an OpenClaw JSONL session file into a list of {role, author, text} turns."""
+def parse_session(session_path: pathlib.Path) -> tuple[list[dict], list[dict]]:
+    """Parse an OpenClaw JSONL session file.
+
+    Returns:
+        turns: list of {role, author, text} message turns
+        photo_attachments: list of {url, author} for any image attachments found
+    """
     turns = []
+    photo_attachments = []
     with open(session_path) as f:
         for line in f:
             line = line.strip()
@@ -102,26 +108,36 @@ def parse_session(session_path: pathlib.Path) -> list[dict]:
             text_parts = []
             sender_id = None
             for block in content:
-                if isinstance(block, dict) and block.get('type') == 'text':
-                    text = block.get('text', '')
-                    # Parse sender_id from OpenClaw metadata block
-                    if '"sender_id"' in text:
-                        try:
-                            # Extract JSON metadata block
-                            import re
-                            meta_match = re.search(r'```json\s*(\{[^`]+\})\s*```', text, re.DOTALL)
-                            if meta_match:
-                                meta = json.loads(meta_match.group(1))
-                                sender_id = meta.get('sender_id')
-                        except Exception:
-                            pass
-                    # Get the actual message text (last non-empty line after metadata)
-                    lines = [l for l in text.split('\n') if l.strip()]
-                    # The actual message is the last line (after metadata blocks)
-                    if lines:
-                        actual_text = lines[-1].strip()
-                        if actual_text and not actual_text.startswith('{') and not actual_text.startswith('```'):
-                            text_parts.append(actual_text)
+                if isinstance(block, dict):
+                    block_type = block.get('type')
+
+                    if block_type == 'text':
+                        text = block.get('text', '')
+                        # Parse sender_id from OpenClaw metadata block
+                        if '"sender_id"' in text:
+                            try:
+                                import re
+                                meta_match = re.search(r'```json\s*(\{[^`]+\})\s*```', text, re.DOTALL)
+                                if meta_match:
+                                    meta = json.loads(meta_match.group(1))
+                                    sender_id = meta.get('sender_id')
+                            except Exception:
+                                pass
+                        # Get the actual message text (last non-empty line after metadata)
+                        lines = [l for l in text.split('\n') if l.strip()]
+                        if lines:
+                            actual_text = lines[-1].strip()
+                            if actual_text and not actual_text.startswith('{') and not actual_text.startswith('```'):
+                                text_parts.append(actual_text)
+
+                    elif block_type in ('image_url', 'image'):
+                        # Detect image attachments for photo_agent.py
+                        url = (block.get('image_url', {}).get('url')
+                               or block.get('source', {}).get('url')
+                               or block.get('url', ''))
+                        if url:
+                            author = resolve_author(sender_id) if sender_id else 'unknown'
+                            photo_attachments.append({'url': url, 'author': author})
 
             if text_parts:
                 author = resolve_author(sender_id) if sender_id else ('slarti' if role == 'assistant' else 'unknown')
@@ -131,7 +147,7 @@ def parse_session(session_path: pathlib.Path) -> list[dict]:
                     'text': ' '.join(text_parts)
                 })
 
-    return turns
+    return turns, photo_attachments
 
 
 def build_transcript(turns: list[dict]) -> str:
@@ -406,12 +422,39 @@ Recent events (most recent first):
         save_json_atomic(HEALTH_FILE, health)
 
 
+def process_photos(photo_attachments: list[dict], session_id: str):
+    """Trigger photo_agent.py for each photo attachment found in a session."""
+    import subprocess as sp
+    photo_script = SLARTI_ROOT / 'scripts' / 'photo_agent.py'
+    for attachment in photo_attachments:
+        url = attachment.get('url', '')
+        author = attachment.get('author', 'unknown')
+        if not url:
+            continue
+        print(f'  Processing photo attachment (author: {author})...')
+        try:
+            result = sp.run(
+                [sys.executable, str(photo_script),
+                 '--photo-url', url,
+                 '--session-id', session_id,
+                 '--author', author],
+                capture_output=True, text=True, timeout=60
+            )
+            if result.returncode == 0:
+                photo_id = result.stdout.strip().split('\n')[-1]
+                print(f'  Photo processed: {photo_id}')
+            else:
+                print(f'  WARNING: photo_agent.py failed: {result.stderr[:200]}', file=sys.stderr)
+        except Exception as e:
+            print(f'  WARNING: Could not process photo: {e}', file=sys.stderr)
+
+
 def process_session(session_path: pathlib.Path) -> int:
     """Process one session file. Returns count of facts extracted."""
     session_id = session_path.stem
     print(f'Processing session: {session_id}')
 
-    turns = parse_session(session_path)
+    turns, photo_attachments = parse_session(session_path)
     if not turns:
         print(f'  No message turns found — skipping')
         return 0
@@ -461,6 +504,11 @@ def process_session(session_path: pathlib.Path) -> int:
     if needs_garden_regen:
         print('  Triggering garden.md regeneration...')
         regenerate_garden_md()
+
+    # Process any photo attachments found in this session
+    if photo_attachments:
+        print(f'  Found {len(photo_attachments)} photo attachment(s) — processing...')
+        process_photos(photo_attachments, session_id)
 
     return count
 
