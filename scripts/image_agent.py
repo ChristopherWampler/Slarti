@@ -39,8 +39,9 @@ APP_CONFIG_PATH     = SLARTI_ROOT / 'config' / 'app_config.json'
 PHOTOS_MOCKUPS_DIR  = SLARTI_ROOT / 'data' / 'photos' / 'mockups'
 HEALTH_STATUS_PATH  = SLARTI_ROOT / 'data' / 'system' / 'health_status.json'
 
-# Gemini image generation model (see https://aistudio.google.com/models/gemini-3-1-flash-image)
-GEMINI_IMAGE_MODEL = 'gemini-3-1-flash-image'
+# Gemini image generation model — "Nano Banana 2"
+# See: https://aistudio.google.com/models/gemini-3.1-flash-image-preview
+GEMINI_IMAGE_MODEL = 'gemini-3.1-flash-image-preview'
 
 
 def atomic_write_json(path, data):
