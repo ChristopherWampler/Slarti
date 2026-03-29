@@ -17,7 +17,7 @@ Drop a photo in Discord and Slarti will analyze what it sees, flag anything wron
 | Mode | Trigger | What happens |
 |---|---|---|
 | A | Photo only | Gemini analyzes the photo, Slarti responds with observations |
-| B | Photo + change/mockup request | Analysis + Nano Banana design mockup |
+| B | Photo + change/mockup request | Analysis + gemini-3.1-flash-image-preview mockup |
 | C | Text design description (no photo) | Written plan or layout recommendation |
 | D | Plant ID or unfamiliar subject in photo | Plant identification + Zone 6b advice |
 | E | Casual conversation | Normal chat, garden questions, recommendations |
@@ -33,7 +33,7 @@ Drop a photo in Discord and Slarti will analyze what it sees, flag anything wron
 |---|---|---|
 | Conversation, agents, summaries | Anthropic | Claude Sonnet 4.6 |
 | Photo analysis | Google | Gemini Flash |
-| Image generation (mockups) | Google | Nano Banana Pro |
+| Image generation (mockups) | Google | gemini-3.1-flash-image-preview |
 | Embeddings (memory search) | Google | text-embedding-004 |
 | Advisory messages | Anthropic | Claude Haiku |
 | Image generation fallback | OpenAI | DALL-E 3 |
@@ -58,8 +58,8 @@ Drop a photo in Discord and Slarti will analyze what it sees, flag anything wron
 | 8 | Memory layer (pgvector + extraction agent) | ✅ Done |
 | 9 | Onboarding (`!setup`) | ⏳ Deferred |
 | 10 | Daily weather agent (NWS + frost/heat advisories) | ✅ Done |
-| 11 | Image modes A/B/C/D | ⏳ Next |
-| 12 | Voice notes, plant DB, weekly summary | ⏳ Pending |
+| 11 | Image modes A/B/C/D | ✅ Done |
+| 12 | Voice notes, plant DB, weekly summary | ⏳ Next |
 | 13 | Voice PWA (ElevenLabs + Siri Shortcut) | ⏳ Pending |
 
 ---

@@ -31,8 +31,9 @@ Slarti is a family garden companion AI for Christopher and Emily Wampler in Farm
 | 8 | ✅ Complete (pgvector schema, extraction agent, garden.md regeneration) |
 | 9 | ⏳ Deferred — onboarding wizard (!setup) |
 | 10 | ✅ Complete (NWS weather agent, frost/heat advisories to #garden-log) |
-| 11 | ⏳ Next — image modes A/B/C/D |
-| 12–13 | Not started |
+| 11 | ✅ Complete (photo_agent.py, image_agent.py, AGENTS.md) |
+| 12 | ⏳ Next — voice notes (Mode V), plant database, weekly summary |
+| 13 | Not started |
 
 ## Architecture Quick Reference
 

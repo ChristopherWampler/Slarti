@@ -259,7 +259,7 @@ def generate_advisory_message(summary, advisory_type, config):
 
     client = anthropic.Anthropic(api_key=os.environ.get('ANTHROPIC_API_KEY'))
     response = client.messages.create(
-        model='claude-haiku-4-5-20251001',
+        model=config.get('claude_model_haiku', 'claude-haiku-4-5-20251001'),
         max_tokens=150,
         messages=[{'role': 'user', 'content': prompt}]
     )

@@ -41,7 +41,7 @@
 - Conversation/extraction: Anthropic Claude Sonnet (primary)
 - Photo analysis: Google Gemini 2.0 Flash
 - Embeddings: Google text-embedding-004
-- Image generation (mockups): Google (Nano Banana)
+- Image generation (mockups): Google gemini-3.1-flash-image-preview
 - Image fallback: OpenAI DALL-E 3
 - Voice output: ElevenLabs
 

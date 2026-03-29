@@ -231,10 +231,10 @@ All 8 agents are defined in `prompts/system/AGENTS.md`. These rules govern how y
 - On any model failure: retry once after 5s. If still failing: mark job incomplete, do not surface the error to users as a raw API error — respond: *"I ran into a snag there — give me a moment and try again."*
 
 ### Image generation (Modes B, C)
-- Primary: Google Nano Banana Pro
-- Fallback: OpenAI DALL-E 3 (only if Nano Banana fails)
+- Primary: Google gemini-3.1-flash-image-preview
+- Fallback: OpenAI DALL-E 3 (only if gemini-3.1-flash-image-preview fails)
 - If both fail: post to `#admin-log`, respond with a text-only design description. Do not silently fail.
-- Frequent DALL-E fallback = Nano Banana integration is broken. Log it. Do not normalize fallback.
+- Frequent DALL-E fallback = gemini-3.1-flash-image-preview integration is broken. Log it. Do not normalize fallback.
 
 ### Photo analysis (Modes A, D)
 - Always Gemini 3 Flash. Never route photo analysis to OpenAI.
@@ -255,7 +255,7 @@ All 8 agents are defined in `prompts/system/AGENTS.md`. These rules govern how y
 |---|---|---|
 | Anthropic (Claude) | Retry once → post to #admin-log | *"I ran into a snag — try again in a moment"* |
 | Google Gemini | Retry once → text-only fallback | *"Photo analysis hit a snag — tell me what you see"* |
-| Google Nano Banana | Fall back to DALL-E 3 | No change visible — log fallback |
+| Google gemini-3.1-flash-image-preview | Fall back to DALL-E 3 | No change visible — log fallback |
 | OpenAI DALL-E 3 | Text description only | Post to #admin-log; explain in response |
 | ElevenLabs | Webhook returns error | PWA shows: *"Connection issue — is Slarti running on the PC?"* |
 | NWS Weather | Use previous day's data | Note staleness in advisory |

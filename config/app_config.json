@@ -29,5 +29,6 @@
   "pwa_discord_sync": "post_session",
   "siri_shortcut_url_emily": "http://slarti.local:8080?author=emily",
   "siri_shortcut_url_christopher": "http://slarti.local:8080?author=christopher",
-  "claude_model": "claude-sonnet-4-6"
+  "claude_model": "claude-sonnet-4-6",
+  "claude_model_haiku": "claude-haiku-4-5-20251001"
 }

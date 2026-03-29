@@ -41,6 +41,14 @@ PROCESSED_LOG = SLARTI_ROOT / 'data' / 'system' / 'processed_sessions.json'
 
 EVENTS_DIR.mkdir(parents=True, exist_ok=True)
 
+# Load model name from config (fall back to hardcoded if config missing)
+try:
+    with open(SLARTI_ROOT / 'config' / 'app_config.json') as _f:
+        _cfg = json.load(_f)
+    CLAUDE_MODEL = _cfg.get('claude_model', 'claude-sonnet-4-6')
+except Exception:
+    CLAUDE_MODEL = 'claude-sonnet-4-6'
+
 
 def load_json(path: pathlib.Path) -> dict | list:
     if path.exists():
@@ -209,7 +217,7 @@ Return format:
 
     try:
         response = client.messages.create(
-            model='claude-sonnet-4-6',
+            model=CLAUDE_MODEL,
             max_tokens=2000,
             messages=[{'role': 'user', 'content': prompt}]
         )
@@ -397,7 +405,7 @@ Recent events (most recent first):
     try:
         client = anthropic.Anthropic(api_key=api_key)
         response = client.messages.create(
-            model='claude-sonnet-4-6',
+            model=CLAUDE_MODEL,
             max_tokens=1200,
             messages=[{'role': 'user', 'content': prompt}]
         )
