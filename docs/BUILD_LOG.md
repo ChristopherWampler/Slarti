@@ -1,7 +1,7 @@
 # Slarti Build Log
 
 Complete record of what was built, what decisions were made, and where everything lives.
-Last updated: 2026-03-28
+Last updated: 2026-03-29
 
 ---
 
@@ -228,24 +228,105 @@ All credentials live in `C:\Openclaw\slarti\.env` (never committed to git).
 | `GOOGLE_API_KEY` | ✅ Set | Gemini Flash (photos), text-embedding-004 (pgvector) |
 | `OPENAI_API_KEY` | ✅ Set | DALL-E 3 fallback, web search plant lookup |
 | `ELEVENLABS_API_KEY` | ✅ Set | Voice output (Phase 13) |
-| `DISCORD_BOT_TOKEN` | ⏳ Phase 7 | OpenClaw Discord channel |
-| `DISCORD_GUILD_ID` | ⏳ Phase 7 | Discord server ID |
-| `DISCORD_ADMIN_WEBHOOK` | ⏳ Phase 7 | #admin-log webhook |
+| `DISCORD_BOT_TOKEN` | ✅ Set | OpenClaw Discord channel |
+| `DISCORD_GUILD_ID` | ✅ Set | Discord server ID |
+| `DISCORD_ADMIN_WEBHOOK` | ✅ Set | #admin-log webhook |
 | `POSTGRES_PASSWORD` | ✅ Set | slarti database user |
 
 ---
 
-## What's Left (Phases 6–13)
+---
+
+## Phase 6 — Claude API
+
+**Completed:** 2026-03-28 (via OpenClaw gateway — no separate step required)
+
+The spec assumed a custom `openclaw.yaml` with a `soul_path` field. In practice, OpenClaw natively loads `SOUL.md`, `AGENTS.md`, and `USER.md` from the configured workspace and injects them into Claude's context on every request. No additional wiring needed.
+
+`ANTHROPIC_API_KEY` was set as a Windows environment variable (via `setx`) so the OpenClaw gateway service can access it at startup.
+
+**Verified:** @Slarti responds in Discord with Claude Sonnet 4.6.
+
+---
+
+## Phase 7 — Discord Bot
+
+**Completed:** 2026-03-29
+
+### What was built / configured
+
+| Item | Detail |
+|---|---|
+| Discord application | Created at discord.com/developers — bot named Slarti |
+| Bot token | Set as `DISCORD_BOT_TOKEN` in `.env` and Windows env var |
+| Guild (server) | Slarti Garden — ID set as `DISCORD_GUILD_ID` |
+| 7 channels | #garden-chat, #garden-photos, #garden-design, #garden-log, #plant-alerts, #weekly-summary, #admin-log |
+| Admin webhook | Created for #admin-log — set as `DISCORD_ADMIN_WEBHOOK` |
+| Christopher's Discord ID | `314576001306722314` — set in `config/discord_users.json` |
+| Emily's Discord ID | **⏳ Pending** — placeholder still in `config/discord_users.json` |
+| OpenClaw Discord channel | Wired via `openclaw doctor --fix` — `channels.discord.enabled: true` |
+| Pairing | Christopher's Discord account approved via `openclaw pairing approve discord` |
+
+### Key discoveries / non-obvious fixes
+
+- `openclaw doctor --fix` auto-detected `DISCORD_BOT_TOKEN` env var and configured Discord — no manual `channels` block needed in the agent config
+- `groupPolicy` must be `"open"` for the bot to respond in all channels (doctor defaults to `"allowlist"` with no channels, which blocks everything)
+- Discord native @mentions send `<@BOT_USER_ID>` in raw content, not `@Slarti`. Added `"<@1487572857482514542>"` to `mentionPatterns` in `~/.openclaw/openclaw.json` so OpenClaw's text pattern check matches it
+- First DM response shows a pairing code — must run `openclaw pairing approve discord <code>` to authorize each user
+
+### What's still needed
+
+- Emily's Discord user ID in `config/discord_users.json` (add when she's ready, then `openclaw gateway restart`)
+
+---
+
+## Phase 8 — Memory Layer
+
+**Completed:** 2026-03-29
+
+### What was built
+
+| File | Purpose |
+|---|---|
+| `scripts/extraction_agent.py` | Agent 2 — reads OpenClaw session JSONL files, extracts facts via Claude, writes JSON to `data/events/2026/`, stores embeddings in pgvector, triggers `garden.md` regeneration on BED_FACT or DECISION |
+| `scripts/markitdown_ingest.py` | Converts audio, PDFs, Office docs, and images to Markdown for plant DB seeding and Mode V transcription |
+| `data/system/health_status.json` | System health tracker initialized with all required fields |
+| `data/system/processed_sessions.json` | Tracks which OpenClaw session files have been processed by the extraction agent |
+| `docs/garden.md` | Placeholder — will be regenerated after first onboarding session |
+| `IDENTITY.md` | OpenClaw agent identity metadata (name, vibe, emoji) |
+| `HEARTBEAT.md` | Heartbeat checklist for Agent 3 (30-min cycles, max 2 posts/week) |
+| `TOOLS.md` | Environment reference: Discord channels, data paths, provider routing |
+| `CLAUDE.md` | Developer navigation guide for working on this project |
+| `prompts/system/SOUL.md` | Reference copy of SOUL.md for spec compliance |
+| `prompts/system/AGENTS.md` | Agent definitions spec (extraction, weather, heartbeat, weekly summary, onboarding, design approval, project review, command parser) |
+
+### Database
+
+- `timeline_events` table created in Postgres with pgvector `vector(768)` column
+- IVFFlat index on embedding column for cosine similarity search
+- Indexes on `subject_id`, `author`, `event_type`, `created_at`
+
+### Extraction agent
+
+- Runs every 5 minutes via WSL2 cron: `*/5 * * * * /usr/bin/python3 /mnt/c/Openclaw/slarti/scripts/extraction_agent.py`
+- Session path: `/mnt/c/Users/Chris/.openclaw/agents/slarti/sessions/*.jsonl`
+- Skips already-processed sessions (tracked in `data/system/processed_sessions.json`)
+- Python packages installed in WSL2: `anthropic`, `psycopg2-binary`, `google-generativeai`, `python-dotenv`
+
+### Key discovery
+
+OpenClaw session files are JSONL with `type: "message"` events. User messages include Discord metadata block (`sender_id`, `sender`, `timestamp`) as untrusted metadata in the message content. The extraction agent parses this to resolve author attribution.
+
+---
+
+## What's Left (Phases 9–13)
 
 | Phase | What it builds |
 |---|---|
-| 6 | Add `ANTHROPIC_API_KEY` to OpenClaw config; test first Slarti response in character |
-| 7 | Discord bot, 7 channels, guild ID, user IDs → fills remaining `.env` vars |
-| 8 | pgvector schema, embedding agent, garden.md auto-generation |
-| 9 | `!setup` onboarding wizard — walks Emily through each garden bed |
-| 10 | Daily weather agent (NWS API → `weather_today.json` → frost/heat advisories) |
-| 11 | Photo modes A/B/C/D (Gemini analysis, Nano Banana mockups) |
-| 12 | Voice notes, plant database, weekly Sunday summary |
-| 13 | Voice PWA (ElevenLabs + FastAPI + Siri Shortcut) |
+| 9 | `!setup` onboarding wizard — walks Emily through each garden bed one at a time |
+| 10 | Daily weather agent (NWS API → `weather_today.json` → frost/heat advisories to #garden-log) |
+| 11 | Photo modes A/B/C/D (Gemini analysis, Nano Banana mockups, EXIF extraction) |
+| 12 | Voice notes (Mode V), plant database seeding, weekly Sunday summary |
+| 13 | Voice PWA (ElevenLabs + FastAPI + Siri Shortcut on iPhone) |
 
 See `CHRISTOPHER_BUILD_GUIDE.md` for detailed commands for each phase.

@@ -21,5 +21,14 @@ backups/
 __pycache__/
 *.pyc
 
-# OpenClaw and app runtime logs (daily push logs tracked separately in logs/daily/)
-logs/*.log
+# Local runtime dirs — machine-specific, not for repo
+.claude/
+.openclaw/
+
+# Runtime logs — all ephemeral, never commit
+logs/
+!logs/.gitkeep
+
+# Screenshots in docs
+docs/*.png
+docs/*.jpg

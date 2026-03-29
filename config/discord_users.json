@@ -2,7 +2,7 @@
   "schema_version": "5.2",
   "users": {
     "EMILY_DISCORD_USER_ID_HERE": "emily",
-    "CHRISTOPHER_DISCORD_USER_ID_HERE": "christopher"
+    "314576001306722314": "christopher"
   },
   "system_user": "system",
   "notes": "Replace the placeholder keys with real Discord user ID strings (18-digit numbers). Enable Discord Developer Mode (Settings → Advanced → Developer Mode), then right-click your username → Copy User ID. Do this in Phase 7."

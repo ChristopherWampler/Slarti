@@ -17,5 +17,6 @@
   "proactive_posts_week_of": null,
   "last_heartbeat_post_at": null,
   "last_heartbeat_post_subject_id": null,
-  "notes": "Initial setup"
+  "garden_md_regeneration_failed": false,
+  "notes": "System initialized"
 }
