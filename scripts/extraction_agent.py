@@ -237,7 +237,7 @@ Return format:
 def get_embedding(text: str) -> Optional[list[float]]:
     """Get text embedding from Google text-embedding-004."""
     try:
-        import google.generativeai as genai
+        from google import genai
     except ImportError:
         return None
 
@@ -246,12 +246,12 @@ def get_embedding(text: str) -> Optional[list[float]]:
         return None
 
     try:
-        genai.configure(api_key=api_key)
-        result = genai.embed_content(
+        client = genai.Client(api_key=api_key)
+        result = client.models.embed_content(
             model='models/text-embedding-004',
-            content=text
+            contents=text
         )
-        return result['embedding']
+        return result.embeddings[0].values
     except Exception as e:
         print(f'WARNING: Embedding failed: {e}', file=sys.stderr)
         return None

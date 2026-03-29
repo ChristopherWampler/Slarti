@@ -86,9 +86,10 @@ def build_mode_c_prompt(description: str, zone_notes: str = '') -> str:
 def generate_with_gemini(prompt: str, photo_path: str | None = None) -> bytes | None:
     """Call Gemini image generation. Returns raw image bytes or None on failure."""
     try:
-        import google.generativeai as genai
+        from google import genai
+        from google.genai import types as genai_types
     except ImportError:
-        print('ERROR: google-generativeai not installed. Run: pip install google-generativeai --break-system-packages',
+        print('ERROR: google-genai not installed. Run: pip install google-genai --break-system-packages',
               file=sys.stderr)
         return None
 
@@ -98,42 +99,46 @@ def generate_with_gemini(prompt: str, photo_path: str | None = None) -> bytes | 
         return None
 
     try:
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel(GEMINI_IMAGE_MODEL)
+        import base64
+        client = genai.Client(api_key=api_key)
+        config = genai_types.GenerateContentConfig(
+            response_modalities=['TEXT', 'IMAGE']
+        )
 
         if photo_path:
             # Mode B: send photo + prompt
-            try:
-                import PIL.Image
-                img = PIL.Image.open(photo_path)
-                response = model.generate_content(
-                    [prompt, img],
-                    generation_config={'response_mime_type': 'image/png'}
-                )
-            except ImportError:
-                # PIL not available — upload file instead
-                uploaded = genai.upload_file(photo_path)
-                response = model.generate_content(
-                    [prompt, uploaded],
-                    generation_config={'response_mime_type': 'image/png'}
-                )
+            photo_bytes = pathlib.Path(photo_path).read_bytes()
+            # Detect mime type from extension
+            ext = pathlib.Path(photo_path).suffix.lower()
+            mime_map = {'.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+                        '.png': 'image/png', '.webp': 'image/webp'}
+            mime_type = mime_map.get(ext, 'image/jpeg')
+            contents = [
+                genai_types.Part.from_bytes(data=photo_bytes, mime_type=mime_type),
+                prompt,
+            ]
         else:
             # Mode C: text only
-            response = model.generate_content(
-                prompt,
-                generation_config={'response_mime_type': 'image/png'}
-            )
+            contents = prompt
 
-        # Extract image bytes from response
+        response = client.models.generate_content(
+            model=GEMINI_IMAGE_MODEL,
+            contents=contents,
+            config=config,
+        )
+
+        # Extract image bytes from response parts
         for part in response.candidates[0].content.parts:
             if hasattr(part, 'inline_data') and part.inline_data:
-                return part.inline_data.data
-            if hasattr(part, 'file_data') and part.file_data:
-                # Download from URI if needed
-                uri = part.file_data.file_uri
-                req = urllib_request.Request(uri, headers={'Authorization': f'Bearer {api_key}'})
-                with urllib_request.urlopen(req, timeout=30) as resp:
-                    return resp.read()
+                raw = part.inline_data.data
+                # inline_data.data may be base64 string or raw bytes
+                if isinstance(raw, (bytes, bytearray)):
+                    return bytes(raw)
+                # Try base64 decode
+                try:
+                    return base64.b64decode(raw)
+                except Exception:
+                    return raw.encode('latin-1') if isinstance(raw, str) else bytes(raw)
 
         print('WARNING: Gemini response contained no image data', file=sys.stderr)
         return None
