@@ -32,15 +32,18 @@ Slarti is a family garden companion AI for Christopher and Emily Wampler in Farm
 | 9 | ⏳ Deferred — onboarding wizard (!setup) |
 | 10 | ✅ Complete (NWS weather agent, frost/heat advisories to #garden-log) |
 | 11 | ✅ Complete (photo_agent.py, image_agent.py, AGENTS.md) |
-| 12 | ⏳ Next — voice notes (Mode V), plant database, weekly summary |
+| 12 | ✅ Complete (voice notes Mode V, plant database, weekly summary Agent 4) |
 | 13 | Not started |
 
 ## Architecture Quick Reference
 
 - **Gateway:** OpenClaw (Node.js) → `openclaw gateway start/stop/status`
+- **Gateway stability:** `~/.openclaw/gateway_restart_loop.cmd` auto-restarts on crash
 - **Database:** Postgres 16 + pgvector in Docker → `cd db && docker compose up -d`
 - **Extraction agent:** runs every 5 min via WSL2 cron → `scripts/extraction_agent.py`
 - **Weather agent:** runs at 6 AM via WSL2 cron → `scripts/weather_agent.py`
+- **Weekly summary:** runs Sunday 6 PM via WSL2 cron → `scripts/weekly_summary_agent.py`
+- **Plant database:** `data/plants/` — seed via `scripts/populate_plants.py`
 - **Restart everything:** `bash scripts/restart.sh` (from WSL2)
 
 ## Git Commit Format

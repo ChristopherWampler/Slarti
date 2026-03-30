@@ -12,9 +12,18 @@
 ## Discord Server
 
 - Guild: Slarti Garden
-- Channels: #garden-chat, #garden-photos, #garden-design, #garden-log, #plant-alerts, #weekly-summary, #admin-log
+- Channels: #garden-chat, #garden-photos, #garden-design, #garden-log, #garden-builds, #plant-alerts, #admin-log
 - Primary conversation channel: #garden-chat
 - Author mapping: config/discord_users.json
+
+Channel roles:
+- #garden-chat — main conversation, all modes
+- #garden-photos — photo drops (Modes A, B, D)
+- #garden-design — design sessions (Mode C), approval detection
+- #garden-log — weather advisories, voice note confirmations, weekly summary
+- #garden-builds — build summaries after design approval (Agent 6)
+- #plant-alerts — plant ID flags (Mode D, future use)
+- #admin-log — system errors, health alerts, provider failures (output-only)
 
 ## Data Paths (WSL2)
 
@@ -22,8 +31,12 @@
 - Bed data: data/beds/
 - Events/journal: data/events/2026/
 - Projects: data/projects/
-- Plants: data/plants/
+- Tasks: data/tasks/
+- Plants: data/plants/  ← seeded via scripts/populate_plants.py
+- Plant sources: scripts/plant_sources/  ← hand-curated JSON, source of truth
+- Voice sessions: data/voice_sessions/2026/
 - Photos (metadata only — images not tracked by Git): data/photos/metadata/
+- Photo mockups: data/photos/mockups/
 - System state: data/system/
 - Garden summary: docs/garden.md
 - Daily logs: logs/daily/
@@ -45,9 +58,23 @@
 - Image fallback: OpenAI DALL-E 3
 - Voice output: ElevenLabs
 
+## Scripts
+
+| Script | Trigger | What it does |
+|---|---|---|
+| `scripts/extraction_agent.py` | cron every 5 min | Reads OpenClaw sessions → extracts facts → pgvector + JSON |
+| `scripts/weather_agent.py` | cron 6 AM daily | NWS forecast → frost/heat advisories → #garden-log |
+| `scripts/weekly_summary_agent.py` | cron Sunday 6 PM | Week's events → Claude narrative → #garden-log |
+| `scripts/voice_session_writer.py` | on audio upload | Transcribes audio → saves voice session → triggers extraction |
+| `scripts/photo_agent.py` | on photo upload | Downloads photo → EXIF extraction → metadata JSON |
+| `scripts/image_agent.py` | on MOCKUP/DESIGN marker | Gemini/DALL-E image generation → Discord post |
+| `scripts/populate_plants.py` | manual | Validates + seeds data/plants/ from scripts/plant_sources/ |
+| `scripts/git_push.sh` | cron 3 AM daily | pg_dump + git commit + push |
+| `scripts/restart.sh` | manual | Restarts Docker + cron + verifies health |
+
 ## Key Config Files
 
-- config/app_config.json — app settings, provider routing
+- config/app_config.json — app settings, model names, provider routing
 - config/provider_policy.json — provider role restrictions
 - config/confidence_thresholds.json — confidence gates for memory writes
 - config/discord_users.json — Discord ID → author mapping

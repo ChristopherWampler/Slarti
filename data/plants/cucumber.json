@@ -1,0 +1,39 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "cucumber",
+  "common_name": "Cucumber",
+  "scientific_name": "Cucumis sativus",
+  "aliases": [
+    "cucumber",
+    "cuke",
+    "slicing cucumber",
+    "pickling cucumber"
+  ],
+  "family": "Cucurbitaceae",
+  "zone_6b_notes": "Direct sow after soil reaches 60\u00c2\u00b0F (mid-May in Farmington). Zone 6b's warm summers produce excellent cucumbers \u00e2\u20ac\u201d expect harvest in 55\u00e2\u20ac\u201c65 days. Train vertically on a trellis to save space and improve air circulation. Missouri heat and humidity promote bacterial wilt via cucumber beetles \u00e2\u20ac\u201d row covers early help.",
+  "days_to_maturity": 60,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 3,
+    "direct_sow": true,
+    "direct_sow_after_last_frost_weeks": 1
+  },
+  "spacing_inches": 12,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d bitter cucumbers result from water stress; 1 inch per week minimum",
+  "common_pests": [
+    "cucumber beetle",
+    "bacterial wilt",
+    "powdery mildew",
+    "aphids"
+  ],
+  "companion_plants": [
+    "marigold",
+    "nasturtium",
+    "beans",
+    "sunflower"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

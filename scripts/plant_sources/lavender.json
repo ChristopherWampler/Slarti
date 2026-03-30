@@ -1,0 +1,25 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "lavender",
+  "common_name": "English Lavender",
+  "scientific_name": "Lavandula angustifolia",
+  "aliases": ["lavender", "english lavender", "true lavender"],
+  "family": "Lamiaceae",
+  "zone_6b_notes": "Zone 6b is the cold edge of lavender's range. English lavender (angustifolia) is the hardiest — survives Farmington winters with excellent drainage and a south-facing exposure. Heavy clay Missouri soil is problematic; amend with grit or grow in raised beds. Mulch lightly with gravel, not wood chips (traps moisture). Cut back by one-third in early spring — do not cut into old wood.",
+  "days_to_maturity": 90,
+  "type": "perennial (Zone 5–8 for angustifolia)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 10,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": 1
+  },
+  "spacing_inches": 18,
+  "sun": "full — 6+ hours required",
+  "water": "low — excellent drainage essential; wet winters kill lavender faster than cold",
+  "common_pests": ["root rot (wet soil or clay)", "phytophthora (crown rot)"],
+  "companion_plants": ["rosemary", "thyme", "sage", "roses"],
+  "zone_notes_warning": "Marginally hardy in Zone 6b — may need winter protection in harsh years. Raised bed planting strongly recommended.",
+  "source": "manual",
+  "confidence": 1.0
+}

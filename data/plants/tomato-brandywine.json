@@ -1,0 +1,38 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "tomato-brandywine",
+  "common_name": "Brandywine Tomato",
+  "scientific_name": "Solanum lycopersicum 'Brandywine'",
+  "aliases": [
+    "brandywine",
+    "pink brandywine",
+    "brandywine tomato"
+  ],
+  "family": "Solanaceae",
+  "zone_6b_notes": "Start indoors 6\u00e2\u20ac\u201c8 weeks before last frost (late April/early May in Zone 6b). Needs 80 days to maturity \u00e2\u20ac\u201d plant outside after May 1. Missouri summers can stress indeterminate tomatoes; mulch heavily and water consistently.",
+  "days_to_maturity": 80,
+  "type": "indeterminate",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 7,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": 1
+  },
+  "spacing_inches": 24,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c2 inches per week, avoid wetting foliage",
+  "common_pests": [
+    "tomato hornworm",
+    "aphids",
+    "early blight",
+    "late blight",
+    "septoria leaf spot"
+  ],
+  "companion_plants": [
+    "basil",
+    "marigold",
+    "parsley"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

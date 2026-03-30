@@ -1,0 +1,24 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "basil-genovese",
+  "common_name": "Genovese Basil",
+  "scientific_name": "Ocimum basilicum 'Genovese'",
+  "aliases": ["basil", "genovese basil", "sweet basil"],
+  "family": "Lamiaceae",
+  "zone_6b_notes": "Annual in Zone 6b. Do not plant outside until soil is consistently above 60°F (late May in Farmington). Extremely frost-sensitive — one light frost kills it. Pinch flowers to extend harvest through summer.",
+  "days_to_maturity": 30,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 4,
+    "direct_sow": true,
+    "direct_sow_after_last_frost_weeks": 2
+  },
+  "spacing_inches": 12,
+  "sun": "full",
+  "water": "moderate — keep moist but not waterlogged",
+  "common_pests": ["aphids", "downy mildew", "fusarium wilt"],
+  "companion_plants": ["tomato", "pepper", "marigold"],
+  "source": "manual",
+  "confidence": 1.0
+}

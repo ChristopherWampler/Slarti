@@ -1,0 +1,38 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "pepper-bell",
+  "common_name": "Bell Pepper",
+  "scientific_name": "Capsicum annuum (bell types)",
+  "aliases": [
+    "bell pepper",
+    "sweet pepper",
+    "pepper"
+  ],
+  "family": "Solanaceae",
+  "zone_6b_notes": "Start indoors 8\u00e2\u20ac\u201c10 weeks before last frost in Zone 6b. Peppers need warm soil (65\u00c2\u00b0F+) \u00e2\u20ac\u201d transplant no earlier than mid-May in Farmington. Missouri's humid summers suit them well but watch for bacterial leaf spot. Slow to fruit in cool springs.",
+  "days_to_maturity": 70,
+  "type": "annual (tender perennial in tropics)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 9,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": 2
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c2 inches per week; drought stress drops flowers",
+  "common_pests": [
+    "aphids",
+    "pepper maggot",
+    "bacterial leaf spot",
+    "blossom drop (from heat/cold stress)"
+  ],
+  "companion_plants": [
+    "basil",
+    "tomato",
+    "carrot",
+    "parsley"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

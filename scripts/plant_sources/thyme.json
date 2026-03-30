@@ -1,0 +1,24 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "thyme",
+  "common_name": "Common Thyme",
+  "scientific_name": "Thymus vulgaris",
+  "aliases": ["thyme", "garden thyme", "common thyme", "english thyme"],
+  "family": "Lamiaceae",
+  "zone_6b_notes": "Hardy perennial in Zone 6b — survives winters in Farmington with light mulching. Plant in well-drained soil; thyme rots in wet Missouri winters if drainage is poor. Woody stems die back in winter but regrow from base in spring (late March/April). Harvest before flowering for best flavor.",
+  "days_to_maturity": 85,
+  "type": "perennial (Zone 4–9)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 6,
+    "direct_sow": true,
+    "direct_sow_after_last_frost_weeks": 0
+  },
+  "spacing_inches": 12,
+  "sun": "full",
+  "water": "low — drought tolerant once established; overwatering is the main killer",
+  "common_pests": ["root rot (wet soil)", "spider mites (dry indoor conditions)"],
+  "companion_plants": ["tomato", "cabbage", "eggplant", "strawberry"],
+  "source": "manual",
+  "confidence": 1.0
+}

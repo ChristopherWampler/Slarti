@@ -5,7 +5,7 @@
   "active_provider": "anthropic",
   "fallback_active": false,
   "last_memory_write_at": null,
-  "last_weather_refresh_at": null,
+  "last_weather_refresh_at": "2026-03-30T06:00:04.269176-05:00",
   "last_backup_at": null,
   "last_git_push_at": null,
   "git_push_failures_consecutive": 0,
@@ -18,5 +18,7 @@
   "last_heartbeat_post_at": null,
   "last_heartbeat_post_subject_id": null,
   "garden_md_regeneration_failed": false,
+  "last_weekly_summary_at": null,
+  "weekly_summary_failures_consecutive": 0,
   "notes": "System initialized"
 }

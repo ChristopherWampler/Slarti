@@ -1,0 +1,25 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "black-eyed-susan",
+  "common_name": "Black-Eyed Susan",
+  "scientific_name": "Rudbeckia hirta",
+  "aliases": ["black-eyed susan", "black eyed susan", "rudbeckia", "coneflower (yellow)"],
+  "family": "Asteraceae",
+  "zone_6b_notes": "Native wildflower — thrives in Zone 6b Farmington. Extremely tough in Missouri heat, drought, and clay soils. Short-lived perennial that readily self-seeds, so it naturalizes in the garden. Blooms July–September, excellent for pollinators. Leave seed heads standing in fall to feed birds and allow self-seeding.",
+  "days_to_maturity": 60,
+  "type": "short-lived perennial / biennial (self-seeds reliably)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 6,
+    "direct_sow": true,
+    "direct_sow_after_last_frost_weeks": 0,
+    "cold_stratification_needed": true
+  },
+  "spacing_inches": 18,
+  "sun": "full to part shade",
+  "water": "low — drought tolerant; native to Missouri prairies",
+  "common_pests": ["powdery mildew (late summer)", "slugs (seedlings)"],
+  "companion_plants": ["coneflower", "ornamental grasses", "salvia", "lavender"],
+  "source": "manual",
+  "confidence": 1.0
+}

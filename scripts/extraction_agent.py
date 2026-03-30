@@ -457,6 +457,85 @@ def process_photos(photo_attachments: list[dict], session_id: str):
             print(f'  WARNING: Could not process photo: {e}', file=sys.stderr)
 
 
+def process_voice_session(session_path: pathlib.Path) -> int:
+    """Process a voice session JSON from data/voice_sessions/. Returns fact count."""
+    try:
+        session = load_json(session_path)
+    except Exception as e:
+        print(f'ERROR: Could not read voice session {session_path}: {e}', file=sys.stderr)
+        return 0
+
+    session_id = session.get('session_id', session_path.stem)
+    transcript = session.get('raw_transcript', '').strip()
+    author = session.get('author', 'unknown')
+
+    if not transcript:
+        print(f'  No transcript in voice session {session_id} — skipping')
+        session['extraction_status'] = 'skipped'
+        save_json_atomic(session_path, session)
+        return 0
+
+    print(f'Processing voice session: {session_id} (author: {author})')
+
+    # Format as a single-speaker transcript for extract_facts()
+    labelled = f"{author.upper()}: {transcript}"
+    extracts = extract_facts(labelled)
+
+    if not extracts:
+        print(f'  No facts extracted')
+        session['extraction_status'] = 'complete'
+        session['extracted_events'] = []
+        save_json_atomic(session_path, session)
+        return 0
+
+    print(f'  Extracted {len(extracts)} facts')
+    conf = load_json(CONF_FILE)
+    high_threshold = conf.get('thresholds', {}).get('high', {}).get('min', 0.80)
+    medium_min = conf.get('thresholds', {}).get('medium', {}).get('min', 0.50)
+
+    needs_garden_regen = False
+    extracted_event_ids = []
+    count = 0
+    for extract in extracts:
+        # Force author from session — voice sessions have a single known author
+        extract['author'] = author
+        confidence = extract.get('confidence', 0)
+        if confidence < medium_min:
+            print(f'  SKIP (low confidence {confidence:.2f}): {extract.get("content","")[:60]}')
+            continue
+
+        event_path = write_event_file(extract, session_id)
+        log_write(event_path, extract)
+        extracted_event_ids.append(event_path.name)
+
+        embedding = get_embedding(extract['content'])
+        store_in_pgvector(
+            event_path.stem.split('_')[-1],
+            extract['content'],
+            extract,
+            embedding
+        )
+
+        if extract['category'] in ('BED_FACT', 'DECISION'):
+            needs_garden_regen = True
+
+        status = 'saved' if confidence >= high_threshold else 'pending_confirmation'
+        print(f'  [{status}] {extract["category"]}: {extract.get("content","")[:70]}')
+        count += 1
+
+    # Update voice session with extraction results
+    session['extraction_status'] = 'complete'
+    session['extracted_events'] = extracted_event_ids
+    session['extracted_at'] = datetime.datetime.utcnow().isoformat() + 'Z'
+    save_json_atomic(session_path, session)
+
+    if needs_garden_regen:
+        print('  Triggering garden.md regeneration...')
+        regenerate_garden_md()
+
+    return count
+
+
 def process_session(session_path: pathlib.Path) -> int:
     """Process one session file. Returns count of facts extracted."""
     session_id = session_path.stem
@@ -524,6 +603,7 @@ def process_session(session_path: pathlib.Path) -> int:
 def main():
     parser = argparse.ArgumentParser(description='Slarti extraction agent')
     parser.add_argument('--session', help='Process a specific session ID')
+    parser.add_argument('--voice-session', metavar='PATH', help='Process a voice session JSON file')
     parser.add_argument('--regen-garden', action='store_true', help='Regenerate garden.md only')
     parser.add_argument('--all', action='store_true', help='Reprocess all sessions (including already-processed)')
     args = parser.parse_args()
@@ -531,6 +611,15 @@ def main():
     if args.regen_garden:
         print('Regenerating garden.md...')
         regenerate_garden_md()
+        return
+
+    if args.voice_session:
+        session_path = pathlib.Path(args.voice_session)
+        if not session_path.exists():
+            print(f'ERROR: Voice session file not found: {session_path}', file=sys.stderr)
+            sys.exit(1)
+        count = process_voice_session(session_path)
+        print(f'Done. {count} facts extracted from voice session.')
         return
 
     if args.session:

@@ -59,7 +59,7 @@ Drop a photo in Discord and Slarti will analyze what it sees, flag anything wron
 | 9 | Onboarding (`!setup`) | ⏳ Deferred |
 | 10 | Daily weather agent (NWS + frost/heat advisories) | ✅ Done |
 | 11 | Image modes A/B/C/D | ✅ Done |
-| 12 | Voice notes, plant DB, weekly summary | ⏳ Next |
+| 12 | Voice notes, plant DB, weekly summary | ✅ Done |
 | 13 | Voice PWA (ElevenLabs + Siri Shortcut) | ⏳ Pending |
 
 ---
@@ -86,8 +86,9 @@ docker ps --filter "name=slarti_stack"
 ```
 
 Scheduled agents run automatically via WSL2 cron:
-- **6:00 AM** — Weather agent → `#garden-log` advisory if frost or heat threshold
-- **Every 5 min** — Extraction agent → processes new conversation sessions into memory
+- **Every 5 min** — Extraction agent → processes new sessions into memory
+- **6:00 AM daily** — Weather agent → `#garden-log` advisory if frost or heat threshold
+- **Sunday 6:00 PM** — Weekly summary → narrative digest to `#garden-log`
 
 ---
 
@@ -105,7 +106,7 @@ slarti/
 ├── data/                      ← All garden data (beds, plants, projects, events, system)
 ├── db/                        ← Docker Compose for Postgres + pgvector
 ├── docs/                      ← BUILD_LOG.md, garden.md, OPENCLAW_INSTRUCTIONS.md
-├── scripts/                   ← weather_agent.py, extraction_agent.py, git_push.sh, restart.sh
+├── scripts/                   ← weather_agent.py, extraction_agent.py, weekly_summary_agent.py, voice_session_writer.py, populate_plants.py, git_push.sh, restart.sh
 ├── logs/daily/                ← Runtime logs (git-ignored)
 └── pwa/                       ← Voice PWA (Phase 13)
 ```

@@ -1,0 +1,24 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "marigold-french",
+  "common_name": "French Marigold",
+  "scientific_name": "Tagetes patula",
+  "aliases": ["marigold", "french marigold", "tagetes"],
+  "family": "Asteraceae",
+  "zone_6b_notes": "Annual in Zone 6b. Easy direct sow after last frost (late April/early May). Excellent companion plant — repels nematodes and aphids. Blooms all summer in Missouri heat with deadheading. Start indoors for earlier blooms.",
+  "days_to_maturity": 50,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 6,
+    "direct_sow": true,
+    "direct_sow_after_last_frost_weeks": 0
+  },
+  "spacing_inches": 8,
+  "sun": "full",
+  "water": "low to moderate — drought tolerant once established",
+  "common_pests": ["spider mites (in severe drought)", "slugs (seedlings)"],
+  "companion_plants": ["tomato", "pepper", "cucumber", "squash"],
+  "source": "manual",
+  "confidence": 1.0
+}

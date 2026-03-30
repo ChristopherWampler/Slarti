@@ -437,12 +437,65 @@ python3 scripts/photo_agent.py --photo-url https://example.com/test.jpg \
 
 ---
 
-## What's Left (Phases 9, 12–13)
+## Phase 12 — Voice Notes, Plant Database, Weekly Summary
+
+**Completed:** 2026-03-30
+
+### What was built
+
+| File | Purpose |
+|---|---|
+| `scripts/voice_session_writer.py` | Mode V handler — transcribes audio via MarkItDown, saves voice session JSON, posts to #garden-log, triggers extraction |
+| `scripts/weekly_summary_agent.py` | Agent 4 — Sunday 6 PM narrative summary to #garden-log via Claude Sonnet |
+| `scripts/populate_plants.py` | Seeds data/plants/ from hand-curated scripts/plant_sources/ JSON files |
+| `scripts/plant_sources/*.json` | 10 seed plants: tomato-brandywine, basil-genovese, marigold-french, pepper-bell, zucchini, cucumber, thyme, oregano, lavender, black-eyed-susan |
+| `data/plants/*.json` | Seeded plant database (10 plants, all Zone 6b grounded) |
+| `data/voice_sessions/2026/` | Voice session storage directory |
+| `prompts/system/voice_session_mode.md` | Mode V context — tells Claude how to treat voice transcripts |
+| `prompts/system/weekly_summary_mode.md` | Agent 4 context — tone, format, what to include in weekly summaries |
+| `scripts/extraction_agent.py` | Added `process_voice_session()` and `--voice-session PATH` flag |
+
+### Mode V flow
+
+1. Audio file dropped in Discord → OpenClaw detects audio attachment
+2. `voice_session_writer.py --audio-url [url] --author [emily/christopher]` called
+3. MarkItDown transcribes audio → raw transcript text
+4. Session JSON saved to `data/voice_sessions/2026/session-YYYYMMDD-HHMMSS-[uuid6].json` with `extraction_status: 'pending'`
+5. Discord post: "Voice note from Emily received — transcribed and saved. (N words)"
+6. `extraction_agent.py --voice-session [path]` triggered in background
+7. Facts extracted, pgvector stored, session updated to `extraction_status: 'complete'`
+
+### Weekly summary flow
+
+1. Runs Sunday 6 PM via WSL2 cron
+2. Reads: past 7 days of events, beds, open tasks, treatment follow-ups, weather_week.json
+3. Builds prompt with SOUL.md + weekly_summary_mode.md
+4. Claude Sonnet writes 300–500 word narrative in Slarti's voice
+5. Posts to #garden-log (chunked if >1900 chars)
+6. Updates health_status.json → `last_weekly_summary_at`
+7. Fallback if Claude fails: "Slarti is taking the week off — summary coming next Sunday."
+
+### WSL2 cron entry (add manually)
+
+```bash
+(crontab -l 2>/dev/null; echo "0 18 * * 0 /usr/bin/python3 /mnt/c/Openclaw/slarti/scripts/weekly_summary_agent.py >> /mnt/c/Openclaw/slarti/logs/daily/weekly_summary.log 2>&1") | crontab -
+```
+
+### Plant database
+
+10 hand-curated Zone 6b plants in `scripts/plant_sources/`. Add more by dropping a new JSON in that directory and running `python3 scripts/populate_plants.py`. All entries validated against required schema fields before copying to `data/plants/`.
+
+### OpenClaw gateway stability fix
+
+Gateway was dying silently (no auto-restart). Fixed with `~/.openclaw/gateway_restart_loop.cmd` — a restart loop wrapper called by the startup shortcut using `/k` instead of `/c`. The minimized CMD window stays alive and restarts the gateway within 10 seconds if it crashes.
+
+---
+
+## What's Left (Phases 9, 13)
 
 | Phase | What it builds |
 |---|---|
 | 9 | `!setup` onboarding wizard — walks Emily through each garden bed one at a time (deferred) |
-| 12 | Voice notes (Mode V), plant database seeding, weekly Sunday summary |
 | 13 | Voice PWA (ElevenLabs + FastAPI + Siri Shortcut on iPhone) |
 
 See `CHRISTOPHER_BUILD_GUIDE.md` for detailed commands for each phase.
