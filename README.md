@@ -76,7 +76,7 @@ Every observation, decision, and conversation is extracted into the timeline aut
 | 6 | Claude API — Slarti responding in character | ✅ Done |
 | 7 | Discord bot + 7 channels | ✅ Done |
 | 8 | Memory layer (pgvector + extraction agent) | ✅ Done |
-| 9 | Onboarding (`!setup`) | ⏳ Deferred |
+| 9 | Onboarding (`!setup`) | ✅ Done |
 | 10 | Daily weather agent (NWS + frost/heat advisories) | ✅ Done |
 | 11 | Image modes A/B/C/D | ✅ Done |
 | 12 | Voice notes, plant DB, weekly summary | ✅ Done |

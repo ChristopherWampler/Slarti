@@ -592,6 +592,21 @@ def process_session(session_path: pathlib.Path) -> int:
         print('  Triggering garden.md regeneration...')
         regenerate_garden_md()
 
+    # Check raw session for onboarding bed markers
+    try:
+        raw = session_path.read_text(encoding='utf-8')
+        if '[ONBOARDING_BED:' in raw:
+            print('  Onboarding bed marker detected — triggering onboarding_writer...')
+            import subprocess as _subprocess
+            _subprocess.Popen(
+                [sys.executable,
+                 str(SLARTI_ROOT / 'scripts' / 'onboarding_writer.py'),
+                 '--session', str(session_path)],
+                stdout=_subprocess.DEVNULL, stderr=_subprocess.DEVNULL,
+            )
+    except Exception as _e:
+        print(f'WARNING: Onboarding marker check failed: {_e}', file=sys.stderr)
+
     # Process any photo attachments found in this session
     if photo_attachments:
         print(f'  Found {len(photo_attachments)} photo attachment(s) — processing...')

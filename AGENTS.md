@@ -211,7 +211,16 @@ Commands are handled directly, bypassing mode classification.
 - `!memory garden` → current garden.md summary
 - `!projects` → open projects with blockers
 - `!timeline [subject]` → chronological story for the subject
-- `!setup` → start onboarding wizard (or `!setup continue` to resume)
+- `!setup` → start onboarding wizard using `prompts/system/onboarding_mode.md`:
+  - Read `docs/garden.md` to check which beds are already documented
+  - If beds exist: acknowledge them, ask if Emily wants to add more or update one
+  - If no beds: begin warmly — ask about the first bed, one question at a time
+  - After Emily confirms each bed, emit `[ONBOARDING_BED: {...}]` on a single line at the end of your response
+  - When Emily is done for today, emit `[ONBOARDING_PAUSE]` at the end of your response
+- `!setup continue` → resume onboarding:
+  - Read `docs/garden.md` to see which beds are already documented
+  - Acknowledge what's been captured so far
+  - Ask which bed to continue with, or offer to start a new one
 - `!confirm blueprint [project-id]` → set `blueprint_dimensions_confirmed: true`
 
 ---

@@ -539,10 +539,61 @@ nohup python3 /mnt/c/Openclaw/slarti/scripts/voice_webhook.py \
 
 ---
 
-## What's Left (Phase 9)
+## Phase 9 — !setup Onboarding Wizard
 
-| Phase | What it builds |
+**Completed:** 2026-03-30
+
+### What was built
+
+| File | Purpose |
 |---|---|
-| 9 | `!setup` onboarding wizard — walks Emily through each garden bed one at a time (deferred) |
+| `prompts/system/onboarding_mode.md` | Wizard instructions for Claude — one-question-at-a-time bed setup, marker format |
+| `scripts/onboarding_writer.py` | Parses `[ONBOARDING_BED: {...}]` markers from session JSONL, writes bed JSON files, updates onboarding_state.json, triggers garden.md regen |
+| `AGENTS.md` | Expanded `!setup` and `!setup continue` command handling |
+| `scripts/extraction_agent.py` | Detects onboarding markers in processed sessions → triggers onboarding_writer.py |
+| `data/system/onboarding_state.json` | Expanded schema: `beds_completed`, `current_bed_draft`, `last_updated_at` |
 
-Phase 13 (Voice PWA) is complete. See Phase 13 section above.
+### How it works
+
+1. Emily types `!setup` in any Discord channel
+2. Claude (via OpenClaw) conducts the wizard using `onboarding_mode.md` as instructions:
+   - Checks `docs/garden.md` to see what's already documented
+   - Asks one question at a time: name/aliases, size, sun, plants, issues, photo angle
+   - After Emily confirms a bed: emits `[ONBOARDING_BED: {...}]` as a single-line compact JSON marker (invisible to Emily — just in the session JSONL)
+   - When done for today: emits `[ONBOARDING_PAUSE]`
+3. `extraction_agent.py` (running every 5 min via cron) picks up the session and detects the marker
+4. Triggers `onboarding_writer.py` in background
+5. `onboarding_writer.py`:
+   - Parses the JSON payload using balanced brace counting (handles single or multi-line)
+   - Auto-assigns next bed ID (`bed-01`, `bed-02`, etc.)
+   - Writes full bed entity to `data/beds/bed-XX.json` (schema matches Slarti_v5_2.md)
+   - Updates `data/system/onboarding_state.json`
+   - Calls `extraction_agent.py --regen-garden` to regenerate `docs/garden.md`
+   - Posts to Discord #garden-log: "Bed on record — [name] (bed-XX). [plants]."
+
+### Resume
+
+`!setup continue` → Claude reads `docs/garden.md` (which is in hot context) to know which beds are already documented, then picks up from there.
+
+### Testing
+
+```bash
+# Dry run — parse markers from a session without writing
+python3 scripts/onboarding_writer.py --session ~/.openclaw/agents/slarti/sessions/XXXX.jsonl --dry-run
+
+# Manual trigger after a !setup session
+python3 scripts/onboarding_writer.py --session <path>
+
+# Check output
+ls data/beds/
+cat data/beds/bed-01.json
+cat docs/garden.md
+```
+
+---
+
+## What's Left (Phase 9 — complete)
+
+All 13 phases are now complete. Phase 9 (deferred) is built. Phase 13 (Voice PWA) is complete.
+
+The remaining deferred item is **Emily's Discord ID** — still a placeholder in `config/discord_users.json`. Add it when Emily is ready to use the bot, then restart the OpenClaw gateway.

@@ -1,5 +1,7 @@
 {
   "schema_version": "5.2",
   "status": "not_started",
-  "beds": []
+  "beds_completed": [],
+  "current_bed_draft": null,
+  "last_updated_at": null
 }
