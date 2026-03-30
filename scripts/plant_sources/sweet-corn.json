@@ -1,0 +1,26 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "sweet-corn",
+  "common_name": "Sweet Corn",
+  "scientific_name": "Zea mays L.",
+  "usda_symbol": "ZEMA",
+  "aliases": ["corn", "roasting ears", "Silver Queen", "Incredible"],
+  "family": "Poaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Direct sow when soil reaches 60°F — May 1–15 in Farmington. Must be planted in blocks (minimum 4 rows) not single rows — corn is wind-pollinated and isolated plants produce poor, gappy ears. Missouri summers are ideal for sweet corn; harvest when silk turns brown and kernels are milky. Isolation required if growing supersweet varieties near regular sweet corn.",
+  "days_to_maturity": 78,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null
+  },
+  "spacing_inches": 12,
+  "sun": "full",
+  "water": "1–1.5 inches per week — especially critical at tassel and silking stage",
+  "common_pests": ["corn earworm", "European corn borer", "Japanese beetle", "corn smut", "Stewart's wilt"],
+  "companion_plants": ["beans", "squash", "pumpkin", "sunflower"],
+  "source": "manual",
+  "confidence": 1.0
+}

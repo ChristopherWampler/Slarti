@@ -4,6 +4,8 @@
   "plant_slug": "zucchini",
   "common_name": "Zucchini",
   "scientific_name": "Cucurbita pepo (zucchini group)",
+  "usda_symbol": "CUPE",
+  "category": "vegetable",
   "aliases": ["zucchini", "courgette", "summer squash"],
   "family": "Cucurbitaceae",
   "zone_6b_notes": "Direct sow after last frost (late April/early May in Zone 6b) or start 2–3 weeks indoors. Fast-growing in Missouri summers — can produce fruit in 50 days. Plant 2–3 plants maximum for a family; they are prolific. Powdery mildew is common by late summer — choose mildew-resistant varieties.",

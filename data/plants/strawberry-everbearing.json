@@ -1,0 +1,45 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "strawberry-everbearing",
+  "common_name": "Everbearing Strawberry",
+  "scientific_name": "Fragaria \u00c3\u2014 ananassa Duchesne",
+  "usda_symbol": "FRAN",
+  "aliases": [
+    "day-neutral strawberry",
+    "Albion strawberry",
+    "Seascape strawberry",
+    "Tribute strawberry"
+  ],
+  "family": "Rosaceae",
+  "category": "berry",
+  "zone_6b_notes": "Plant bare-root crowns in early spring (late March to April) in Farmington. Everbearing (day-neutral) varieties produce fruit June through October \u00e2\u20ac\u201d smaller, more continuous harvest than June-bearing. Better suited for containers, raised beds, or snacking harvests rather than bulk canning/preserving. Fewer runners than June-bearing; plant 12 inches apart in a hill system (remove all runners). Remove flowers for first 6 weeks after planting to build plant strength. Albion and Seascape are reliable day-neutral varieties. Less productive overall than June-bearing but extends fresh eating season through fall.",
+  "days_to_maturity": 365,
+  "years_to_first_harvest": 1,
+  "type": "perennial",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant bare-root crowns late March to April; hill system"
+  },
+  "spacing_inches": 12,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c1.5 inches/week",
+  "common_pests": [
+    "strawberry weevil",
+    "spider mites",
+    "botrytis gray mold",
+    "leaf scorch",
+    "slugs"
+  ],
+  "companion_plants": [
+    "spinach",
+    "lettuce",
+    "onion",
+    "garlic",
+    "thyme"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

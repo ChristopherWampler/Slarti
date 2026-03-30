@@ -1,0 +1,46 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "strawberry-june-bearing",
+  "common_name": "June-Bearing Strawberry",
+  "scientific_name": "Fragaria \u00c3\u2014 ananassa Duchesne",
+  "usda_symbol": "FRAN",
+  "aliases": [
+    "strawberry",
+    "Allstar strawberry",
+    "Earliglow strawberry",
+    "Chandler strawberry"
+  ],
+  "family": "Rosaceae",
+  "category": "berry",
+  "zone_6b_notes": "Plant bare-root crowns in early spring (late March to April) in Farmington. June-bearing varieties produce one large crop over 2\u00e2\u20ac\u201c3 weeks in late May to June \u00e2\u20ac\u201d the most flavorful type, ideal for fresh eating, jam, and freezing. Matted row system: plant 18 inches apart, allow runners to fill in to 12-inch-wide rows. Remove flower buds the first year to allow plants to establish. Mulch heavily with straw in winter (3\u00e2\u20ac\u201c4 inches) after hard freeze. Renovate beds after harvest each year: mow to 4 inches, thin to 4\u00e2\u20ac\u201c5 plants per foot, fertilize. Earliglow, Allstar, and Jewel are standard reliable varieties for Zone 6b Missouri.",
+  "days_to_maturity": 365,
+  "years_to_first_harvest": 1,
+  "type": "perennial",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant bare-root crowns late March to April"
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c1.5 inches/week; drip irrigation keeps fruit dry and reduces disease",
+  "common_pests": [
+    "strawberry weevil",
+    "spider mites",
+    "botrytis gray mold",
+    "leaf scorch",
+    "verticillium wilt",
+    "slugs"
+  ],
+  "companion_plants": [
+    "spinach",
+    "lettuce",
+    "onion",
+    "garlic",
+    "thyme"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

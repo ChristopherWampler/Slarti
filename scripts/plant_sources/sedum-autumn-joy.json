@@ -1,0 +1,31 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "sedum-autumn-joy",
+  "common_name": "Autumn Joy Sedum",
+  "scientific_name": "Hylotelephium spectabile (Boreau) H.Ohba",
+  "usda_symbol": null,
+  "aliases": ["Autumn Joy stonecrop", "Sedum 'Herbstfreude'", "live-forever", "stonecrop"],
+  "family": "Crassulaceae",
+  "category": "flower",
+  "zone_6b_notes": "Bulletproof perennial for Zone 6b — drought tolerant, heat tolerant, deer resistant, and nearly maintenance-free in Farmington. Thick succulent stems emerge in spring and build slowly to flat-topped, dusty rose-pink flower heads that bloom August–October, then fade to deep copper-bronze through winter. Dried seed heads are beautiful all winter and valued by overwintering beneficial insects. Cut to 4 inches in early spring. Never divide unnecessarily — established clumps are the most attractive. Plant in full sun with excellent drainage; wet clay in winter causes crown rot. Exceptional late-season pollinator plant for monarch butterflies and bees.",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 3–9)",
+  "bloom_season": "August–October",
+  "mature_height_ft": 2,
+  "mature_spread_ft": 2,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant divisions or nursery stock in spring or fall"
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "drought tolerant — 0.25–0.5 inch/week; requires excellent drainage",
+  "deer_resistant": true,
+  "common_pests": ["crown rot (wet soil)", "mealybug (in containers)", "aphids (rare)"],
+  "companion_plants": ["ornamental grass", "coneflower", "salvia", "black-eyed-susan", "aster"],
+  "source": "manual",
+  "confidence": 1.0
+}

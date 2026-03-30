@@ -1,0 +1,47 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "plum",
+  "common_name": "Plum",
+  "scientific_name": "Prunus domestica L.",
+  "usda_symbol": null,
+  "aliases": [
+    "European plum",
+    "Stanley plum",
+    "Methley plum",
+    "Superior plum"
+  ],
+  "family": "Rosaceae",
+  "category": "fruit_tree",
+  "zone_6b_notes": "Hardy in Zone 6b. Two types commonly grown in Missouri: European plum (Stanley, President \u00e2\u20ac\u201d firm, prune-type; partly self-fruitful) and Japanese plum (Methley, Santa Rosa \u00e2\u20ac\u201d juicy, sweet; needs pollinator). Stanley European plum is the most reliable self-fruitful type for Zone 6b. Japanese plums bloom earlier and are more frost-sensitive. Methley is self-fruitful and the most popular Japanese type in Missouri. Thin fruit to 3\u00e2\u20ac\u201c4 inches apart after natural June drop for larger fruit. Plum curculio is the primary pest \u00e2\u20ac\u201d attack begins at petal fall. Trees productive for 10\u00e2\u20ac\u201c20 years.",
+  "days_to_maturity": 1095,
+  "years_to_first_harvest": 3,
+  "mature_height_ft": 15,
+  "mature_spread_ft": 15,
+  "bloom_season": "April",
+  "type": "perennial deciduous tree",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant dormant bare-root trees March to early April"
+  },
+  "spacing_inches": 180,
+  "sun": "full",
+  "water": "1\u00e2\u20ac\u201c1.5 inches/week; drought stress causes premature fruit drop",
+  "common_pests": [
+    "plum curculio",
+    "oriental fruit moth",
+    "brown rot",
+    "black knot fungus",
+    "aphids"
+  ],
+  "companion_plants": [
+    "garlic",
+    "chives",
+    "marigold",
+    "clover"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

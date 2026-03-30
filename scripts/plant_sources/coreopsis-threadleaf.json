@@ -1,0 +1,31 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "coreopsis-threadleaf",
+  "common_name": "Threadleaf Coreopsis",
+  "scientific_name": "Coreopsis verticillata L.",
+  "usda_symbol": null,
+  "aliases": ["whorled tickseed", "Zagreb coreopsis", "Moonbeam coreopsis", "Crème Brûlée coreopsis"],
+  "family": "Asteraceae",
+  "category": "flower",
+  "zone_6b_notes": "One of the most reliable long-blooming perennials in Zone 6b — blooms June through September without deadheading. Zagreb (golden yellow, compact at 18 in.) and Moonbeam (soft butter yellow, mounding) are the two classic cultivars; both are excellent in Farmington. Drought tolerant once established and virtually pest-free. Spreads slowly by rhizome; divide every 4–5 years when clumps die out in center. Excellent front-of-border plant. Cut back by 1/3 in midsummer if plants look tired — rebounds quickly for a fresh fall flush. Works beautifully alongside salvia, echinacea, and ornamental grasses.",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 3–9)",
+  "bloom_season": "June–September",
+  "mature_height_ft": 2,
+  "mature_spread_ft": 2,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant divisions or nursery stock in spring or fall"
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "drought tolerant — 0.5 inch/week; poor drainage causes crown rot",
+  "deer_resistant": true,
+  "common_pests": ["aster yellows", "aphids"],
+  "companion_plants": ["salvia", "echinacea", "black-eyed-susan", "ornamental grass", "lavender"],
+  "source": "manual",
+  "confidence": 1.0
+}

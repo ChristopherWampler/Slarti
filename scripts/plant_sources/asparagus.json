@@ -1,0 +1,28 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "asparagus",
+  "common_name": "Asparagus",
+  "scientific_name": "Asparagus officinalis L.",
+  "usda_symbol": "ASOF",
+  "aliases": ["garden asparagus", "Jersey Knight asparagus", "Purple Passion asparagus"],
+  "family": "Asparagaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Plant 1-year-old crowns 6–8 inches deep in spring as soon as soil can be worked — early April in Farmington. Do not harvest the first year; harvest lightly the second year; full harvest from year 3 onward. Asparagus is a 15–20 year perennial investment — site selection is permanent. Rich, well-draining soil is essential; Missouri clay must be heavily amended. Jersey Knight is the standard reliable all-male hybrid (higher yield, no seedlings). After harvest ends in June, let ferns grow full height to feed the crowns for next year. Cut ferns to ground in late fall.",
+  "days_to_maturity": 730,
+  "years_to_first_harvest": 2,
+  "type": "perennial",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant crowns early April — permanent bed"
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "1–2 inches/week during establishment; drought tolerant once established",
+  "common_pests": ["asparagus beetle", "asparagus miner", "fusarium crown rot", "rust", "purple spot"],
+  "companion_plants": ["tomato", "parsley", "basil", "marigold"],
+  "source": "manual",
+  "confidence": 1.0
+}

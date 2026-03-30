@@ -1,0 +1,27 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "sage-common",
+  "common_name": "Common Sage",
+  "scientific_name": "Salvia officinalis L.",
+  "usda_symbol": null,
+  "aliases": ["garden sage", "culinary sage", "Berggarten sage"],
+  "family": "Lamiaceae",
+  "category": "herb",
+  "zone_6b_notes": "Hardy perennial in Zone 6b — survives Farmington winters reliably with good drainage. Mulch with straw after hard freeze. Plants become woody after 3–4 years; divide or replace with rooted cuttings to maintain vigor. Harvest fresh sprigs throughout spring and summer; flavor is most intense just before flowering. Dried sage stores well. Berggarten (large-leafed, non-flowering) is popular for culinary use. Plant in well-drained soil — sage tolerates drought and poor soil far better than wet clay.",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 5–8)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 8,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": 2,
+    "best_planting_time": "Transplant late May or purchase starts in spring"
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "drought tolerant — 0.5–1 inch/week; excellent drainage required",
+  "common_pests": ["spittlebug", "spider mites", "slugs", "powdery mildew"],
+  "companion_plants": ["rosemary", "thyme", "lavender", "carrot", "tomato"],
+  "source": "manual",
+  "confidence": 1.0
+}

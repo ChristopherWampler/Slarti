@@ -1,0 +1,26 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "beans-green-pole",
+  "common_name": "Pole Green Bean",
+  "scientific_name": "Phaseolus vulgaris L.",
+  "usda_symbol": "PHVU",
+  "aliases": ["pole bean", "climbing bean", "runner bean", "Kentucky Wonder"],
+  "family": "Fabaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Direct sow after last frost (May 1–15 in Farmington). Needs a trellis, fence, or pole 5–6 feet tall. Longer harvest window than bush beans — pick every 2–3 days once pods begin. Missouri summers favor pole beans over bush types later in the season. Blue Lake and Kentucky Wonder are reliable in Zone 6b.",
+  "days_to_maturity": 65,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null
+  },
+  "spacing_inches": 6,
+  "sun": "full",
+  "water": "1 inch per week — consistent moisture prevents tough, stringy pods",
+  "common_pests": ["Mexican bean beetle", "aphids", "bean mosaic virus", "powdery mildew", "white mold"],
+  "companion_plants": ["corn", "squash", "carrot", "marigold", "sunflower"],
+  "source": "manual",
+  "confidence": 1.0
+}

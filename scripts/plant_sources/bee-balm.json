@@ -1,0 +1,31 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "bee-balm",
+  "common_name": "Bee Balm",
+  "scientific_name": "Monarda fistulosa L.",
+  "usda_symbol": "MOFI",
+  "aliases": ["wild bergamot", "Oswego tea", "Jacob Cline bee balm", "Marshall's Delight bee balm"],
+  "family": "Lamiaceae",
+  "category": "flower",
+  "native_to_missouri": true,
+  "zone_6b_notes": "Missouri native perennial — among the best plants for pollinators in Zone 6b. Blooms July–August in shades of red, pink, and lavender. Spreads by rhizome and will colonize a bed over 3–4 years; divide every 3 years to control spread and maintain vigor. Powdery mildew is the main issue in Missouri humidity — Jacob Cline (red, mildew-resistant) and Marshall's Delight (pink, mildew-resistant) are the best cultivars for humid summers. Plant in morning sun with afternoon shade or in well-ventilated spots to reduce mildew. Hummingbirds visit red-flowered types intensively in July and August.",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 3–9)",
+  "bloom_season": "July–August",
+  "mature_height_ft": 3,
+  "mature_spread_ft": 3,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 8,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant divisions or transplants in spring or fall; direct sow in fall"
+  },
+  "spacing_inches": 24,
+  "sun": "full to partial",
+  "water": "consistent — 1–1.5 inches/week; drought increases mildew susceptibility",
+  "common_pests": ["powdery mildew", "spider mites", "aphids"],
+  "companion_plants": ["coneflower", "black-eyed-susan", "yarrow", "phlox"],
+  "source": "manual",
+  "confidence": 1.0
+}

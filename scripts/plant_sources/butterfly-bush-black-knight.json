@@ -1,0 +1,31 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "butterfly-bush-black-knight",
+  "common_name": "Black Knight Butterfly Bush",
+  "scientific_name": "Buddleja davidii Franch. 'Black Knight'",
+  "usda_symbol": null,
+  "aliases": ["butterfly bush", "summer lilac", "Black Knight buddleia"],
+  "family": "Scrophulariaceae",
+  "category": "shrub",
+  "zone_6b_notes": "Hardy to Zone 5 — reliable in Zone 6b Farmington with tip dieback in harsh winters; cut to within 6 inches of ground in early spring before new growth emerges. Black Knight is the classic deep purple cultivar with intensely fragrant 12-inch flower spikes. Blooms July through frost on new growth — the hard annual pruning ensures vigorous flowering. Monarch butterflies, swallowtails, and hummingbirds visit constantly during bloom. Note: standard Buddleja davidii is invasive in some regions; sterile or low-seed varieties like 'Miss Molly' or 'Lo and Behold' series are preferred where this is a concern. In Missouri, it rarely naturalized seriously but self-seeding can occur.",
+  "days_to_maturity": null,
+  "type": "deciduous shrub (hardy Zone 5–9)",
+  "bloom_season": "July–frost",
+  "mature_height_ft": 8,
+  "mature_spread_ft": 6,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant nursery stock in spring after last frost or in fall"
+  },
+  "spacing_inches": 72,
+  "sun": "full",
+  "water": "moderate — drought tolerant once established",
+  "deer_resistant": true,
+  "common_pests": ["spider mites (in drought)", "aphids", "Japanese beetle"],
+  "companion_plants": ["coneflower", "salvia", "coreopsis", "ornamental grass"],
+  "source": "manual",
+  "confidence": 1.0
+}

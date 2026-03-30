@@ -1,0 +1,27 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "cilantro",
+  "common_name": "Cilantro",
+  "scientific_name": "Coriandrum sativum L.",
+  "usda_symbol": "COSA",
+  "aliases": ["coriander", "Chinese parsley", "Leisure cilantro", "Slow-Bolt cilantro"],
+  "family": "Apiaceae",
+  "category": "herb",
+  "zone_6b_notes": "Direct sow in early spring (late March) and again in fall (September) in Farmington. Cilantro bolts immediately in summer heat — Missouri July is essentially a dead zone for fresh foliage. Succession sow every 2–3 weeks from late March through May to maintain harvest; resume in September for fall crop. Slow-bolt and Leisure varieties extend the harvest window slightly. Once it bolts and flowers, seeds (coriander) can be harvested dried or left to self-sow for fall germination. Excellent cold tolerance — spring sowing can start under row cover in early March.",
+  "days_to_maturity": 50,
+  "type": "annual (self-seeding)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Direct sow late March to May (spring); September (fall)"
+  },
+  "spacing_inches": 4,
+  "sun": "full to partial",
+  "water": "moderate — 1 inch/week; consistent moisture delays bolting",
+  "common_pests": ["aphids", "whitefly", "powdery mildew", "leaf spot"],
+  "companion_plants": ["tomato", "pepper", "spinach", "anise", "carrot"],
+  "source": "manual",
+  "confidence": 1.0
+}

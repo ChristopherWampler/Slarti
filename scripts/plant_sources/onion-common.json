@@ -1,0 +1,27 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "onion-common",
+  "common_name": "Common Onion",
+  "scientific_name": "Allium cepa L.",
+  "usda_symbol": "ALCE",
+  "aliases": ["onion", "garden onion", "bulb onion", "Candy onion", "Stuttgarter"],
+  "family": "Liliaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Zone 6b requires long-day onion varieties (Candy, Stuttgarter, Yellow Sweet Spanish) — short-day types bulb too early without adequate top growth. Plant sets in early April, 4–6 weeks before last frost. Harvest when 50–75% of tops fall over naturally (late June to July). Cure in warm, dry, airy location for 3–4 weeks before storage. Missouri spring rains can cause downy mildew; plant in well-drained beds.",
+  "days_to_maturity": 110,
+  "type": "biennial (grown as annual)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 10,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Sets planted early April; transplants from seed started indoors in January"
+  },
+  "spacing_inches": 5,
+  "sun": "full",
+  "water": "consistent — 1 inch/week during bulb development; reduce as tops fall",
+  "common_pests": ["onion thrips", "onion maggot", "fusarium basal rot", "downy mildew", "botrytis neck rot"],
+  "companion_plants": ["carrot", "lettuce", "tomato", "chamomile", "beet"],
+  "source": "manual",
+  "confidence": 1.0
+}

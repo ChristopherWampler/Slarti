@@ -1,0 +1,27 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "sweet-potato",
+  "common_name": "Sweet Potato",
+  "scientific_name": "Ipomoea batatas (L.) Lam.",
+  "usda_symbol": null,
+  "aliases": ["yam", "Beauregard sweet potato", "Covington sweet potato"],
+  "family": "Convolvulaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Plant slips (not seeds) after soil warms thoroughly — late May in Farmington. Sweet potatoes need 100–120 frost-free days and hot soil; Missouri summers are ideal. Plant slips horizontally 4 inches deep. Black plastic mulch boosts soil temperature and weed suppression significantly. Harvest before first hard frost (mid-October); cure at 85–90°F and 90% humidity for 10 days to convert starches to sugars — stores months. Beauregard and Covington are standard orange-flesh varieties suited to Missouri.",
+  "days_to_maturity": 110,
+  "type": "annual (grown from slips)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": 3,
+    "best_planting_time": "Plant slips late May when soil reaches 65°F"
+  },
+  "spacing_inches": 12,
+  "sun": "full",
+  "water": "moderate — 1 inch/week; reduce in last 3–4 weeks before harvest for sweeter roots",
+  "common_pests": ["sweet potato weevil", "wireworms", "deer", "voles", "white mold"],
+  "companion_plants": ["beans", "thyme", "marigold"],
+  "source": "manual",
+  "confidence": 1.0
+}

@@ -1,0 +1,27 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "dill",
+  "common_name": "Dill",
+  "scientific_name": "Anethum graveolens L.",
+  "usda_symbol": "ANGR2",
+  "aliases": ["garden dill", "Bouquet dill", "Fernleaf dill", "Mammoth dill"],
+  "family": "Apiaceae",
+  "category": "herb",
+  "zone_6b_notes": "Direct sow in early spring (late March to April) or fall in Farmington. Dill dislikes transplanting — sow where it will grow. Bolts in summer heat; sow successive crops every 3 weeks through May for continuous foliage harvest. For seed harvest (pickling), let plants flower and go to seed — harvest heads when seeds begin to brown. Dill self-seeds readily and will naturalize in a garden bed. Excellent trap crop for swallowtail butterfly caterpillars (parsleyworm). Keep away from carrots and fennel — crosses readily. Ideal companion for cucumbers and tomatoes.",
+  "days_to_maturity": 65,
+  "type": "annual (self-seeding)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Direct sow late March through May; succession sow every 3 weeks"
+  },
+  "spacing_inches": 6,
+  "sun": "full",
+  "water": "moderate — 1 inch/week; tolerates some drought once established",
+  "common_pests": ["aphids", "parsleyworm", "carrot weevil", "powdery mildew"],
+  "companion_plants": ["cucumber", "tomato", "onion", "lettuce", "cabbage"],
+  "source": "manual",
+  "confidence": 1.0
+}

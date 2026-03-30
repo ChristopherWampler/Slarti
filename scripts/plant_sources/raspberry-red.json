@@ -1,0 +1,28 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "raspberry-red",
+  "common_name": "Red Raspberry",
+  "scientific_name": "Rubus idaeus L.",
+  "usda_symbol": "RUID",
+  "aliases": ["garden raspberry", "Heritage raspberry", "Caroline raspberry", "Autumn Britten"],
+  "family": "Rosaceae",
+  "category": "berry",
+  "zone_6b_notes": "Plant bare-root canes in early spring (late March to April) in Farmington. Two types: summer-bearing (one crop in June–July from floricanes) and fall-bearing (everbearing; crop in August–October on primocanes). Fall-bearing types like Heritage and Autumn Britten are easier to manage in Missouri — mow all canes to ground in late winter and harvest on new growth each fall. Summer-bearing needs selective pruning (remove fruiting canes after harvest, keep new canes). Needs 4–6 feet of space per row; plant with 8-foot wire trellis. Highly productive once established. Zone 6b winters are generally within raspberry's hardiness range.",
+  "days_to_maturity": 365,
+  "years_to_first_harvest": 1,
+  "type": "perennial",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant dormant canes late March to April"
+  },
+  "spacing_inches": 24,
+  "sun": "full",
+  "water": "consistent — 1–1.5 inches/week during fruiting season",
+  "common_pests": ["raspberry cane borer", "Japanese beetle", "aphids", "botrytis fruit rot", "raspberry mosaic virus", "spur blight"],
+  "companion_plants": ["garlic", "onion", "marigold", "tansy"],
+  "source": "manual",
+  "confidence": 1.0
+}

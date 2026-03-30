@@ -1,0 +1,46 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "salvia-may-night",
+  "common_name": "May Night Salvia",
+  "scientific_name": "Salvia \u00c3\u2014 sylvestris 'Mainacht'",
+  "usda_symbol": null,
+  "aliases": [
+    "May Night sage",
+    "Mainacht salvia",
+    "perennial salvia",
+    "meadow sage"
+  ],
+  "family": "Lamiaceae",
+  "category": "flower",
+  "zone_6b_notes": "Dependable perennial salvia hardy in Zone 4\u00e2\u20ac\u201c9 \u00e2\u20ac\u201d thrives in Zone 6b Farmington. Deep violet-blue flower spikes bloom May through June; deadhead spent spikes promptly to encourage 2\u00e2\u20ac\u201c3 additional flushes through September. Exceptionally heat and drought tolerant once established \u00e2\u20ac\u201d a perfect fit for Missouri summers. Shear back to 4 inches after first bloom for best rebloom. Attracts hummingbirds, bumblebees, and butterflies throughout the season. Never needs dividing. Pairs beautifully with yellow and orange flowers (coreopsis, rudbeckia, hemerocallis).",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 4\u00e2\u20ac\u201c9)",
+  "bloom_season": "May\u00e2\u20ac\u201cSeptember (with deadheading)",
+  "mature_height_ft": 2,
+  "mature_spread_ft": 2,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant divisions or nursery stock in spring or fall"
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "drought tolerant \u00e2\u20ac\u201d 0.5\u00e2\u20ac\u201c1 inch/week",
+  "deer_resistant": true,
+  "common_pests": [
+    "aphids",
+    "slugs",
+    "powdery mildew"
+  ],
+  "companion_plants": [
+    "coneflower",
+    "coreopsis",
+    "black-eyed-susan",
+    "daylily",
+    "ornamental grass"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

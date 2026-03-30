@@ -4,6 +4,8 @@
   "plant_slug": "cucumber",
   "common_name": "Cucumber",
   "scientific_name": "Cucumis sativus",
+  "usda_symbol": "CUSA4",
+  "category": "vegetable",
   "aliases": [
     "cucumber",
     "cuke",

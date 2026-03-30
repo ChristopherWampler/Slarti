@@ -1,0 +1,31 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "apple",
+  "common_name": "Apple",
+  "scientific_name": "Malus pumila Mill.",
+  "usda_symbol": "MAPU",
+  "aliases": ["apple tree", "Honeycrisp apple", "Gala apple", "Jonathan apple", "Enterprise apple"],
+  "family": "Rosaceae",
+  "category": "fruit_tree",
+  "zone_6b_notes": "Apple trees thrive in Zone 6b — Missouri has excellent apple-growing potential with adequate chill hours (800–1200 hours below 45°F). Plant dormant bare-root trees in early spring (March). Nearly all apples require cross-pollination from a different variety flowering simultaneously. Semi-dwarf rootstocks (M.7, M.106) are best for home gardens (12–15 ft). Enterprise, Freedom, and Liberty are disease-resistant modern varieties suited to Missouri's fungal pressure. Jonagold, Gala, and Honeycrisp are flavor standards but require more spray programs. Fire blight is the biggest Missouri threat — prune in dry weather and disinfect tools between cuts.",
+  "days_to_maturity": 1095,
+  "years_to_first_harvest": 3,
+  "mature_height_ft": 15,
+  "mature_spread_ft": 15,
+  "bloom_season": "April",
+  "type": "perennial deciduous tree",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant dormant bare-root trees March to early April"
+  },
+  "spacing_inches": 168,
+  "sun": "full",
+  "water": "1–1.5 inches/week during establishment; deep and infrequent once established",
+  "common_pests": ["codling moth", "apple maggot", "fire blight", "cedar apple rust", "powdery mildew", "aphids"],
+  "companion_plants": ["garlic", "chives", "marigold", "nasturtium", "clover"],
+  "source": "manual",
+  "confidence": 1.0
+}

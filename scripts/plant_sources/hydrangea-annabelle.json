@@ -1,0 +1,32 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "hydrangea-annabelle",
+  "common_name": "Smooth Hydrangea (Annabelle)",
+  "scientific_name": "Hydrangea arborescens L. 'Annabelle'",
+  "usda_symbol": "HYAR",
+  "aliases": ["Annabelle hydrangea", "smooth hydrangea", "wild hydrangea", "Incrediball hydrangea"],
+  "family": "Hydrangeaceae",
+  "category": "shrub",
+  "native_to_missouri": true,
+  "zone_6b_notes": "Hydrangea arborescens is native to Missouri — Annabelle is its classic garden cultivar. Extremely reliable in Zone 6b: unlike mophead (bigleaf) hydrangeas, Annabelle blooms on new wood and is never frost-damaged. Massive white snowball flower heads 10–12 inches across bloom June through August. Cut back hard to 12 inches in early spring for strongest stems and largest blooms. Stems flop when heavy with rain — Incrediball (improved Annabelle) has much stronger stems and is worth the upgrade. Prefers consistently moist, organically rich soil — mulch heavily. Excellent cut flower fresh or dried.",
+  "days_to_maturity": null,
+  "type": "deciduous shrub (hardy Zone 3–9)",
+  "bloom_season": "June–August",
+  "mature_height_ft": 5,
+  "mature_spread_ft": 5,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant nursery stock in spring or fall in moist, sheltered location"
+  },
+  "spacing_inches": 60,
+  "sun": "partial (morning sun, afternoon shade preferred in Missouri heat)",
+  "water": "consistent — 1–1.5 inches/week; wilts dramatically in drought",
+  "deer_resistant": false,
+  "common_pests": ["powdery mildew", "botrytis blight", "Japanese beetle", "aphids"],
+  "companion_plants": ["hosta", "astilbe", "fern", "coral bells", "spirea"],
+  "source": "manual",
+  "confidence": 1.0
+}

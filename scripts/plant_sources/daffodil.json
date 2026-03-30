@@ -1,0 +1,31 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "daffodil",
+  "common_name": "Daffodil",
+  "scientific_name": "Narcissus pseudonarcissus L.",
+  "usda_symbol": null,
+  "aliases": ["narcissus", "jonquil", "trumpet daffodil", "Dutch Master daffodil", "Ice Follies daffodil"],
+  "family": "Amaryllidaceae",
+  "category": "bulb",
+  "zone_6b_notes": "Reliable spring bulb in Zone 6b — plant in fall (October to early November in Farmington) 6–8 inches deep. Naturalizes readily and comes back dependably for decades. Blooms March–April depending on variety. Deer, voles, and rabbits will not touch daffodil bulbs — unlike tulips, which must be replanted annually. Allow foliage to die back naturally after bloom (at least 6 weeks) — do not cut or braid, as it feeds the bulb for next year. Dutch Master (classic large yellow trumpet) and Ice Follies (large white) are the most dependable for Zone 6b. Excellent in naturalized areas, under deciduous trees, and mixed with summer-blooming perennials.",
+  "days_to_maturity": null,
+  "type": "perennial bulb (hardy Zone 3–9)",
+  "bloom_season": "March–April",
+  "mature_height_ft": 1.5,
+  "mature_spread_ft": 0.5,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant bulbs October to early November, 6–8 inches deep"
+  },
+  "spacing_inches": 6,
+  "sun": "full to partial",
+  "water": "natural rainfall usually sufficient after establishment",
+  "deer_resistant": true,
+  "common_pests": ["narcissus bulb fly", "basal rot (in wet soils)", "narcissus nematode"],
+  "companion_plants": ["hosta", "daylily", "perennial geranium", "ornamental grass"],
+  "source": "manual",
+  "confidence": 1.0
+}

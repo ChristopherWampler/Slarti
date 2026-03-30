@@ -1,0 +1,31 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "knockout-rose",
+  "common_name": "Knock Out Rose",
+  "scientific_name": "Rosa 'Radrazz'",
+  "usda_symbol": null,
+  "aliases": ["Knock Out rose", "Double Knock Out rose", "Rainbow Knock Out rose"],
+  "family": "Rosaceae",
+  "category": "shrub",
+  "zone_6b_notes": "Hardy to Zone 4 — one of the most reliable low-maintenance shrub roses for Zone 6b Farmington. Blooms spring through frost with almost no disease spray required. Unlike traditional roses, Knock Out is self-cleaning (no deadheading needed), highly disease-resistant to black spot and powdery mildew, and drought tolerant once established. Prune hard in early spring (to 12–18 inches) before new growth for best shape and vigor. The Double Knock Out has fuller double blooms; the original single-petal Knock Out (cherry red) is arguably tougher. Japanese beetles are the main summer pest — hand-pick or use neem in organic gardens.",
+  "days_to_maturity": null,
+  "type": "deciduous shrub (hardy Zone 4–9)",
+  "bloom_season": "May–frost",
+  "mature_height_ft": 4,
+  "mature_spread_ft": 4,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant nursery stock spring or fall; container or bare-root"
+  },
+  "spacing_inches": 48,
+  "sun": "full (minimum 6 hours)",
+  "water": "moderate — 1 inch/week; drought tolerant once established",
+  "deer_resistant": false,
+  "common_pests": ["Japanese beetle", "rose sawfly", "aphids", "rose slug"],
+  "companion_plants": ["lavender", "salvia", "catmint", "yarrow", "allium"],
+  "source": "manual",
+  "confidence": 1.0
+}

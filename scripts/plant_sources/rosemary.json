@@ -1,0 +1,27 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "rosemary",
+  "common_name": "Rosemary",
+  "scientific_name": "Salvia rosmarinus Spenn.",
+  "usda_symbol": null,
+  "aliases": ["garden rosemary", "Rosmarinus officinalis", "Arp rosemary", "Hardy Hill rosemary"],
+  "family": "Lamiaceae",
+  "category": "herb",
+  "zone_6b_notes": "Marginally hardy in Zone 6b — standard rosemary reliably overwinters only to Zone 7. In Farmington, plant in the warmest, most sheltered microclimate (south-facing wall, well-drained raised bed) and mulch heavily after ground freezes. 'Arp' is the standard cold-hardy cultivar rated to Zone 6 (possibly lower); 'Hardy Hill' is another Zone 6 option. Expect some die-back most winters; plant is often treated as an annual or overwintered in a container indoors. Harvest sprigs throughout growing season — never take more than 1/3 of growth at once.",
+  "days_to_maturity": null,
+  "type": "tender perennial (Zone 7+); treat as annual in 6b without protection",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 12,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": 2,
+    "best_planting_time": "Transplant late May; overwinter container indoors as insurance"
+  },
+  "spacing_inches": 24,
+  "sun": "full",
+  "water": "drought tolerant once established — excellent drainage essential; clay soil is fatal",
+  "common_pests": ["spittlebug", "aphids", "powdery mildew", "root rot (overwatering)"],
+  "companion_plants": ["sage", "lavender", "thyme", "beans", "carrot"],
+  "source": "manual",
+  "confidence": 1.0
+}

@@ -1,0 +1,31 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "spirea-bridal-wreath",
+  "common_name": "Bridal Wreath Spirea",
+  "scientific_name": "Spiraea prunifolia Siebold & Zucc.",
+  "usda_symbol": "SPPR",
+  "aliases": ["bridal wreath", "bridal veil spirea", "shoe-button spirea"],
+  "family": "Rosaceae",
+  "category": "shrub",
+  "zone_6b_notes": "Tough, long-lived deciduous shrub reliable in Zone 4–8 — extremely common in older Farmington gardens. Arching stems completely covered in small white double flowers in April–May, before most leaves fully emerge, creating the cascading 'bridal veil' effect. No fall rebloom — this is a one-flush spring bloomer. Blooms on old wood — prune immediately after flowering; never prune in fall or winter or you remove next year's buds. Can become very large (8 ft × 8 ft) if unpruned. Rejuvenate old overgrown shrubs by cutting to 6 inches in spring after flowering every few years.",
+  "days_to_maturity": null,
+  "type": "deciduous shrub (hardy Zone 4–8)",
+  "bloom_season": "April–May",
+  "mature_height_ft": 8,
+  "mature_spread_ft": 8,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant nursery stock in spring or fall"
+  },
+  "spacing_inches": 84,
+  "sun": "full to partial",
+  "water": "moderate — drought tolerant once established",
+  "deer_resistant": true,
+  "common_pests": ["aphids", "leaf roller", "fire blight (rare)", "powdery mildew"],
+  "companion_plants": ["forsythia", "lilac", "viburnum", "ornamental grass"],
+  "source": "manual",
+  "confidence": 1.0
+}

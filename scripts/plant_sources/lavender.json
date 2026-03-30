@@ -4,6 +4,8 @@
   "plant_slug": "lavender",
   "common_name": "English Lavender",
   "scientific_name": "Lavandula angustifolia",
+  "usda_symbol": null,
+  "category": "herb",
   "aliases": ["lavender", "english lavender", "true lavender"],
   "family": "Lamiaceae",
   "zone_6b_notes": "Zone 6b is the cold edge of lavender's range. English lavender (angustifolia) is the hardiest — survives Farmington winters with excellent drainage and a south-facing exposure. Heavy clay Missouri soil is problematic; amend with grit or grow in raised beds. Mulch lightly with gravel, not wood chips (traps moisture). Cut back by one-third in early spring — do not cut into old wood.",

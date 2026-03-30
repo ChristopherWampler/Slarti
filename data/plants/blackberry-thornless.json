@@ -1,0 +1,44 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "blackberry-thornless",
+  "common_name": "Thornless Blackberry",
+  "scientific_name": "Rubus allegheniensis Porter",
+  "usda_symbol": "RUAL",
+  "aliases": [
+    "thornless blackberry",
+    "Triple Crown blackberry",
+    "Apache blackberry",
+    "Chester blackberry"
+  ],
+  "family": "Rosaceae",
+  "category": "berry",
+  "zone_6b_notes": "Plant bare-root canes in early spring (March to April) in Farmington. Thornless varieties (Triple Crown, Chester, Apache) make harvest much easier and are reliably hardy in Zone 6b. Blackberries are a semi-erect or trailing cane fruit; needs wire trellis 5 feet high, 2\u00e2\u20ac\u201c3 wires. Produces on second-year canes (floricanes) \u00e2\u20ac\u201d prune out all canes that fruited immediately after harvest and keep new (primocane) growth. Missouri summers are nearly ideal for blackberry production. Triple Crown is the most reliable thornless for Zone 6 \u00e2\u20ac\u201d outstanding flavor, productive, late July to August harvest.",
+  "days_to_maturity": 365,
+  "years_to_first_harvest": 2,
+  "type": "perennial",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant dormant canes March to April; trellis required"
+  },
+  "spacing_inches": 36,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c1.5 inches/week during fruiting",
+  "common_pests": [
+    "Japanese beetle",
+    "stinkbug",
+    "cane borer",
+    "anthracnose",
+    "botrytis fruit rot",
+    "rosette (double blossom)"
+  ],
+  "companion_plants": [
+    "garlic",
+    "marigold",
+    "hyssop"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

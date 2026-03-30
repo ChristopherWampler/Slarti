@@ -4,6 +4,8 @@
   "plant_slug": "lavender",
   "common_name": "English Lavender",
   "scientific_name": "Lavandula angustifolia",
+  "usda_symbol": null,
+  "category": "herb",
   "aliases": [
     "lavender",
     "english lavender",

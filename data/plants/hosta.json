@@ -1,0 +1,49 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "hosta",
+  "common_name": "Hosta",
+  "scientific_name": "Hosta spp.",
+  "usda_symbol": null,
+  "aliases": [
+    "plantain lily",
+    "Sum and Substance hosta",
+    "Halcyon hosta",
+    "June hosta",
+    "Guacamole hosta"
+  ],
+  "family": "Asparagaceae",
+  "category": "flower",
+  "zone_6b_notes": "The defining shade perennial for Zone 6b \u00e2\u20ac\u201d hostas thrive under trees and in the north-facing shaded areas of Farmington gardens. Reliable, long-lived, and low maintenance once established. Missouri's humid summers favor hostas over drier climates. Slug damage is the primary problem \u00e2\u20ac\u201d use iron phosphate bait (Sluggo) in spring and after heavy rains. Deer eat hostas readily \u00e2\u20ac\u201d fence or use deterrents if deer pressure is high. Divide every 5\u00e2\u20ac\u201c6 years in spring when eyes first emerge. Blue-leafed varieties (Halcyon, Elegans) hold color better with more shade; gold varieties (Sum and Substance) tolerate more sun.",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 3\u00e2\u20ac\u201c8)",
+  "bloom_season": "July (lavender-white spikes \u00e2\u20ac\u201d secondary to foliage)",
+  "mature_height_ft": 2,
+  "mature_spread_ft": 3,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant or divide in spring; nursery transplants in spring or fall"
+  },
+  "spacing_inches": 24,
+  "sun": "partial to full shade",
+  "water": "consistent \u00e2\u20ac\u201d 1 inch/week; drought causes leaf scorch",
+  "deer_resistant": false,
+  "common_pests": [
+    "slugs",
+    "deer",
+    "voles",
+    "foliar nematodes",
+    "anthracnose"
+  ],
+  "companion_plants": [
+    "astilbe",
+    "fern",
+    "coral bells",
+    "bleeding heart",
+    "spring bulbs"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

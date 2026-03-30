@@ -1,0 +1,31 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "pear",
+  "common_name": "Common Pear",
+  "scientific_name": "Pyrus communis L.",
+  "usda_symbol": "PYCO",
+  "aliases": ["pear tree", "Bartlett pear", "Moonglow pear", "Harrow Sweet pear"],
+  "family": "Rosaceae",
+  "category": "fruit_tree",
+  "zone_6b_notes": "Hardy in Zone 6b. Plant two varieties for cross-pollination (Bartlett and Moonglow are a classic Missouri pairing). Fire blight is pear's biggest threat in Missouri humidity — choose fire-blight resistant varieties like Moonglow, Harrow Sweet, or Harrow Delight. Avoid Bradford pear (ornamental, invasive). European pears should be harvested slightly underripe and allowed to ripen indoors at room temperature — fruit left to ripen on the tree turns gritty. Asian pears ripen on tree. Pears are longer-lived than peaches; a well-sited pear can produce 50+ years.",
+  "days_to_maturity": 1460,
+  "years_to_first_harvest": 4,
+  "mature_height_ft": 20,
+  "mature_spread_ft": 15,
+  "bloom_season": "April",
+  "type": "perennial deciduous tree",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant dormant bare-root trees March to early April"
+  },
+  "spacing_inches": 180,
+  "sun": "full",
+  "water": "1 inch/week during establishment; moderate once established",
+  "common_pests": ["fire blight", "pear psylla", "codling moth", "leaf spot", "pear rust mite"],
+  "companion_plants": ["garlic", "chives", "marigold", "clover", "nasturtium"],
+  "source": "manual",
+  "confidence": 1.0
+}

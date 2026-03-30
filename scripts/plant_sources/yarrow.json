@@ -1,0 +1,32 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "yarrow",
+  "common_name": "Common Yarrow",
+  "scientific_name": "Achillea millefolium L.",
+  "usda_symbol": "ACMI2",
+  "aliases": ["yarrow", "milfoil", "Paprika yarrow", "Moonshine yarrow", "Coronation Gold"],
+  "family": "Asteraceae",
+  "category": "flower",
+  "native_to_missouri": true,
+  "zone_6b_notes": "Missouri native perennial — extremely tough and drought tolerant in Zone 6b once established. Blooms June–September; flat-topped flower clusters in white, yellow, pink, and red. Spreads by rhizome and self-seeds; may become aggressive in rich soils. Best in lean, well-drained soil — rich soil causes floppy stems. Cut back after first flush of bloom to 3 inches for a second flush. Coronation Gold (yellow) and Paprika (red) are outstanding cultivars for Zone 6b. Excellent for cutting — fresh and dried. Attracts beneficial insects (lacewings, parasitic wasps, hoverflies).",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 3–9)",
+  "bloom_season": "June–September",
+  "mature_height_ft": 2,
+  "mature_spread_ft": 2,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 6,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Direct sow in fall; transplant divisions spring or fall"
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "drought tolerant — 0.5 inch/week; poor drainage kills plants",
+  "deer_resistant": true,
+  "common_pests": ["aphids", "powdery mildew", "botrytis stem rot (in wet conditions)"],
+  "companion_plants": ["coneflower", "salvia", "lavender", "ornamental grass", "black-eyed-susan"],
+  "source": "manual",
+  "confidence": 1.0
+}

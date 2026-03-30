@@ -1,0 +1,45 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "blueberry-highbush",
+  "common_name": "Highbush Blueberry",
+  "scientific_name": "Vaccinium corymbosum L.",
+  "usda_symbol": "VACO6",
+  "aliases": [
+    "northern highbush blueberry",
+    "Bluecrop blueberry",
+    "Blueray blueberry",
+    "Duke blueberry"
+  ],
+  "family": "Ericaceae",
+  "category": "berry",
+  "zone_6b_notes": "Hardy in Zone 6b but requires very specific soil \u00e2\u20ac\u201d acidic, pH 4.5\u00e2\u20ac\u201c5.5, well-drained, rich in organic matter. Missouri soils are typically neutral to slightly acidic; pH amendment with sulfur is almost always required and must be done months before planting. Plant at least two different varieties for cross-pollination and better yields. Mulch heavily with pine bark or wood chips (4\u00e2\u20ac\u201c6 inches) to maintain acidity and moisture. Blueberries are slow to establish \u00e2\u20ac\u201d minimal harvest years 1\u00e2\u20ac\u201c2, full production at year 5\u00e2\u20ac\u201c7. Bluecrop and Blueray are the most reliable highbush varieties in Zone 6b Missouri.",
+  "days_to_maturity": 365,
+  "years_to_first_harvest": 3,
+  "mature_height_ft": 6,
+  "mature_spread_ft": 4,
+  "type": "perennial shrub",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant bare-root or potted stock in spring (April) after soil pH amendment"
+  },
+  "spacing_inches": 60,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c2 inches/week; no drought tolerance",
+  "common_pests": [
+    "blueberry maggot",
+    "Japanese beetle",
+    "spotted wing drosophila",
+    "mummyberry",
+    "phomopsis twig blight"
+  ],
+  "companion_plants": [
+    "azalea",
+    "rhododendron",
+    "fothergilla"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

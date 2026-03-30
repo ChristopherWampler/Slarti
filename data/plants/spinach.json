@@ -1,0 +1,43 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "spinach",
+  "common_name": "Spinach",
+  "scientific_name": "Spinacia oleracea L.",
+  "usda_symbol": "SPOL",
+  "aliases": [
+    "garden spinach",
+    "Bloomsdale",
+    "Tyee spinach"
+  ],
+  "family": "Chenopodiaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Sow directly in early spring (mid-March to April) or fall (late August to September) in Farmington. Spinach is the most cold-hardy of spring greens \u00e2\u20ac\u201d survives hard freezes under row cover. Spring crop bolts fast once daytime temperatures exceed 75\u00c2\u00b0F (late May); fall crop lasts into November or later. Avoid summer planting entirely \u00e2\u20ac\u201d Missouri heat forces immediate bolting. Bloomsdale Long Standing and Tyee (semi-savoyed) hold up best in Missouri spring conditions.",
+  "days_to_maturity": 45,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Mid-March (spring) or late August to September (fall)"
+  },
+  "spacing_inches": 4,
+  "sun": "full to partial",
+  "water": "consistent \u00e2\u20ac\u201d 1 inch/week; drought accelerates bolting",
+  "common_pests": [
+    "leaf miners",
+    "aphids",
+    "downy mildew",
+    "white rust",
+    "damping off"
+  ],
+  "companion_plants": [
+    "strawberry",
+    "onion",
+    "pea",
+    "garlic",
+    "radish"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

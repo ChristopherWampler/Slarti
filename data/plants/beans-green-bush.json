@@ -1,0 +1,43 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "beans-green-bush",
+  "common_name": "Bush Green Bean",
+  "scientific_name": "Phaseolus vulgaris L.",
+  "usda_symbol": "PHVU",
+  "aliases": [
+    "green bean",
+    "snap bean",
+    "bush bean",
+    "string bean"
+  ],
+  "family": "Fabaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Direct sow after last frost when soil reaches 60\u00c2\u00b0F \u00e2\u20ac\u201d May 1\u00e2\u20ac\u201c15 in Farmington. Make successive sowings every 2 weeks through June for continuous harvest. Beans fix nitrogen; rotate beds yearly. Missouri humidity invites bean mosaic virus \u00e2\u20ac\u201d choose resistant varieties (Provider, Contender).",
+  "days_to_maturity": 52,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null
+  },
+  "spacing_inches": 4,
+  "sun": "full",
+  "water": "1 inch per week \u00e2\u20ac\u201d consistent moisture at pod set; avoid wetting foliage",
+  "common_pests": [
+    "Mexican bean beetle",
+    "aphids",
+    "bean mosaic virus",
+    "powdery mildew",
+    "white mold"
+  ],
+  "companion_plants": [
+    "corn",
+    "squash",
+    "carrot",
+    "marigold",
+    "cucumber"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

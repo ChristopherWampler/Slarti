@@ -1,0 +1,44 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "eggplant",
+  "common_name": "Eggplant",
+  "scientific_name": "Solanum melongena L.",
+  "usda_symbol": null,
+  "aliases": [
+    "aubergine",
+    "brinjal",
+    "Black Beauty eggplant",
+    "Ichiban eggplant"
+  ],
+  "family": "Solanaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Start indoors 8\u00e2\u20ac\u201c10 weeks before last frost (mid-February in Farmington) \u00e2\u20ac\u201d eggplant needs a long head start. Transplant after last frost when soil is reliably warm (late May). Eggplant is the most heat-demanding vegetable in the garden; Missouri summers suit it well once established. Black Beauty (globe) and Ichiban (Japanese/slender) both perform well. Harvest while skin is glossy \u00e2\u20ac\u201d dull skin means over-mature and seeds are hard. Flea beetles are the primary pest in Missouri; row cover until flowering helps significantly.",
+  "days_to_maturity": 80,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 9,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": 2,
+    "best_planting_time": "Transplant late May when soil is warm"
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c2 inches/week; drought causes bitter fruit",
+  "common_pests": [
+    "flea beetles",
+    "Colorado potato beetle",
+    "spider mites",
+    "aphids",
+    "Phytophthora blight"
+  ],
+  "companion_plants": [
+    "pepper",
+    "tomato",
+    "basil",
+    "marigold",
+    "thyme"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

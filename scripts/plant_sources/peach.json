@@ -1,0 +1,31 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "peach",
+  "common_name": "Peach",
+  "scientific_name": "Prunus persica (L.) Batsch",
+  "usda_symbol": "PRPE3",
+  "aliases": ["peach tree", "Redhaven peach", "Reliance peach", "Contender peach"],
+  "family": "Rosaceae",
+  "category": "fruit_tree",
+  "zone_6b_notes": "Zone 6b is at the reliable northern edge for peach production — Farmington generally gets adequate crops. Late spring frosts are the main risk: peach blooms in early April, often before last frost. Plant on elevated ground or a north-facing slope to delay bloom and avoid frost damage. Contender and Reliance are the most cold-hardy varieties for Zone 6b and worth prioritizing. Peaches are self-fruitful — no pollinator required. Fruit thinning (remove small fruits 4–6 inches apart) is essential for large, quality fruit. Trees decline after 10–15 years and must be replanted.",
+  "days_to_maturity": 730,
+  "years_to_first_harvest": 2,
+  "mature_height_ft": 15,
+  "mature_spread_ft": 15,
+  "bloom_season": "early April",
+  "type": "perennial deciduous tree",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant dormant bare-root trees March to early April"
+  },
+  "spacing_inches": 180,
+  "sun": "full",
+  "water": "1–1.5 inches/week; consistent moisture during fruit development",
+  "common_pests": ["peach tree borer", "oriental fruit moth", "bacterial spot", "brown rot", "peach leaf curl", "Japanese beetle"],
+  "companion_plants": ["garlic", "basil", "marigold", "clover"],
+  "source": "manual",
+  "confidence": 1.0
+}

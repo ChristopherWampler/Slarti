@@ -1,0 +1,47 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "peony",
+  "common_name": "Common Peony",
+  "scientific_name": "Paeonia lactiflora Pall.",
+  "usda_symbol": null,
+  "aliases": [
+    "Chinese peony",
+    "garden peony",
+    "Sarah Bernhardt peony",
+    "Festiva Maxima peony"
+  ],
+  "family": "Paeoniaceae",
+  "category": "flower",
+  "zone_6b_notes": "Extremely long-lived perennial \u00e2\u20ac\u201d peonies in Zone 6b Farmington can outlive the gardener who planted them (50\u00e2\u20ac\u201c100 years in place). Plant bare-root divisions in fall (October) with eyes no more than 1\u00e2\u20ac\u201c1.5 inches deep \u00e2\u20ac\u201d too deep and they will not bloom. Blooms late April to May in stunning, fragrant double or single flowers. Missouri's winter chill satisfies dormancy requirement fully. Botrytis blight is common after rainy May weather \u00e2\u20ac\u201d remove and dispose of infected stems. Ants on buds are harmless and not needed for blooming (old myth). No deadheading needed; fall frost kills foliage \u00e2\u20ac\u201d cut to ground after killing frost.",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 3\u00e2\u20ac\u201c8)",
+  "bloom_season": "late April\u00e2\u20ac\u201cMay",
+  "mature_height_ft": 3,
+  "mature_spread_ft": 3,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant bare-root divisions in October \u00e2\u20ac\u201d permanent location"
+  },
+  "spacing_inches": 36,
+  "sun": "full to partial",
+  "water": "moderate \u00e2\u20ac\u201d 1 inch/week; drought tolerant once established",
+  "deer_resistant": true,
+  "common_pests": [
+    "botrytis blight",
+    "verticillium wilt",
+    "leaf blotch",
+    "thrips",
+    "Japanese beetle"
+  ],
+  "companion_plants": [
+    "iris",
+    "allium",
+    "salvia",
+    "ornamental grass"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

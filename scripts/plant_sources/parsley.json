@@ -1,0 +1,27 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "parsley",
+  "common_name": "Parsley",
+  "scientific_name": "Petroselinum crispum (Mill.) Fuss",
+  "usda_symbol": null,
+  "aliases": ["curly parsley", "Italian flat-leaf parsley", "Hamburg parsley"],
+  "family": "Apiaceae",
+  "category": "herb",
+  "zone_6b_notes": "Start indoors 8–10 weeks before last frost (early February in Farmington) — parsley germinates slowly (2–4 weeks). Soak seeds 24 hours before planting to aid germination. Biennial that bolts to seed in its second year; grow as annual in the vegetable garden. Flat-leaf (Italian) parsley has better flavor than curly; curly holds up better as garnish. Survives light frost and can be harvested into November in Zone 6b. Swallowtail butterfly caterpillars (parsleyworm) will defoliate plants — plant extra and let some go for the butterflies.",
+  "days_to_maturity": 75,
+  "type": "biennial (grown as annual)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 9,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Start indoors early February; transplant late April to May"
+  },
+  "spacing_inches": 8,
+  "sun": "full to partial",
+  "water": "consistent — 1 inch/week",
+  "common_pests": ["parsleyworm", "aphids", "leaf miners", "carrot weevil"],
+  "companion_plants": ["asparagus", "tomato", "rose", "carrot", "chives"],
+  "source": "manual",
+  "confidence": 1.0
+}

@@ -4,6 +4,8 @@
   "plant_slug": "thyme",
   "common_name": "Common Thyme",
   "scientific_name": "Thymus vulgaris",
+  "usda_symbol": null,
+  "category": "herb",
   "aliases": ["thyme", "garden thyme", "common thyme", "english thyme"],
   "family": "Lamiaceae",
   "zone_6b_notes": "Hardy perennial in Zone 6b — survives winters in Farmington with light mulching. Plant in well-drained soil; thyme rots in wet Missouri winters if drainage is poor. Woody stems die back in winter but regrow from base in spring (late March/April). Harvest before flowering for best flavor.",

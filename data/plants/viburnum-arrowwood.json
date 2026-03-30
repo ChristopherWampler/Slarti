@@ -1,0 +1,47 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "viburnum-arrowwood",
+  "common_name": "Arrowwood Viburnum",
+  "scientific_name": "Viburnum dentatum L.",
+  "usda_symbol": "VIDE",
+  "aliases": [
+    "arrowwood",
+    "southern arrowwood",
+    "Blue Muffin viburnum",
+    "Chicago Lustre viburnum"
+  ],
+  "family": "Adoxaceae",
+  "category": "shrub",
+  "native_to_missouri": true,
+  "zone_6b_notes": "Missouri native shrub \u00e2\u20ac\u201d one of the most ecologically valuable shrubs for Zone 6b landscapes. White flat-topped flower clusters in May\u00e2\u20ac\u201cJune are visited by native bees; blue-black berries in September\u00e2\u20ac\u201cOctober feed dozens of bird species (cedar waxwings, thrushes, bluebirds). Brilliant orange-red fall foliage. Extremely adaptable \u00e2\u20ac\u201d tolerates full sun to partial shade, moist to dry soils, wet edges. Blue Muffin is a compact cultivar (5 \u00c3\u2014 5 ft); Chicago Lustre is the standard large form (8 \u00c3\u2014 8 ft). Plant two different clones for best berry production (cross-pollination). Essentially pest-free in Missouri when sited correctly.",
+  "days_to_maturity": null,
+  "type": "deciduous shrub (hardy Zone 3\u00e2\u20ac\u201c8)",
+  "bloom_season": "May\u00e2\u20ac\u201cJune",
+  "mature_height_ft": 8,
+  "mature_spread_ft": 8,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant nursery stock in spring or fall"
+  },
+  "spacing_inches": 84,
+  "sun": "full to partial shade",
+  "water": "moderate \u00e2\u20ac\u201d tolerates both moist and dry conditions once established",
+  "deer_resistant": true,
+  "common_pests": [
+    "viburnum leaf beetle (not yet in Missouri)",
+    "aphids",
+    "powdery mildew (rare)"
+  ],
+  "companion_plants": [
+    "serviceberry",
+    "native grasses",
+    "coneflower",
+    "bee-balm",
+    "spicebush"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

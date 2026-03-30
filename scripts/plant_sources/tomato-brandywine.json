@@ -4,6 +4,8 @@
   "plant_slug": "tomato-brandywine",
   "common_name": "Brandywine Tomato",
   "scientific_name": "Solanum lycopersicum 'Brandywine'",
+  "usda_symbol": "SOLY2",
+  "category": "vegetable",
   "aliases": ["brandywine", "pink brandywine", "brandywine tomato"],
   "family": "Solanaceae",
   "zone_6b_notes": "Start indoors 6–8 weeks before last frost (late April/early May in Zone 6b). Needs 80 days to maturity — plant outside after May 1. Missouri summers can stress indeterminate tomatoes; mulch heavily and water consistently.",

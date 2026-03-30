@@ -1,0 +1,27 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "butternut-squash",
+  "common_name": "Butternut Squash",
+  "scientific_name": "Cucurbita moschata Duchesne",
+  "usda_symbol": null,
+  "aliases": ["butternut", "Waltham Butternut", "winter squash"],
+  "family": "Cucurbitaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Direct sow or transplant after last frost — May 1–15 in Farmington. Butternut is a long-season crop requiring the full Missouri growing season (100+ frost-free days). Needs room to sprawl — vines reach 10–15 feet; plant at garden edge or train along fence. Harvest after first light frost when skin is tan and hardens to resist fingernail penetration. Cure at 80–85°F for 10 days to develop sweetness; stores 3–6 months at room temperature. Vine borers are the primary threat in Missouri — use row cover until flowering, then remove to allow pollination.",
+  "days_to_maturity": 100,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 3,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": 0,
+    "best_planting_time": "Direct sow May 1–15 or transplant after last frost"
+  },
+  "spacing_inches": 36,
+  "sun": "full",
+  "water": "consistent — 1 inch/week; avoid wetting leaves to reduce mildew",
+  "common_pests": ["squash vine borer", "squash bug", "cucumber beetle", "powdery mildew", "bacterial wilt"],
+  "companion_plants": ["corn", "beans", "marigold", "nasturtium", "radish"],
+  "source": "manual",
+  "confidence": 1.0
+}

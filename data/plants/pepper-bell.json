@@ -4,6 +4,8 @@
   "plant_slug": "pepper-bell",
   "common_name": "Bell Pepper",
   "scientific_name": "Capsicum annuum (bell types)",
+  "usda_symbol": null,
+  "category": "vegetable",
   "aliases": [
     "bell pepper",
     "sweet pepper",

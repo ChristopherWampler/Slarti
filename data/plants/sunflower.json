@@ -1,0 +1,47 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "sunflower",
+  "common_name": "Annual Sunflower",
+  "scientific_name": "Helianthus annuus L.",
+  "usda_symbol": "HEAN3",
+  "aliases": [
+    "common sunflower",
+    "Mammoth sunflower",
+    "Lemon Queen sunflower",
+    "Autumn Beauty sunflower"
+  ],
+  "family": "Asteraceae",
+  "category": "flower",
+  "zone_6b_notes": "Direct sow after last frost \u00e2\u20ac\u201d May 1\u00e2\u20ac\u201c15 in Farmington. Missouri summers are ideal; sunflowers tolerate heat and drought once roots are established. Succession sow every 2\u00e2\u20ac\u201c3 weeks through June for continuous bloom. Mammoth (giant single heads, seed-harvest) and Lemon Queen (tall, multi-branch, excellent for cutting and birds) are outstanding choices. Sunflowers are allelopathic \u00e2\u20ac\u201d avoid planting right next to vegetables. Once heads mature and droop, leave standing for birds (goldfinches, chickadees). Tall varieties need staking in Missouri wind; plant in sheltered spots or use shorter branching types.",
+  "days_to_maturity": 75,
+  "type": "annual",
+  "bloom_season": "July\u00e2\u20ac\u201cSeptember",
+  "mature_height_ft": 8,
+  "mature_spread_ft": 2,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Direct sow May 1\u00e2\u20ac\u201c15; succession sow through June"
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "drought tolerant once established \u00e2\u20ac\u201d 1 inch/week during establishment",
+  "common_pests": [
+    "sunflower beetle",
+    "aphids",
+    "sclerotinia head rot",
+    "downy mildew",
+    "birds (seed heads)"
+  ],
+  "companion_plants": [
+    "corn",
+    "squash",
+    "beans",
+    "marigold",
+    "zinnia"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

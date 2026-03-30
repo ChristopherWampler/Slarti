@@ -1,0 +1,44 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "cantaloupe",
+  "common_name": "Cantaloupe",
+  "scientific_name": "Cucumis melo L.",
+  "usda_symbol": "CUME",
+  "aliases": [
+    "muskmelon",
+    "rockmelon",
+    "Ambrosia cantaloupe",
+    "Hales Best",
+    "Honey Rock"
+  ],
+  "family": "Cucurbitaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Direct sow or transplant after last frost when soil is warm (May 15 in Farmington). Missouri summers provide the heat cantaloupes need. Plant in hills (3 seeds per hill, thin to 2 plants) with black plastic mulch to boost soil temperature and conserve moisture. Cantaloupe is ready when the fruit 'slips' easily from the vine with light pressure and the skin netting is tan and prominent. Reduce watering in the final 2 weeks before harvest \u00e2\u20ac\u201d dry-down concentrates sugars. Hales Best and Ambrosia are reliable old-school choices; supersweet modern varieties (Honey Rock) also perform well in Missouri heat.",
+  "days_to_maturity": 85,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 3,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": 0,
+    "best_planting_time": "Direct sow or transplant after last frost, mid-May"
+  },
+  "spacing_inches": 36,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c2 inches/week until ripening; reduce for last 2 weeks to sweeten",
+  "common_pests": [
+    "cucumber beetle",
+    "squash bug",
+    "aphids",
+    "powdery mildew",
+    "alternaria leaf blight"
+  ],
+  "companion_plants": [
+    "corn",
+    "marigold",
+    "nasturtium",
+    "radish"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

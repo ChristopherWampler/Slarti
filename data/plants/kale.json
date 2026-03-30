@@ -1,0 +1,45 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "kale",
+  "common_name": "Kale",
+  "scientific_name": "Brassica oleracea L. var. sabellica",
+  "usda_symbol": "BROL",
+  "aliases": [
+    "curly kale",
+    "lacinato kale",
+    "Dinosaur kale",
+    "Red Russian kale",
+    "Winterbor"
+  ],
+  "family": "Brassicaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "More cold-hardy than broccoli \u00e2\u20ac\u201d kale improves significantly in flavor after frost, converting starch to sugar. Plant transplants in early spring or direct-sow in July for fall harvest in Farmington. Fall kale can overwinter under row cover and produce into December or beyond in Zone 6b. Spring kale bolts in summer heat but can be succession-sown. Lacinato (Dinosaur) and Red Russian are the most reliable in Missouri; Winterbor holds up well in winter cold. Harvest outer leaves continuously from the bottom of the plant.",
+  "days_to_maturity": 60,
+  "type": "biennial (grown as annual or overwintered)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 6,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Transplant late March to April (spring); direct sow July to early August (fall)"
+  },
+  "spacing_inches": 12,
+  "sun": "full to partial",
+  "water": "consistent \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c1.5 inches/week",
+  "common_pests": [
+    "cabbage loopers",
+    "imported cabbageworm",
+    "aphids",
+    "flea beetles",
+    "harlequin bug"
+  ],
+  "companion_plants": [
+    "onion",
+    "garlic",
+    "dill",
+    "chamomile",
+    "nasturtium"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

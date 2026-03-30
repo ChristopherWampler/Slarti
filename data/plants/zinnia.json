@@ -1,0 +1,47 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "zinnia",
+  "common_name": "Zinnia",
+  "scientific_name": "Zinnia elegans Jacq.",
+  "usda_symbol": null,
+  "aliases": [
+    "common zinnia",
+    "Benary's Giant zinnia",
+    "Cut and Come Again zinnia",
+    "Profusion zinnia"
+  ],
+  "family": "Asteraceae",
+  "category": "flower",
+  "zone_6b_notes": "Direct sow after last frost when soil is warm \u00e2\u20ac\u201d mid-May in Farmington. One of Missouri's best summer annuals; thrives in heat that wilts other flowers. Cutting regularly (every 3\u00e2\u20ac\u201c4 days) keeps plants producing abundantly from June until frost. Benary's Giant series produces large dinner-plate blooms; Profusion series gives massive plant coverage with smaller blooms and better mildew resistance. Powdery mildew is common in late summer \u00e2\u20ac\u201d plant in full sun with good air circulation. Monarch and swallowtail butterfly magnet. Direct sow only \u00e2\u20ac\u201d transplant shock sets them back significantly.",
+  "days_to_maturity": 60,
+  "type": "annual",
+  "bloom_season": "June\u00e2\u20ac\u201cfrost",
+  "mature_height_ft": 3,
+  "mature_spread_ft": 1,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Direct sow mid-May after soil warms"
+  },
+  "spacing_inches": 12,
+  "sun": "full",
+  "water": "moderate \u00e2\u20ac\u201d 1 inch/week at base; avoid wetting foliage to reduce mildew",
+  "common_pests": [
+    "powdery mildew",
+    "alternaria blight",
+    "Japanese beetle",
+    "spider mites",
+    "aphids"
+  ],
+  "companion_plants": [
+    "marigold",
+    "sunflower",
+    "cosmos",
+    "basil",
+    "tomato"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

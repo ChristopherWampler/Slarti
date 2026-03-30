@@ -4,6 +4,8 @@
   "plant_slug": "basil-genovese",
   "common_name": "Genovese Basil",
   "scientific_name": "Ocimum basilicum 'Genovese'",
+  "usda_symbol": "OCBA",
+  "category": "herb",
   "aliases": [
     "basil",
     "genovese basil",

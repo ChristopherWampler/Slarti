@@ -1,0 +1,28 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "chives",
+  "common_name": "Chives",
+  "scientific_name": "Allium schoenoprasum L.",
+  "usda_symbol": "ALSC",
+  "aliases": ["common chives", "onion chives"],
+  "family": "Liliaceae",
+  "category": "herb",
+  "zone_6b_notes": "Hardy perennial in Zone 6b — one of the first plants to emerge in Farmington in late February or early March. Dies back in summer heat then returns in fall; cut back hard in August to encourage fresh growth. Beautiful purple-pink edible flowers in May are deer-resistant and attract pollinators. Divide clumps every 3 years to maintain vigor. Snip leaves to about 1 inch from base — plants will regrow quickly. Self-seeds prolifically if flowers are allowed to go to seed; deadhead after bloom to control spread.",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 3–9)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 8,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Direct sow in early spring or plant divisions at any time during growing season"
+  },
+  "spacing_inches": 8,
+  "sun": "full to partial",
+  "water": "moderate — 1 inch/week",
+  "deer_resistant": true,
+  "common_pests": ["onion thrips", "downy mildew", "white rot"],
+  "companion_plants": ["carrot", "tomato", "rose", "apple tree", "beet"],
+  "source": "manual",
+  "confidence": 1.0
+}

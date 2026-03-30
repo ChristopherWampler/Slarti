@@ -1,0 +1,41 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "mint-spearmint",
+  "common_name": "Spearmint",
+  "scientific_name": "Mentha spicata L.",
+  "usda_symbol": "MESP3",
+  "aliases": [
+    "common mint",
+    "garden mint",
+    "lamb mint"
+  ],
+  "family": "Lamiaceae",
+  "category": "herb",
+  "zone_6b_notes": "Hardy perennial in Zone 6b \u00e2\u20ac\u201d spreads aggressively via underground runners and will take over garden beds if not contained. Plant in containers or bury a root barrier 12 inches deep around the planting area. Farmington's moisture and moderate summers suit mint very well. Dies back to ground in winter and returns vigorously in spring. Harvest throughout growing season; cutting back promotes bushy growth and delays flowering. Best flavor before flowering \u00e2\u20ac\u201d pinch off flower stalks to extend harvest.",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 3\u00e2\u20ac\u201c9)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": 0,
+    "best_planting_time": "Plant starts or divisions in spring or fall"
+  },
+  "spacing_inches": 18,
+  "sun": "full to partial",
+  "water": "moderate \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c2 inches/week; tolerates moist conditions better than most herbs",
+  "common_pests": [
+    "spider mites",
+    "aphids",
+    "mint rust",
+    "verticillium wilt"
+  ],
+  "companion_plants": [
+    "tomato",
+    "cabbage",
+    "pea",
+    "carrot"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

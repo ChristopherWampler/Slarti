@@ -4,6 +4,8 @@
   "plant_slug": "marigold-french",
   "common_name": "French Marigold",
   "scientific_name": "Tagetes patula",
+  "usda_symbol": "TAPA",
+  "category": "flower",
   "aliases": [
     "marigold",
     "french marigold",

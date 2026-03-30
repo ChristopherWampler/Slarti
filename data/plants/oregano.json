@@ -4,6 +4,8 @@
   "plant_slug": "oregano",
   "common_name": "Greek Oregano",
   "scientific_name": "Origanum vulgare subsp. hirtum",
+  "usda_symbol": null,
+  "category": "herb",
   "aliases": [
     "oregano",
     "greek oregano",

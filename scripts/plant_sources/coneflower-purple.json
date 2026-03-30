@@ -1,0 +1,32 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "coneflower-purple",
+  "common_name": "Purple Coneflower",
+  "scientific_name": "Echinacea purpurea (L.) Moench",
+  "usda_symbol": "ECPU",
+  "aliases": ["echinacea", "hedgehog coneflower", "Magnus coneflower", "Kim's Knee High"],
+  "family": "Asteraceae",
+  "category": "flower",
+  "native_to_missouri": true,
+  "zone_6b_notes": "Missouri native — extremely reliable, long-lived perennial in Zone 6b. Blooms June through September in Farmington. Drought tolerant once established; thrives in Missouri heat. Leave seed heads standing through winter — goldfinches and other birds feed on them heavily. Divide every 4–5 years to maintain vigor. Deadhead spent blooms to encourage rebloom, or leave some for self-seeding. Magnus (large blooms, classic pink-purple) and Kim's Knee High (compact, front of border) are excellent cultivars. Attracts monarchs, swallowtails, bees, and goldfinches all season.",
+  "days_to_maturity": 365,
+  "type": "perennial (hardy Zone 3–9)",
+  "bloom_season": "June–September",
+  "mature_height_ft": 3,
+  "mature_spread_ft": 2,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 8,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Direct sow in fall for spring germination; transplant spring or fall"
+  },
+  "spacing_inches": 18,
+  "sun": "full to partial",
+  "water": "drought tolerant once established — 0.5–1 inch/week",
+  "deer_resistant": true,
+  "common_pests": ["aster yellows", "powdery mildew", "aphids", "Japanese beetle"],
+  "companion_plants": ["black-eyed-susan", "bee-balm", "salvia", "yarrow", "ornamental grass"],
+  "source": "manual",
+  "confidence": 1.0
+}

@@ -1,0 +1,46 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "cherry-tart",
+  "common_name": "Tart Cherry",
+  "scientific_name": "Prunus cerasus L.",
+  "usda_symbol": "PRCE",
+  "aliases": [
+    "sour cherry",
+    "pie cherry",
+    "Montmorency cherry",
+    "Balaton cherry"
+  ],
+  "family": "Rosaceae",
+  "category": "fruit_tree",
+  "zone_6b_notes": "More reliable than sweet cherry in Zone 6b \u00e2\u20ac\u201d tart cherries handle Missouri winters and spring frost better. Montmorency is the gold standard tart cherry for home orchards in Missouri; self-fruitful, so no pollinator required. Plant on a slope or elevated ground to avoid frost pockets during April bloom. Birds will clean a tree in hours \u00e2\u20ac\u201d netting as fruit colors is essential. Trees are smaller than sweet cherry (12\u00e2\u20ac\u201c15 ft) and easier to manage. Montmorency typically yields 10\u00e2\u20ac\u201c15 quarts per year at maturity. Harvest in June when fruit is deep red and slightly soft \u00e2\u20ac\u201d juice is bright pink and flavorful.",
+  "days_to_maturity": 1095,
+  "years_to_first_harvest": 3,
+  "mature_height_ft": 15,
+  "mature_spread_ft": 15,
+  "bloom_season": "early April",
+  "type": "perennial deciduous tree",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant dormant bare-root trees March to early April"
+  },
+  "spacing_inches": 180,
+  "sun": "full",
+  "water": "1\u00e2\u20ac\u201c1.5 inches/week during establishment and fruit development",
+  "common_pests": [
+    "cherry fruit fly",
+    "brown rot",
+    "leaf spot",
+    "birds",
+    "bacterial canker"
+  ],
+  "companion_plants": [
+    "garlic",
+    "marigold",
+    "clover"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

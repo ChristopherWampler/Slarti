@@ -1,0 +1,27 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "pumpkin",
+  "common_name": "Pumpkin",
+  "scientific_name": "Cucurbita pepo L.",
+  "usda_symbol": "CUPE",
+  "aliases": ["carving pumpkin", "pie pumpkin", "Jack-o-lantern", "Sugar Pie", "Connecticut Field"],
+  "family": "Cucurbitaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Direct sow after last frost — May 15 in Farmington, timing for Halloween harvest (count back 90–120 days). Missouri growing season fits most standard pumpkin varieties. Needs plenty of space — standard varieties spread 10–15 feet; plant at garden edge or in dedicated patch. Harvest when fully colored, stem is dry and corky, and skin resists scratching. Squash vine borers are the primary threat in Missouri — monitor for orange eggs on stem near base, remove by hand early. Cure at room temperature for 10 days; stores 2–3 months.",
+  "days_to_maturity": 95,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 3,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": 0,
+    "best_planting_time": "Direct sow mid-May; start indoors late April if desired"
+  },
+  "spacing_inches": 36,
+  "sun": "full",
+  "water": "1–1.5 inches/week; avoid overhead watering — wet foliage causes powdery mildew",
+  "common_pests": ["squash vine borer", "squash bug", "cucumber beetle", "powdery mildew", "Phytophthora blight"],
+  "companion_plants": ["corn", "beans", "marigold", "nasturtium", "sunflower"],
+  "source": "manual",
+  "confidence": 1.0
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "carrot",
+  "common_name": "Carrot",
+  "scientific_name": "Daucus carota L.",
+  "usda_symbol": "DACA6",
+  "aliases": [
+    "garden carrot",
+    "Nantes carrot",
+    "Danvers carrot"
+  ],
+  "family": "Apiaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Sow directly in early spring as soon as soil can be worked \u00e2\u20ac\u201d mid-March to April in Farmington. Missouri clay must be amended deeply (12+ inches) with compost or sand; rocky or compacted soil causes forked, stubby roots. For fall harvest, sow mid-July to August 1 \u00e2\u20ac\u201d carrots sweetened by fall frost are exceptional. Nantes and Danvers types perform best in Missouri soils.",
+  "days_to_maturity": 75,
+  "type": "biennial (grown as annual)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null
+  },
+  "spacing_inches": 3,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d 1 inch/week; irregular watering causes splitting and forked roots",
+  "common_pests": [
+    "carrot rust fly",
+    "aphids",
+    "alternaria leaf blight",
+    "cavity spot",
+    "parsleyworm"
+  ],
+  "companion_plants": [
+    "tomato",
+    "lettuce",
+    "onion",
+    "chives",
+    "rosemary"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

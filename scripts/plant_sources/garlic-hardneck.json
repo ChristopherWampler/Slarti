@@ -1,0 +1,27 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "garlic-hardneck",
+  "common_name": "Hardneck Garlic",
+  "scientific_name": "Allium sativum L.",
+  "usda_symbol": "ALSA2",
+  "aliases": ["garlic", "hardneck garlic", "Rocambole garlic", "Porcelain garlic"],
+  "family": "Liliaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Plant individual cloves in October (after first frost, before ground freezes — usually mid-October to early November in Farmington). Mulch with 4–6 inches of straw after planting. Remove scapes (curling flower stalks) in early June to redirect energy to bulbs. Harvest when lower 3–4 leaves are brown and upper 3–4 are still green — usually late June to mid-July. Cure in shaded, airy location for 4–6 weeks. Hardneck varieties (Rocambole, Porcelain, Purple Stripe) overwinter reliably in Zone 6b and have superior flavor.",
+  "days_to_maturity": 240,
+  "type": "perennial (grown as annual)",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "October — plant cloves 2 inches deep, mulch with straw"
+  },
+  "spacing_inches": 7,
+  "sun": "full",
+  "water": "1 inch/week through May; stop watering 2 weeks before harvest",
+  "common_pests": ["onion thrips", "white rot", "fusarium basal rot", "penicillium blue mold"],
+  "companion_plants": ["tomato", "pepper", "rose", "apple tree", "carrot"],
+  "source": "manual",
+  "confidence": 1.0
+}

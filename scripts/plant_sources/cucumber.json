@@ -4,6 +4,8 @@
   "plant_slug": "cucumber",
   "common_name": "Cucumber",
   "scientific_name": "Cucumis sativus",
+  "usda_symbol": "CUSA4",
+  "category": "vegetable",
   "aliases": ["cucumber", "cuke", "slicing cucumber", "pickling cucumber"],
   "family": "Cucurbitaceae",
   "zone_6b_notes": "Direct sow after soil reaches 60°F (mid-May in Farmington). Zone 6b's warm summers produce excellent cucumbers — expect harvest in 55–65 days. Train vertically on a trellis to save space and improve air circulation. Missouri heat and humidity promote bacterial wilt via cucumber beetles — row covers early help.",

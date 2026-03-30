@@ -4,6 +4,8 @@
   "plant_slug": "zucchini",
   "common_name": "Zucchini",
   "scientific_name": "Cucurbita pepo (zucchini group)",
+  "usda_symbol": "CUPE",
+  "category": "vegetable",
   "aliases": [
     "zucchini",
     "courgette",

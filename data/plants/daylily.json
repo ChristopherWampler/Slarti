@@ -1,0 +1,49 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "daylily",
+  "common_name": "Daylily",
+  "scientific_name": "Hemerocallis fulva (L.) L.",
+  "usda_symbol": "HEFU",
+  "aliases": [
+    "tawny daylily",
+    "orange daylily",
+    "ditch lily",
+    "Stella de Oro daylily",
+    "Happy Returns"
+  ],
+  "family": "Liliaceae",
+  "category": "flower",
+  "zone_6b_notes": "One of the most reliable, indestructible perennials in Zone 6b \u00e2\u20ac\u201d thrives on neglect in Farmington. Stella de Oro (gold, reblooming) and Happy Returns (yellow, extended season) are far superior to the common orange ditch lily for garden use. Modern reblooming hybrids bloom May through frost with proper deadheading. Divide clumps every 4\u00e2\u20ac\u201c5 years when flowering declines. Drought tolerant once established. Deer will eat them; if deer pressure is high, plant reblooming cultivars where deer rarely travel or protect with fencing. Each flower lasts one day but clumps carry dozens of buds.",
+  "days_to_maturity": null,
+  "type": "perennial (hardy Zone 3\u00e2\u20ac\u201c9)",
+  "bloom_season": "June\u00e2\u20ac\u201cAugust (reblooming cultivars: May\u00e2\u20ac\u201cfrost)",
+  "mature_height_ft": 2,
+  "mature_spread_ft": 2,
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Plant bare-root fans or divisions spring or fall"
+  },
+  "spacing_inches": 18,
+  "sun": "full to partial",
+  "water": "drought tolerant once established \u00e2\u20ac\u201d 0.5\u00e2\u20ac\u201c1 inch/week",
+  "deer_resistant": false,
+  "common_pests": [
+    "daylily gall midge",
+    "aphids",
+    "thrips",
+    "spider mites",
+    "leaf streak"
+  ],
+  "companion_plants": [
+    "coneflower",
+    "salvia",
+    "yarrow",
+    "ornamental grass",
+    "coreopsis"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

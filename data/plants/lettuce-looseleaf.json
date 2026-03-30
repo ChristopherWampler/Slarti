@@ -1,0 +1,44 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "lettuce-looseleaf",
+  "common_name": "Loose-Leaf Lettuce",
+  "scientific_name": "Lactuca sativa L.",
+  "usda_symbol": "LASA3",
+  "aliases": [
+    "leaf lettuce",
+    "cutting lettuce",
+    "Black Seeded Simpson",
+    "Red Sails"
+  ],
+  "family": "Asteraceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Sow directly as soon as soil can be worked in early spring \u00e2\u20ac\u201d mid-March in Farmington. Cold-tolerant to 28\u00c2\u00b0F; use row cover to extend season earlier. Bolts quickly in Missouri summer heat; spring harvest window closes by late May. Sow again in late August for fall crop \u00e2\u20ac\u201d fall lettuce is more flavorful and stays harvestable into November under row cover. Cut outer leaves rather than pulling entire plants to extend harvest. Black Seeded Simpson and Red Sails are reliable heat-tolerant loose-leaf types.",
+  "days_to_maturity": 45,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 4,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Mid-March (spring) or late August (fall)"
+  },
+  "spacing_inches": 6,
+  "sun": "full to partial",
+  "water": "consistent \u00e2\u20ac\u201d 1 inch/week; drought causes bitterness and bolting",
+  "common_pests": [
+    "aphids",
+    "slugs",
+    "lettuce mosaic virus",
+    "downy mildew",
+    "tipburn"
+  ],
+  "companion_plants": [
+    "carrot",
+    "radish",
+    "onion",
+    "strawberry",
+    "chives"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

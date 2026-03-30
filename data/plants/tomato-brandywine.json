@@ -4,6 +4,8 @@
   "plant_slug": "tomato-brandywine",
   "common_name": "Brandywine Tomato",
   "scientific_name": "Solanum lycopersicum 'Brandywine'",
+  "usda_symbol": "SOLY2",
+  "category": "vegetable",
   "aliases": [
     "brandywine",
     "pink brandywine",

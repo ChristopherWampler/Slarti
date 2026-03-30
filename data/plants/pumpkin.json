@@ -1,0 +1,45 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "pumpkin",
+  "common_name": "Pumpkin",
+  "scientific_name": "Cucurbita pepo L.",
+  "usda_symbol": "CUPE",
+  "aliases": [
+    "carving pumpkin",
+    "pie pumpkin",
+    "Jack-o-lantern",
+    "Sugar Pie",
+    "Connecticut Field"
+  ],
+  "family": "Cucurbitaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Direct sow after last frost \u00e2\u20ac\u201d May 15 in Farmington, timing for Halloween harvest (count back 90\u00e2\u20ac\u201c120 days). Missouri growing season fits most standard pumpkin varieties. Needs plenty of space \u00e2\u20ac\u201d standard varieties spread 10\u00e2\u20ac\u201c15 feet; plant at garden edge or in dedicated patch. Harvest when fully colored, stem is dry and corky, and skin resists scratching. Squash vine borers are the primary threat in Missouri \u00e2\u20ac\u201d monitor for orange eggs on stem near base, remove by hand early. Cure at room temperature for 10 days; stores 2\u00e2\u20ac\u201c3 months.",
+  "days_to_maturity": 95,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 3,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": 0,
+    "best_planting_time": "Direct sow mid-May; start indoors late April if desired"
+  },
+  "spacing_inches": 36,
+  "sun": "full",
+  "water": "1\u00e2\u20ac\u201c1.5 inches/week; avoid overhead watering \u00e2\u20ac\u201d wet foliage causes powdery mildew",
+  "common_pests": [
+    "squash vine borer",
+    "squash bug",
+    "cucumber beetle",
+    "powdery mildew",
+    "Phytophthora blight"
+  ],
+  "companion_plants": [
+    "corn",
+    "beans",
+    "marigold",
+    "nasturtium",
+    "sunflower"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

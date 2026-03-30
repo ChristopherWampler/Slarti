@@ -1,0 +1,45 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "broccoli",
+  "common_name": "Broccoli",
+  "scientific_name": "Brassica oleracea L. var. italica",
+  "usda_symbol": "BROL",
+  "aliases": [
+    "heading broccoli",
+    "Calabrese broccoli",
+    "Green Magic",
+    "Belstar"
+  ],
+  "family": "Brassicaceae",
+  "category": "vegetable",
+  "zone_6b_notes": "Start indoors 6\u00e2\u20ac\u201c8 weeks before last frost (February in Farmington) for spring crop, or direct-sow in late July for fall crop. Spring broccoli is a race against Missouri heat \u00e2\u20ac\u201d transplant out as early as late March and harvest before June. Fall broccoli is more reliable and flavorful; frost sweetens the heads. Harvest heads while tight and dark green \u00e2\u20ac\u201d yellow florets mean it has gone past. Side shoots continue producing for weeks after main head harvest. Cabbage loopers and imported cabbageworms are the main pest threat in Missouri.",
+  "days_to_maturity": 80,
+  "type": "annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": 7,
+    "direct_sow": false,
+    "transplant_after_last_frost_weeks": -4,
+    "best_planting_time": "Transplant late March to early April (spring); direct sow late July (fall)"
+  },
+  "spacing_inches": 18,
+  "sun": "full",
+  "water": "consistent \u00e2\u20ac\u201d 1\u00e2\u20ac\u201c1.5 inches/week; drought causes small or bitter heads",
+  "common_pests": [
+    "cabbage loopers",
+    "imported cabbageworm",
+    "aphids",
+    "flea beetles",
+    "clubroot",
+    "black rot"
+  ],
+  "companion_plants": [
+    "onion",
+    "garlic",
+    "dill",
+    "chamomile",
+    "celery"
+  ],
+  "source": "manual",
+  "confidence": 1.0
+}

@@ -4,6 +4,8 @@
   "plant_slug": "thyme",
   "common_name": "Common Thyme",
   "scientific_name": "Thymus vulgaris",
+  "usda_symbol": null,
+  "category": "herb",
   "aliases": [
     "thyme",
     "garden thyme",

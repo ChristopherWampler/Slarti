@@ -1,0 +1,36 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "plant",
+  "plant_slug": "fennel",
+  "common_name": "Fennel",
+  "scientific_name": "Foeniculum vulgare Mill.",
+  "usda_symbol": "FOVU",
+  "aliases": [
+    "sweet fennel",
+    "Florence fennel",
+    "bronze fennel",
+    "finocchio"
+  ],
+  "family": "Apiaceae",
+  "category": "herb",
+  "zone_6b_notes": "Grown as annual herb (bronze fennel for foliage/seeds) or as bulbing vegetable (Florence fennel) in Farmington. Direct sow after last frost or transplant carefully \u00e2\u20ac\u201d fennel resents root disturbance. Florence fennel requires a long cool season; best as fall crop (sow July for October harvest) since Missouri heat causes premature bolting in spring. Bronze fennel is perennial-tough but not reliably hardy past Zone 6b. Important: plant fennel away from other vegetables \u00e2\u20ac\u201d it releases allelopathic compounds that suppress germination and growth. Excellent for swallowtail butterflies.",
+  "days_to_maturity": 65,
+  "type": "perennial herb (tender in 6b); Florence fennel grown as annual",
+  "planting": {
+    "start_indoors_weeks_before_last_frost": null,
+    "direct_sow": true,
+    "transplant_after_last_frost_weeks": null,
+    "best_planting_time": "Direct sow May (herb use) or July (Florence bulb harvest in fall)"
+  },
+  "spacing_inches": 12,
+  "sun": "full",
+  "water": "moderate \u00e2\u20ac\u201d 1 inch/week",
+  "common_pests": [
+    "aphids",
+    "parsleyworm",
+    "slugs"
+  ],
+  "companion_plants": [],
+  "source": "manual",
+  "confidence": 1.0
+}

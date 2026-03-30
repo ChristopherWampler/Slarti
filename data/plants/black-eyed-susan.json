@@ -4,6 +4,9 @@
   "plant_slug": "black-eyed-susan",
   "common_name": "Black-Eyed Susan",
   "scientific_name": "Rudbeckia hirta",
+  "usda_symbol": "RUHI2",
+  "category": "flower",
+  "native_to_missouri": true,
   "aliases": [
     "black-eyed susan",
     "black eyed susan",
