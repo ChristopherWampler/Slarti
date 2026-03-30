@@ -491,11 +491,58 @@ Gateway was dying silently (no auto-restart). Fixed with `~/.openclaw/gateway_re
 
 ---
 
-## What's Left (Phases 9, 13)
+## Phase 13 — Voice PWA
+
+**Completed:** 2026-03-30
+
+### What was built
+
+| File | Purpose |
+|---|---|
+| `scripts/voice_webhook.py` | FastAPI server on port 8080 — serves PWA frontend, handles `/transcribe`, `/speak`, `/save-session`, `/health` endpoints |
+| `pwa/index.html` | Complete PWA frontend — VAD, noise calibration, single tap-to-begin for iOS, orb state machine |
+| `config/voice_profile.json` | TTS config: provider, model, voice, instructions — hot-reloadable without server restart |
+| `config/ssl/cert.pem` + `key.pem` | Self-signed SSL cert with IP SAN (git-ignored) — required for iOS getUserMedia over LAN |
+| `scripts/test_voice.sh` | Auto-incrementing test script for curl-based endpoint verification (saves to Desktop) |
+
+### Mode P flow
+
+1. iPhone opens `https://[windows-ip]:8080?author=christopher`
+2. Tap BEGIN — iOS gesture unlocks mic and audio playback (`<audio playsinline>`)
+3. VAD calibrates 30-frame noise floor; speech threshold = floor × 2.2 (minimum 0.010)
+4. Speech detected → MediaRecorder starts → 1.4s of silence → audio sent to `/transcribe`
+5. Whisper (`whisper-1`, `language='en'`) transcribes → text sent to `/speak`
+6. Claude Sonnet responds (hot context injected on first turn) → OpenAI TTS streams mp3 back
+7. End session → POST to `/save-session` → JSON written to `data/voice_sessions/2026/` → `extraction_agent.py` triggered in background → Discord post to #garden-log
+
+### Starting the voice server (WSL2)
+
+```bash
+# Foreground (with output)
+python3 /mnt/c/Openclaw/slarti/scripts/voice_webhook.py
+
+# Background with log
+nohup python3 /mnt/c/Openclaw/slarti/scripts/voice_webhook.py \
+  > /mnt/c/Openclaw/slarti/logs/daily/voice_webhook.log 2>&1 &
+```
+
+### Key decisions and discoveries
+
+- **ElevenLabs dropped** — quota-based subscription; replaced with OpenAI gpt-4o-mini-tts (pay-as-you-go, fractions of a cent per response)
+- **Web Speech API dropped** — iOS Safari requires HTTPS for SpeechRecognition; switched to MediaRecorder + server-side Whisper entirely
+- **Web search removed from voice** — Anthropic tool use calls take 10–30 seconds; PWA fetch timed out silently. Plant DB loaded directly into hot context instead (fast and sufficient for garden questions)
+- **`language='en'` in Whisper** — Without it, Whisper hallucinates Chinese/Korean text from background noise during silence
+- **`<audio playsinline>` not Web Audio API** — Web Audio API routes through the ambient audio channel (respects iPhone silent switch). The `<audio>` element routes through AVAudioSessionCategoryPlayback — plays even when the phone is on vibrate
+- **Self-signed SSL with openssl IP SAN** — iOS Safari refuses `getUserMedia` on non-HTTPS origins. Hostname-based certs don't work for LAN IPs; the cert must have a `subjectAltName: IP:192.168.x.x` entry
+- **netsh portproxy** — WSL2 network is isolated; iOS on the same LAN hits the Windows IP, not the WSL2 IP. `netsh interface portproxy add v4tov4` forwards traffic transparently
+- **HTTP header sanitization** — h11 (uvicorn's HTTP library) enforces strict header value validation. Slarti's text responses go into `X-Slarti-Response` — any control characters (including newlines) cause a 500. Resolved with a whitelist filter: `0x20–0x7e or 0x80–0xff`, everything else replaced with a space
+
+---
+
+## What's Left (Phase 9)
 
 | Phase | What it builds |
 |---|---|
 | 9 | `!setup` onboarding wizard — walks Emily through each garden bed one at a time (deferred) |
-| 13 | Voice PWA (ElevenLabs + FastAPI + Siri Shortcut on iPhone) |
 
-See `CHRISTOPHER_BUILD_GUIDE.md` for detailed commands for each phase.
+Phase 13 (Voice PWA) is complete. See Phase 13 section above.

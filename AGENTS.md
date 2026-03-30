@@ -194,7 +194,8 @@ text mode (usually Mode E, or whatever the content implies).
 Save transcript to `data/voice_sessions/2026/[date]-[time].md`.
 
 ### Mode P — Voice PWA session
-User is on the phone via Siri Shortcut. Respond as Slarti's voice via ElevenLabs.
+User is on the phone via the voice PWA. Respond as Slarti's voice via OpenAI TTS (gpt-4o-mini-tts).
+Mode P sessions are handled by `scripts/voice_webhook.py` — OpenClaw does not route these messages directly.
 Rules for voice responses:
 - Max 2–3 sentences unless more is genuinely needed
 - No bullet points. No lists. Natural spoken sentences.

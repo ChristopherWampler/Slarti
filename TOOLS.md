@@ -56,7 +56,7 @@ Channel roles:
 - Embeddings: Google text-embedding-004
 - Image generation (mockups): Google gemini-3.1-flash-image-preview
 - Image fallback: OpenAI DALL-E 3
-- Voice output: ElevenLabs
+- Voice output: OpenAI gpt-4o-mini-tts (pay-as-you-go)
 
 ## Scripts
 
@@ -66,11 +66,24 @@ Channel roles:
 | `scripts/weather_agent.py` | cron 6 AM daily | NWS forecast → frost/heat advisories → #garden-log |
 | `scripts/weekly_summary_agent.py` | cron Sunday 6 PM | Week's events → Claude narrative → #garden-log |
 | `scripts/voice_session_writer.py` | on audio upload | Transcribes audio → saves voice session → triggers extraction |
+| `scripts/voice_webhook.py` | manual / startup | FastAPI voice PWA server (port 8080) — serves pwa/index.html |
 | `scripts/photo_agent.py` | on photo upload | Downloads photo → EXIF extraction → metadata JSON |
 | `scripts/image_agent.py` | on MOCKUP/DESIGN marker | Gemini/DALL-E image generation → Discord post |
 | `scripts/populate_plants.py` | manual | Validates + seeds data/plants/ from scripts/plant_sources/ |
+| `scripts/discord_alert.py` | called by git_push.sh | Posts failure alerts to #admin-log via webhook |
+| `scripts/markitdown_ingest.py` | manual | Converts audio/PDF/Office/images to Markdown |
 | `scripts/git_push.sh` | cron 3 AM daily | pg_dump + git commit + push |
 | `scripts/restart.sh` | manual | Restarts Docker + cron + verifies health |
+| `scripts/test_voice.sh` | manual | Tests /transcribe and /speak endpoints, saves audio to Desktop |
+
+## Voice PWA (Mode P)
+
+- Server: `scripts/voice_webhook.py` (FastAPI, port 8080, HTTPS)
+- Frontend: `pwa/index.html` — hands-free VAD, auto noise calibration, tap-once-to-begin
+- TTS config: `config/voice_profile.json` — provider, model, voice, instructions
+- SSL certs: `config/ssl/` (git-ignored — generate with openssl, IP SAN required for LAN)
+- Voice sessions: `data/voice_sessions/2026/`
+- Access from iPhone: `https://[windows-ip]:8080?author=christopher`
 
 ## Key Config Files
 
@@ -78,5 +91,6 @@ Channel roles:
 - config/provider_policy.json — provider role restrictions
 - config/confidence_thresholds.json — confidence gates for memory writes
 - config/discord_users.json — Discord ID → author mapping
+- config/voice_profile.json — TTS provider, model, voice, spoken instructions
 - data/system/health_status.json — system health tracker
 - data/system/write_log.json — all memory writes logged here

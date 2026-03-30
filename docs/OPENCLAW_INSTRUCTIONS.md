@@ -17,11 +17,11 @@ You are not Slarti. You assemble the context that lets Claude be Slarti. Every c
 
 On every start (via `restart.sh` or manual launch), verify before accepting events:
 
-1. Load `config/app_config.json` — this is your runtime config source of truth
-2. Load `config/openclaw.yaml` — your routing and path configuration
-3. Load `config/mode_classifiers.yaml` — your mode routing rules
-4. Verify `prompts/system/SOUL.md` exists and is readable
-5. Verify `prompts/system/AGENTS.md` exists and is readable
+1. Load `config/app_config.json` — runtime config source of truth (model name, NWS coords, ports)
+2. Load `~/.openclaw/openclaw.json` — gateway config (auth token, channel bindings, agent workspace)
+3. Load `AGENTS.md` from the configured workspace — mode classification and behavioral rules
+4. Verify root `SOUL.md` exists and is readable — this is the primary; `prompts/system/SOUL.md` is a reference copy only
+5. Verify root `AGENTS.md` exists and is readable — same as step 3
 6. Verify Postgres connection: `SELECT 1`
 7. Verify `data/system/health_status.json` exists — create from schema if missing
 8. Verify `.env` is loaded (all `ANTHROPIC_API_KEY`, `DISCORD_BOT_TOKEN` present)

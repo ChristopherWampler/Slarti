@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang='en'><head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<meta name='apple-mobile-web-app-capable' content='yes'>
+<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent'>
+<meta name='apple-mobile-web-app-title' content='Slarti'>
+<title>Slarti</title>
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:#0d1a0f; color:#c8e6c9; font:18px/1.6 Georgia,serif;
+         min-height:100vh; display:flex; flex-direction:column; }
+  header { padding:16px 20px; text-align:center; border-bottom:1px solid #2e5c2e; }
+  header h1 { font-size:26px; color:#81c784; letter-spacing:3px; }
+  header p  { font-size:12px; color:#558b55; margin-top:2px; }
+
+  /* Start screen */
+  #startScreen { position:fixed; inset:0; background:#0d1a0f; z-index:100;
+                 display:flex; flex-direction:column; align-items:center;
+                 justify-content:center; gap:32px; padding:40px; text-align:center; }
+  #startScreen h2 { font-size:22px; color:#81c784; }
+  #startScreen p  { font-size:15px; color:#558b55; line-height:1.7; }
+  #startBtn { width:120px; height:120px; border-radius:50%; border:2px solid #2e7d32;
+              background:#1b3a1b; color:#81c784; font-size:14px; letter-spacing:1px;
+              cursor:pointer; transition:all 0.2s; }
+  #startBtn:active { background:#2e7d32; }
+
+  /* Main session UI */
+  #sessionUI { display:none; flex:1; flex-direction:column; }
+  #transcript { flex:1; overflow-y:auto; padding:16px; display:flex;
+                flex-direction:column; gap:10px; }
+  .bubble { max-width:88%; padding:10px 14px; border-radius:14px;
+            font-size:15px; line-height:1.5; }
+  .user-bubble { background:#1b3a1b; border:1px solid #2e5c2e;
+                 align-self:flex-end; color:#c8e6c9;
+                 border-radius:14px 4px 14px 14px; }
+  .slarti-bubble { background:#0a2a12; border:1px solid #1a4a1a;
+                   align-self:flex-start; color:#a5d6a7;
+                   border-radius:4px 14px 14px 14px; }
+  .slarti-bubble .name { font-size:10px; color:#558b55; margin-bottom:3px; }
+  #statusBar { text-align:center; font-size:13px; color:#558b55;
+               padding:6px 16px; min-height:28px; }
+
+  /* VAD orb */
+  .controls { padding:16px 20px 24px; display:flex; flex-direction:column;
+              align-items:center; gap:14px; border-top:1px solid #2e5c2e; }
+  #orb { width:80px; height:80px; border-radius:50%; border:none;
+         cursor:pointer; transition:background 0.3s, box-shadow 0.3s;
+         display:flex; align-items:center; justify-content:center; font-size:30px; }
+  #orb.idle     { background:#1b3a1b; box-shadow:0 0 0 0 rgba(46,125,50,0.4);
+                  animation:breathe 3s ease-in-out infinite; }
+  #orb.recording{ background:#c62828; animation:pulse 0.9s infinite; }
+  #orb.processing{ background:#e65100; cursor:default; }
+  #orb.speaking  { background:#1565c0; cursor:pointer; animation:pulse 1.6s infinite; }
+  @keyframes breathe {
+    0%,100%{ box-shadow:0 0 0 0 rgba(46,125,50,0.3); }
+    50%    { box-shadow:0 0 0 18px rgba(46,125,50,0); } }
+  @keyframes pulse {
+    0%  { box-shadow:0 0 0 0 rgba(255,255,255,0.3); }
+    70% { box-shadow:0 0 0 14px rgba(255,255,255,0); }
+    100%{ box-shadow:0 0 0 0 rgba(255,255,255,0); } }
+  #endBtn { background:none; border:1px solid #2e5c2e; color:#558b55;
+            padding:7px 22px; border-radius:20px; font-size:13px; cursor:pointer; }
+</style>
+</head><body>
+
+<!-- Start screen — one required tap for iOS mic + audio unlock -->
+<div id='startScreen'>
+  <h2>SLARTI</h2>
+  <p>Tap to begin your session.<br>After this, just speak — no buttons needed.</p>
+  <button id='startBtn'>BEGIN</button>
+  <p id='startLabel' style='font-size:12px;color:#2e5c2e'></p>
+</div>
+
+<!-- Session UI -->
+<div id='sessionUI'>
+  <header>
+    <h1>SLARTI</h1>
+    <p id='authorLabel'>Garden Companion</p>
+  </header>
+  <div id='transcript'></div>
+  <div id='statusBar'>Listening...</div>
+  <div class='controls'>
+    <div id='orb' class='idle'>🌿</div>
+    <button id='endBtn'>End session</button>
+  </div>
+</div>
+
+<audio id='player' playsinline></audio>
+
+<script>
+// ─── Config ───────────────────────────────────────────────────────────────────
+const SPEECH_THRESHOLD_MULT = 2.2;  // threshold = noise_floor × this
+const MIN_SPEECH_THRESHOLD   = 0.010;
+const POST_SPEECH_SILENCE_MS = 1400; // ms of quiet before sending
+const MAX_RECORDING_MS       = 30000;
+const CALIBRATION_SAMPLES    = 30;  // frames (~500ms)
+
+// ─── Setup ────────────────────────────────────────────────────────────────────
+const params   = new URLSearchParams(location.search);
+const author   = params.get('author') || 'unknown';
+const WEBHOOK  = location.origin;
+const player   = document.getElementById('player');
+const orb      = document.getElementById('orb');
+const statusBar= document.getElementById('statusBar');
+const ts       = document.getElementById('transcript');
+const endBtn   = document.getElementById('endBtn');
+const startBtn = document.getElementById('startBtn');
+
+document.getElementById('authorLabel').textContent =
+  author === 'emily' ? "Emily's Garden Session" :
+  author === 'christopher' ? "Christopher's Garden Session" : 'Garden Session';
+
+// ─── State ────────────────────────────────────────────────────────────────────
+// stopped → idle → recording → processing → speaking → idle
+let appState = 'stopped';
+let history  = [], sessionStart = new Date().toISOString();
+let micStream = null, vadCtx = null, analyser = null, dataArray = null;
+let mediaRecorder = null, audioChunks = [], rafId = null;
+let silenceTimer = null, maxRecTimer = null;
+let noiseFloor = 0.01, speechThreshold = MIN_SPEECH_THRESHOLD;
+let audioUnlocked = false, currentlyPlaying = false;
+
+// ─── Audio unlock (iOS: <audio> must be touched in user gesture) ──────────────
+function unlockAudio() {
+  if (audioUnlocked) return;
+  const silent = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA=';
+  player.src = silent;
+  player.play().then(() => { player.pause(); player.src = ''; }).catch(() => {});
+  audioUnlocked = true;
+}
+
+// ─── VAD helpers ─────────────────────────────────────────────────────────────
+function calcRMS() {
+  analyser.getByteTimeDomainData(dataArray);
+  let sum = 0;
+  for (let i = 0; i < dataArray.length; i++) {
+    const v = (dataArray[i] - 128) / 128;
+    sum += v * v;
+  }
+  return Math.sqrt(sum / dataArray.length);
+}
+
+async function calibrateNoise() {
+  setStatus('Calibrating for your surroundings...');
+  return new Promise(resolve => {
+    const samples = [];
+    function sample() {
+      samples.push(calcRMS());
+      if (samples.length < CALIBRATION_SAMPLES) { requestAnimationFrame(sample); return; }
+      // Use 90th percentile as noise floor
+      samples.sort((a, b) => a - b);
+      noiseFloor = samples[Math.floor(samples.length * 0.9)];
+      speechThreshold = Math.max(noiseFloor * SPEECH_THRESHOLD_MULT, MIN_SPEECH_THRESHOLD);
+      resolve();
+    }
+    requestAnimationFrame(sample);
+  });
+}
+
+// ─── VAD loop ─────────────────────────────────────────────────────────────────
+function vadLoop() {
+  if (appState !== 'idle' && appState !== 'recording') return;
+  const rms = calcRMS();
+
+  if (appState === 'idle' && rms > speechThreshold) {
+    startCapture();
+  } else if (appState === 'recording') {
+    if (rms > speechThreshold) {
+      // Still speaking — reset silence timer
+      clearTimeout(silenceTimer);
+      silenceTimer = setTimeout(stopCapture, POST_SPEECH_SILENCE_MS);
+    }
+  }
+  rafId = requestAnimationFrame(vadLoop);
+}
+
+// ─── Recording ────────────────────────────────────────────────────────────────
+function startCapture() {
+  if (appState !== 'idle') return;
+  setState('recording');
+  audioChunks = [];
+  mediaRecorder = new MediaRecorder(micStream);
+  mediaRecorder.ondataavailable = e => { if (e.data.size > 0) audioChunks.push(e.data); };
+  mediaRecorder.onstop = onRecordingStop;
+  mediaRecorder.start();
+  // Safety: stop after max duration
+  maxRecTimer = setTimeout(stopCapture, MAX_RECORDING_MS);
+  // Start silence watchdog
+  silenceTimer = setTimeout(stopCapture, POST_SPEECH_SILENCE_MS);
+}
+
+function stopCapture() {
+  if (appState !== 'recording') return;
+  clearTimeout(silenceTimer);
+  clearTimeout(maxRecTimer);
+  if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+  setState('processing');
+}
+
+async function onRecordingStop() {
+  const mimeType = mediaRecorder.mimeType || 'audio/webm';
+  const ext  = mimeType.includes('mp4') ? 'm4a' : 'webm';
+  const blob = new Blob(audioChunks, { type: mimeType });
+
+  // Ignore very short clips (< 0.5s) — likely noise
+  if (blob.size < 3000) { setState('idle'); startVAD(); return; }
+
+  setStatus('Heard you — transcribing...');
+  try {
+    const form = new FormData();
+    form.append('audio', blob, `audio.${ext}`);
+    const res  = await fetch(`${WEBHOOK}/transcribe`, { method:'POST', body: form });
+    const data = await res.json();
+    const text = (data.text || '').trim();
+
+    if (!text) { setState('idle'); setStatus('Listening...'); startVAD(); return; }
+    if (/^(done|stop|end|goodbye|bye)\b/i.test(text)) { endSession(); return; }
+
+    addBubble('user', text);
+    await sendToSlarti(text);
+  } catch(e) {
+    setStatus('Connection issue — is Slarti running on the PC?');
+    setState('idle'); startVAD();
+  }
+}
+
+// ─── Slarti response ──────────────────────────────────────────────────────────
+async function sendToSlarti(text) {
+  setStatus('Slarti is thinking...');
+  try {
+    const res = await fetch(`${WEBHOOK}/speak`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ text, author, history: history.slice(0,-1) })
+    });
+    const slartText = res.headers.get('X-Slarti-Response') || '';
+    addBubble('slarti', slartText);
+    const blob = await res.blob();
+    setState('speaking');
+    setStatus('Slarti is speaking... (tap orb to interrupt)');
+    await playAudio(blob);
+    if (appState === 'speaking') {
+      setState('idle');
+      setStatus('Listening...');
+      startVAD();
+    }
+  } catch(e) {
+    setStatus('Connection issue — is Slarti running on the PC?');
+    setState('idle'); startVAD();
+  }
+}
+
+// ─── Audio playback ───────────────────────────────────────────────────────────
+function playAudio(blob) {
+  const url = URL.createObjectURL(blob);
+  player.src = url;
+  currentlyPlaying = true;
+  return new Promise(resolve => {
+    player.onended = () => { URL.revokeObjectURL(url); currentlyPlaying = false; resolve(); };
+    player.onerror = () => { URL.revokeObjectURL(url); currentlyPlaying = false; resolve(); };
+    player.play().catch(() => { currentlyPlaying = false; resolve(); });
+  });
+}
+
+function stopAudio() {
+  if (currentlyPlaying) { player.pause(); player.src = ''; currentlyPlaying = false; }
+}
+
+// ─── State machine ────────────────────────────────────────────────────────────
+function setState(s) {
+  appState = s;
+  orb.className = s === 'stopped' ? 'idle' : s;
+}
+
+function setStatus(msg) { statusBar.textContent = msg; }
+
+function startVAD() {
+  if (rafId) cancelAnimationFrame(rafId);
+  rafId = requestAnimationFrame(vadLoop);
+}
+
+// ─── Transcript ───────────────────────────────────────────────────────────────
+function addBubble(role, text) {
+  const div = document.createElement('div');
+  div.className = role === 'user' ? 'bubble user-bubble' : 'bubble slarti-bubble';
+  if (role === 'slarti') {
+    div.innerHTML = '<div class="name">Slarti</div>' + text;
+  } else { div.textContent = text; }
+  ts.appendChild(div);
+  div.scrollIntoView({ behavior:'smooth' });
+  history.push({ role: role === 'user' ? 'user' : 'assistant', text });
+}
+
+// ─── Session start ────────────────────────────────────────────────────────────
+startBtn.addEventListener('click', async () => {
+  const label = document.getElementById('startLabel');
+  label.textContent = 'Starting...';
+  startBtn.disabled = true;
+
+  unlockAudio(); // must happen in user gesture
+
+  try {
+    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch(e) {
+    label.textContent = 'Microphone access denied — check Safari settings';
+    startBtn.disabled = false; return;
+  }
+
+  // Set up VAD analyser
+  vadCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (vadCtx.state === 'suspended') vadCtx.resume();
+  analyser = vadCtx.createAnalyser();
+  analyser.fftSize = 512;
+  analyser.smoothingTimeConstant = 0.4;
+  dataArray = new Uint8Array(analyser.frequencyBinCount);
+  vadCtx.createMediaStreamSource(micStream).connect(analyser);
+
+  // Show session UI
+  document.getElementById('startScreen').style.display = 'none';
+  document.getElementById('sessionUI').style.display = 'flex';
+
+  await calibrateNoise();
+  setState('idle');
+  setStatus('Listening...');
+  startVAD();
+});
+
+// ─── Orb tap — interrupt Slarti mid-speech ────────────────────────────────────
+orb.addEventListener('click', () => {
+  if (appState === 'speaking') {
+    stopAudio();
+    setState('idle');
+    setStatus('Listening...');
+    startVAD();
+  }
+});
+
+// ─── End session ──────────────────────────────────────────────────────────────
+async function endSession() {
+  if (rafId) cancelAnimationFrame(rafId);
+  clearTimeout(silenceTimer); clearTimeout(maxRecTimer);
+  if (appState === 'recording' && mediaRecorder && mediaRecorder.state !== 'inactive') {
+    mediaRecorder.stop();
+  }
+  stopAudio();
+  if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
+  if (vadCtx) { vadCtx.close(); vadCtx = null; }
+  setState('stopped');
+  setStatus('Saving session...');
+
+  const transcript = history.map(h => ({
+    role: h.role === 'user' ? 'user' : 'slarti',
+    text: h.text,
+    timestamp: new Date().toISOString()
+  }));
+  try {
+    await fetch(`${WEBHOOK}/save-session`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ author, started_at: sessionStart, transcript })
+    });
+    setStatus('Session saved. See you in the garden.');
+  } catch(e) {
+    setStatus('Session ended — will sync when back online.');
+  }
+  endBtn.disabled = true;
+}
+
+endBtn.addEventListener('click', endSession);
+
+// Auto-session timeout: 2 min of total silence
+let globalSilenceTimer;
+function resetGlobalTimer() {
+  clearTimeout(globalSilenceTimer);
+  globalSilenceTimer = setTimeout(() => {
+    if (appState === 'idle') endSession();
+  }, 120000);
+}
+// Reset on every new user bubble
+const origAddBubble = addBubble;
+</script></body></html>

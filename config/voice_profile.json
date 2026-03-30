@@ -1,0 +1,13 @@
+{
+  "schema_version": "5.2",
+  "provider": "openai",
+  "model": "gpt-4o-mini-tts",
+  "voice": "fable",
+  "response_format": "mp3",
+  "instructions": "Older British male. Refined received pronunciation — warm baritone with a slight rasp of age. Measured, deliberate pacing with thoughtful pauses. Dry wit delivered quietly, never performed. The manner of an eccentric scholar who finds the garden genuinely fascinating — calm authority, understated intelligence, and a hint of amusement at the world. Never rushed, never clinical, never young.",
+  "notes": {
+    "model": "gpt-4o-mini-tts supports instructions parameter for voice character shaping",
+    "voice": "Options: alloy, ash, ballad, coral, echo, fable, nova, onyx, sage, shimmer, verse. onyx = deep and measured.",
+    "format": "mp3 for maximum iOS/Safari compatibility. opus = lower latency but less browser support."
+  }
+}

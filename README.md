@@ -1,50 +1,70 @@
-# Slarti — Garden Companion AI
+# Slarti
 
-A family garden companion AI for Christopher and Emily in Farmington, Missouri (USDA Zone 6b). Slarti lives in Discord, knows the garden, remembers what you've planted and decided, and talks like a knowledgeable friend — not a database or a dashboard.
+*Named after Slartibartfast — a master designer who cared deeply about craft, shape, and the feel of places. He won an award for fjords. That level of care is what this garden deserves.*
 
-**Orchestrator:** [OpenClaw](https://openclaw.ai) · **AI:** Claude Sonnet 4.6 · **Photos:** Gemini Flash · **Voice:** ElevenLabs · **DB:** Postgres + pgvector
+Slarti is a family AI companion built for Christopher and Emily's garden in Farmington, Missouri (USDA Zone 6b). Not a dashboard. Not an app. A knowledgeable friend who knows the garden, remembers everything, and talks like a person — warm, curious, and grounded in the specific reality of this place.
 
----
-
-## What Slarti Does
-
-Drop a photo in Discord and Slarti will analyze what it sees, flag anything wrong, and suggest what to do next. Describe a bed redesign in text and it will sketch a plan. Ask about a plant and it draws on Zone 6b-specific knowledge. Each morning at 6 AM it checks the weather and posts a frost or heat advisory to #garden-log when conditions matter. Everything gets remembered — plants, decisions, observations — and retrieved via semantic search when relevant.
+It lives in Discord. It listens to voice notes. You can call it from your phone while your hands are in the dirt.
 
 ---
 
-## Interaction Modes
+## What Slarti does
 
-| Mode | Trigger | What happens |
-|---|---|---|
-| A | Photo only | Gemini analyzes the photo, Slarti responds with observations |
-| B | Photo + change/mockup request | Analysis + gemini-3.1-flash-image-preview mockup |
-| C | Text design description (no photo) | Written plan or layout recommendation |
-| D | Plant ID or unfamiliar subject in photo | Plant identification + Zone 6b advice |
-| E | Casual conversation | Normal chat, garden questions, recommendations |
-| V | Audio file dropped in Discord | MarkItDown transcription → handled as voice note |
-| P | Siri Shortcut → voice PWA | Live voice session, synced to Discord after |
-| COMMAND | `!` prefix | Handled by command parser, bypasses mode classification |
+- **Analyzes garden photos** — drop a photo in Discord and Slarti describes what it sees, flags anything wrong, and recommends what to do next
+- **Generates visual mockups** — describe a bed redesign in text or attach a photo with a change request; Slarti generates a concept image via Gemini
+- **Identifies plants** — send a photo of something unfamiliar and Slarti identifies it with Zone 6b-specific care advice
+- **Watches the weather** — every morning at 6 AM it checks the NWS forecast and posts a frost or heat advisory to #garden-log when conditions matter
+- **Remembers everything** — plants, decisions, observations, and conversations are stored in pgvector and retrieved by semantic search when relevant
+- **Talks on the phone** — voice PWA served over HTTPS; tap once, speak freely, hands-free VAD does the rest
+- **Summarizes the week** — every Sunday at 6 PM it writes a warm narrative recap of the week's garden activity and posts it to #garden-log
+- **Transcribes voice notes** — drop an audio file in Discord and it transcribes, extracts facts, and files them into memory automatically
 
 ---
 
-## Architecture
+## How it works
+
+### Providers
 
 | Task | Provider | Model |
 |---|---|---|
 | Conversation, agents, summaries | Anthropic | Claude Sonnet 4.6 |
-| Photo analysis | Google | Gemini Flash |
-| Image generation (mockups) | Google | gemini-3.1-flash-image-preview |
+| Photo analysis (Modes A, D) | Anthropic | Claude Sonnet 4.6 (multimodal) |
+| Image generation (Modes B, C) | Google | gemini-3.1-flash-image-preview |
 | Embeddings (memory search) | Google | text-embedding-004 |
-| Advisory messages | Anthropic | Claude Haiku |
+| Advisory messages | Anthropic | Claude Haiku 4.5 |
 | Image generation fallback | OpenAI | DALL-E 3 |
-| Voice output | ElevenLabs | eleven_flash_v2_5 |
-| File/audio conversion | Local | MarkItDown |
+| Voice output | OpenAI | gpt-4o-mini-tts |
+| Voice transcription | OpenAI | whisper-1 |
+| File/audio conversion | Local | MarkItDown + ffmpeg |
 
-**Three-tier memory:** Hot (SOUL.md + garden.md + weather_today.json always loaded) · Warm (bed/plant entities on demand) · Cold (timeline events via pgvector cosine search)
+Four providers. No subscription voice service — OpenAI TTS is pay-as-you-go (fractions of a cent per response).
+
+### Memory
+
+**Three tiers, assembled per-request:**
+
+- **Hot** — `SOUL.md` + `garden.md` + `weather_today.json` + `weather_week.json` + plant database — always loaded
+- **Warm** — bed and plant entities, loaded on demand by subject
+- **Cold** — timeline events and conversation history stored in pgvector, retrieved by cosine similarity
+
+Every observation, decision, and conversation is extracted into the timeline automatically. Nothing important falls through.
+
+### Interaction modes
+
+| Mode | Trigger | What happens |
+|---|---|---|
+| A | Photo only | Slarti analyzes the photo — observations, issues, recommendations with confidence scores |
+| B | Photo + change request | Analysis + Gemini mockup image generated and posted to Discord |
+| C | Text design description | Written design plan, then a concept visual on approval |
+| D | Plant ID or unfamiliar photo | Species identification + Zone 6b care advice |
+| E | Casual conversation | Just Slarti — warm, knowledgeable, unhurried |
+| V | Audio file dropped in Discord | MarkItDown transcribes → treated as voice note → extracted to memory |
+| P | Voice PWA on iPhone | Live voice session — VAD, Whisper STT, OpenAI TTS, saved to memory after |
+| COMMAND | `!` prefix | Direct commands: `!status`, `!memory [subject]`, `!timeline [subject]`, `!setup` |
 
 ---
 
-## Build Status
+## Build status
 
 | Phase | Description | Status |
 |---|---|---|
@@ -60,72 +80,86 @@ Drop a photo in Discord and Slarti will analyze what it sees, flag anything wron
 | 10 | Daily weather agent (NWS + frost/heat advisories) | ✅ Done |
 | 11 | Image modes A/B/C/D | ✅ Done |
 | 12 | Voice notes, plant DB, weekly summary | ✅ Done |
-| 13 | Voice PWA (ElevenLabs + Siri Shortcut) | ⏳ Pending |
+| 13 | Voice PWA (hands-free, iPhone, OpenAI TTS) | ✅ Done |
 
 ---
 
-## Quick Start (after a reboot)
+## After a reboot
 
 ```bash
-# In WSL2
+# WSL2 — restart everything
 /mnt/c/Openclaw/slarti/scripts/restart.sh
 ```
 
-Or start pieces individually:
+Or individually:
 
 ```bash
 # Database (WSL2)
 cd /mnt/c/Openclaw/slarti/db && docker compose up -d
 
 # OpenClaw gateway (PowerShell or CMD)
-openclaw gateway start
+openclaw gateway start && openclaw gateway health
 
-# Verify
-openclaw gateway health
-docker ps --filter "name=slarti_stack"
+# Voice PWA (WSL2)
+nohup python3 /mnt/c/Openclaw/slarti/scripts/voice_webhook.py \
+  > /mnt/c/Openclaw/slarti/logs/daily/voice_webhook.log 2>&1 &
 ```
 
-Scheduled agents run automatically via WSL2 cron:
-- **Every 5 min** — Extraction agent → processes new sessions into memory
-- **6:00 AM daily** — Weather agent → `#garden-log` advisory if frost or heat threshold
-- **Sunday 6:00 PM** — Weekly summary → narrative digest to `#garden-log`
+Scheduled agents run automatically via WSL2 cron — no manual start needed:
+- **Every 5 min** — extraction agent → new sessions extracted into memory
+- **6:00 AM daily** — weather agent → advisory to #garden-log if frost or heat threshold
+- **Sunday 6:00 PM** — weekly summary → narrative digest to #garden-log
 
 ---
 
-## Project Structure
+## Project structure
 
 ```
 slarti/
-├── SOUL.md                    ← Slarti's personality (OpenClaw reads this)
-├── AGENTS.md                  ← Behavioral rules: modes, memory, heartbeat
-├── USER.md                    ← Emily and Christopher context
+├── SOUL.md                    ← Slarti's personality (loaded on every Claude call)
+├── AGENTS.md                  ← Behavioral rules: modes, memory, heartbeat, commands
+├── USER.md                    ← Emily and Christopher profiles
 ├── MEMORY.md                  ← Long-term memory (grows over time)
 ├── Slarti_v5_2.md             ← Master spec (Parts 1–15)
-├── CHRISTOPHER_BUILD_GUIDE.md ← Phase-by-phase build walkthrough
-├── config/                    ← app_config.json, provider_policy.json, discord_users.json
-├── data/                      ← All garden data (beds, plants, projects, events, system)
+├── CHRISTOPHER_BUILD_GUIDE.md ← Phase-by-phase build walkthrough with exact commands
+├── config/                    ← app_config.json, voice_profile.json, discord_users.json
+├── data/                      ← All garden data: beds, plants, projects, events, system
 ├── db/                        ← Docker Compose for Postgres + pgvector
 ├── docs/                      ← BUILD_LOG.md, garden.md, OPENCLAW_INSTRUCTIONS.md
-├── scripts/                   ← weather_agent.py, extraction_agent.py, weekly_summary_agent.py, voice_session_writer.py, populate_plants.py, git_push.sh, restart.sh
-├── logs/daily/                ← Runtime logs (git-ignored)
-└── pwa/                       ← Voice PWA (Phase 13)
+├── pwa/                       ← Voice PWA frontend (index.html)
+├── scripts/                   ← All agents and utility scripts
+│   ├── voice_webhook.py       ← FastAPI server for Mode P
+│   ├── extraction_agent.py    ← Session → memory pipeline (runs every 5 min)
+│   ├── weather_agent.py       ← Daily NWS forecast + advisories
+│   ├── weekly_summary_agent.py← Sunday narrative summary
+│   ├── voice_session_writer.py← Mode V audio transcription
+│   ├── photo_agent.py         ← Photo metadata extraction
+│   ├── image_agent.py         ← Gemini/DALL-E image generation
+│   ├── populate_plants.py     ← Seeds data/plants/ from plant_sources/
+│   └── git_push.sh            ← Nightly pg_dump + git commit + push
+└── logs/daily/                ← Runtime logs (git-ignored)
 ```
 
 ---
 
-## Key Config Files
+## Configuration
 
 | File | Purpose |
 |---|---|
 | `.env` | API keys — never committed |
 | `config/app_config.json` | App settings, model name, NWS coordinates |
-| `config/discord_users.json` | Maps Discord user IDs → emily/christopher |
+| `config/voice_profile.json` | TTS model, voice, spoken character instructions |
+| `config/discord_users.json` | Maps Discord user IDs → emily / christopher |
 | `~/.openclaw/openclaw.json` | OpenClaw gateway config (outside this repo — has auth token) |
 
 ---
 
-## Commit Convention
+## Commit convention
 
 ```
 slarti: YYYY-MM-DD brief description
 ```
+
+---
+
+*Zone 6b. Farmington, Missouri. Late April frost, mid-October chill, humid Missouri summers. Every recommendation Slarti makes is grounded in this place.*
