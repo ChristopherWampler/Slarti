@@ -592,8 +592,62 @@ cat docs/garden.md
 
 ---
 
-## What's Left (Phase 9 — complete)
+## Plant Database Expansion — 2026-03-30
 
-All 13 phases are now complete. Phase 9 (deferred) is built. Phase 13 (Voice PWA) is complete.
+**Goal:** Expand the plant database from 10 manual entries to a comprehensive, botanically accurate reference covering vegetables, herbs, berries, fruit trees, flowers, and shrubs.
+
+### What was built
+
+**`scripts/plant_lookup.py`** — NRCS CSV search utility
+- Reads `docs/Missouri_NRCS_csv.txt` (12,904-line Missouri PLANTS registry)
+- Searches by common name, scientific name, or USDA symbol
+- Groups primary entries with synonyms
+- Used to verify all scientific names and USDA symbols before creating plant files
+
+**51 new plant source files** in `scripts/plant_sources/`
+
+| Category | Count | Examples |
+|---|---|---|
+| Vegetables | 9 new | lettuce, spinach, broccoli, kale, eggplant, butternut squash, sweet potato, asparagus, pumpkin |
+| Herbs | 8 | rosemary, sage, spearmint, chives, dill, cilantro, parsley, fennel |
+| Berries / small fruit | 6 | strawberry (×2), raspberry, blackberry, blueberry, cantaloupe |
+| Fruit trees | 5 | apple, peach, pear, tart cherry, plum |
+| Flowers | 12 | coneflower, bee balm, daylily, yarrow, zinnia, sunflower, peony, hosta, daffodil... |
+| Shrubs | 5 | hydrangea (Annabelle), viburnum (arrowwood), spirea, butterfly bush, Knock Out rose |
+
+**10 existing plant source files updated** — added `category` and `usda_symbol` to all.
+
+### New optional schema fields (no script changes required)
+
+```json
+"category": "vegetable | herb | fruit | fruit_tree | berry | flower | shrub | bulb",
+"usda_symbol": "ECPU",
+"bloom_season": "June–September",
+"mature_height_ft": 3,
+"mature_spread_ft": 2,
+"years_to_first_harvest": 2,
+"deer_resistant": true,
+"native_to_missouri": true
+```
+
+### Key decisions
+
+- **NRCS CSV as authoritative source** — all scientific names and USDA symbols verified against `docs/Missouri_NRCS_csv.txt` before writing. No guesses.
+- **Non-native cultivars use `usda_symbol: null`** — lavender, oregano, thyme, pepper, eggplant, rosemary, sage, parsley, plum, butterfly bush, zinnia, sedum, peony, hosta, coreopsis are cultivated imports not in the Missouri registry
+- **Missouri natives flagged** — coneflower, bee balm, arrowwood viburnum, black-eyed-susan, yarrow, smooth hydrangea all have `"native_to_missouri": true`
+- **Zone 6b notes required** — every entry includes Farmington-specific planting dates, timing notes, and relevant warnings (e.g., peach frost risk, blueberry pH requirement, mint containment)
+
+### Result
+
+```bash
+ls data/plants/ | wc -l   # 61
+py scripts/populate_plants.py --dry-run  # 61 plants validated, 0 errors
+```
+
+---
+
+## What's Left
+
+All 13 phases are complete. Plant database is at 61 NRCS-referenced entries.
 
 The remaining deferred item is **Emily's Discord ID** — still a placeholder in `config/discord_users.json`. Add it when Emily is ready to use the bot, then restart the OpenClaw gateway.

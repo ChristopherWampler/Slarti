@@ -32,8 +32,8 @@ Channel roles:
 - Events/journal: data/events/2026/
 - Projects: data/projects/
 - Tasks: data/tasks/
-- Plants: data/plants/  ← seeded via scripts/populate_plants.py
-- Plant sources: scripts/plant_sources/  ← hand-curated JSON, source of truth
+- Plants: data/plants/  ← 61 entries (NRCS-referenced), seeded via scripts/populate_plants.py
+- Plant sources: scripts/plant_sources/  ← 61 hand-curated JSON files, source of truth
 - Voice sessions: data/voice_sessions/2026/
 - Photos (metadata only — images not tracked by Git): data/photos/metadata/
 - Photo mockups: data/photos/mockups/
@@ -70,6 +70,8 @@ Channel roles:
 | `scripts/photo_agent.py` | on photo upload | Downloads photo → EXIF extraction → metadata JSON |
 | `scripts/image_agent.py` | on MOCKUP/DESIGN marker | Gemini/DALL-E image generation → Discord post |
 | `scripts/populate_plants.py` | manual | Validates + seeds data/plants/ from scripts/plant_sources/ |
+| `scripts/plant_lookup.py` | manual | Search Missouri NRCS CSV by common name, scientific name, or USDA symbol |
+| `scripts/onboarding_writer.py` | triggered by extraction_agent.py | Reads [ONBOARDING_BED:] markers from sessions → writes data/beds/ → regen garden.md |
 | `scripts/discord_alert.py` | called by git_push.sh | Posts failure alerts to #admin-log via webhook |
 | `scripts/markitdown_ingest.py` | manual | Converts audio/PDF/Office/images to Markdown |
 | `scripts/git_push.sh` | cron 3 AM daily | pg_dump + git commit + push |

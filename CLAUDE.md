@@ -29,11 +29,11 @@ Slarti is a family garden companion AI for Christopher and Emily Wampler in Farm
 | 6 | ✅ Complete (Claude API wired via OpenClaw) |
 | 7 | ✅ Complete (Discord bot live, @Slarti responding) |
 | 8 | ✅ Complete (pgvector schema, extraction agent, garden.md regeneration) |
-| 9 | ⏳ Deferred — onboarding wizard (!setup) |
+| 9 | ✅ Complete (onboarding wizard, !setup, onboarding_writer.py) |
 | 10 | ✅ Complete (NWS weather agent, frost/heat advisories to #garden-log) |
 | 11 | ✅ Complete (photo_agent.py, image_agent.py, AGENTS.md) |
 | 12 | ✅ Complete (voice notes Mode V, plant database, weekly summary Agent 4) |
-| 13 | Not started |
+| 13 | ✅ Complete (voice PWA, FastAPI, iPhone, OpenAI TTS) |
 
 ## Architecture Quick Reference
 
