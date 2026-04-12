@@ -35,6 +35,9 @@ SCRIPT_DIR = pathlib.Path(__file__).parent
 SLARTI_ROOT = SCRIPT_DIR.parent
 load_dotenv(dotenv_path=SLARTI_ROOT / '.env')
 
+sys.path.insert(0, str(SCRIPT_DIR))
+import discord_alert
+
 APP_CONFIG_PATH     = SLARTI_ROOT / 'config' / 'app_config.json'
 PHOTOS_MOCKUPS_DIR  = SLARTI_ROOT / 'data' / 'photos' / 'mockups'
 HEALTH_STATUS_PATH  = SLARTI_ROOT / 'data' / 'system' / 'health_status.json'
@@ -250,6 +253,35 @@ def post_image_to_discord(channel_name: str, image_bytes: bytes, filename: str, 
         print(f'ERROR: Discord post failed: {e.code} {e.reason}', file=sys.stderr)
 
 
+def post_text_to_discord(channel_name: str, message: str):
+    """Post a text-only message to a Discord channel via the REST API."""
+    bot_token = os.environ.get('DISCORD_BOT_TOKEN')
+    if not bot_token:
+        print('ERROR: DISCORD_BOT_TOKEN not set', file=sys.stderr)
+        return
+    channel_id = get_discord_channel_id(channel_name)
+    if not channel_id:
+        print(f'ERROR: Could not find channel: {channel_name}', file=sys.stderr)
+        return
+    url = f'https://discord.com/api/v10/channels/{channel_id}/messages'
+    payload = json.dumps({'content': message}).encode('utf-8')
+    req = urllib_request.Request(
+        url, data=payload,
+        headers={
+            'Authorization': f'Bot {bot_token}',
+            'Content-Type': 'application/json',
+            'User-Agent': 'Slarti/1.0',
+        },
+        method='POST'
+    )
+    try:
+        with urllib_request.urlopen(req, timeout=15) as resp:
+            if resp.status not in (200, 201):
+                print(f'WARNING: Discord returned {resp.status}', file=sys.stderr)
+    except urllib_error.HTTPError as e:
+        print(f'ERROR: Discord text post failed: {e.code} {e.reason}', file=sys.stderr)
+
+
 def save_mockup(image_bytes: bytes, mockup_id: str, mode: str, provider: str,
                 request: str, source_photo: str | None) -> pathlib.Path:
     """Save image bytes + metadata JSON to data/photos/mockups/."""
@@ -347,6 +379,22 @@ def main():
 
     if image_bytes is None:
         print('ERROR: Both Gemini and DALL-E 3 failed to generate an image', file=sys.stderr)
+        request_text = args.request if mode == 'b' else args.description
+        fallback_msg = (
+            "I'm having trouble generating that visual right now — let me describe "
+            "what it would look like instead.\n\n"
+            f"**The design concept:** {request_text}\n\n"
+            "I'll try the visual again shortly. In the meantime, does the description "
+            "capture what you're imagining?"
+        )
+        post_text_to_discord(args.channel, fallback_msg)
+        try:
+            discord_alert.send('admin-log',
+                f'[image_agent] Both Gemini and DALL-E 3 failed. '
+                f'Mode {mode.upper()}, channel #{args.channel}. '
+                f'Request: {request_text[:100]}')
+        except Exception as alert_err:
+            print(f'WARNING: discord_alert failed: {alert_err}', file=sys.stderr)
         sys.exit(1)
 
     print(f'Generated {len(image_bytes):,} bytes via {provider_used}')

@@ -1,0 +1,25 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "voice_session",
+  "session_id": "vs-pwa-20260330-183256-46269a",
+  "author": "christopher",
+  "channel": "pwa_voice",
+  "started_at": "2026-03-30T18:31:04.455Z",
+  "ended_at": "2026-03-30T18:32:56.584914Z",
+  "transcript": [
+    {
+      "role": "user",
+      "text": "Hello, can you hear me?",
+      "timestamp": "2026-03-30T18:32:56.624Z"
+    },
+    {
+      "role": "slarti",
+      "text": "Loud and clear! Welcome to the garden. I'm Slarti.  Looks like we haven't done the walkthrough yet   the garden is still a blank slate on my end. Whenever you and Emily are ready, just say `!setup` and we'll go bed by bed and get everything mapped out.  Anything I can help with in the meantime?",
+      "timestamp": "2026-03-30T18:32:56.624Z"
+    }
+  ],
+  "raw_transcript": "USER: Hello, can you hear me?\nSLARTI: Loud and clear! Welcome to the garden. I'm Slarti.  Looks like we haven't done the walkthrough yet   the garden is still a blank slate on my end. Whenever you and Emily are ready, just say `!setup` and we'll go bed by bed and get everything mapped out.  Anything I can help with in the meantime?",
+  "extraction_status": "complete",
+  "extracted_events": [],
+  "discord_synced": false
+}

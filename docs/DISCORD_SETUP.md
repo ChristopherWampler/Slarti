@@ -62,6 +62,7 @@ In the new server, create these exact channels (exact names matter — Slarti's 
 | `#garden-photos` | Text | Photo drops for analysis (Modes A/B/D) |
 | `#garden-design` | Text | Design descriptions without photos (Mode C) |
 | `#garden-log` | Text | Read-only log of all garden updates Slarti writes |
+| `#garden-builds` | Text | Build summaries from approved designs — Christopher's workspace |
 | `#plant-alerts` | Text | Frost/heat advisories, treatment reminders |
 | `#weekly-summary` | Text | Slarti's Sunday evening summary |
 | `#admin-log` | Text | System alerts (git failures, errors) — Christopher only |

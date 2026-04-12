@@ -1,0 +1,68 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "voice_session",
+  "session_id": "vs-pwa-20260330-185019-a03aa4",
+  "author": "christopher",
+  "channel": "pwa_voice",
+  "started_at": "2026-03-30T18:47:56.051Z",
+  "ended_at": "2026-03-30T18:50:19.640224Z",
+  "transcript": [
+    {
+      "role": "user",
+      "text": "If I was going to plant in.",
+      "timestamp": "2026-03-30T18:50:19.650Z"
+    },
+    {
+      "role": "slarti",
+      "text": "Sounds like that thought got cut off   finish it when you're ready. What were you thinking about planting?",
+      "timestamp": "2026-03-30T18:50:19.650Z"
+    },
+    {
+      "role": "user",
+      "text": "How often would I need to water it?",
+      "timestamp": "2026-03-30T18:50:19.650Z"
+    },
+    {
+      "role": "slarti",
+      "text": "Still missing the first part   what plant or bed were you thinking about? Once I know what and where, I can give you a real answer.",
+      "timestamp": "2026-03-30T18:50:19.650Z"
+    },
+    {
+      "role": "user",
+      "text": "Black Knight Butterfly Bush.",
+      "timestamp": "2026-03-30T18:50:19.650Z"
+    },
+    {
+      "role": "slarti",
+      "text": "Got it! Black Knight Butterfly Bush is a good one.  Once established   usually after the first full season   it's pretty drought-tolerant. In Farmington summers you'd probably water deeply once or twice a week during hot, dry stretches, less when you get rain. The first year is the critical one: keep it consistently moist while it's getting roots down, so maybe every 2 3 days if it's dry and hot.  Where were you thinking of putting it?",
+      "timestamp": "2026-03-30T18:50:19.650Z"
+    },
+    {
+      "role": "user",
+      "text": "With the current weather, how often would I need to water it?",
+      "timestamp": "2026-03-30T18:50:19.650Z"
+    },
+    {
+      "role": "slarti",
+      "text": "I don't have a live weather feed, so I can't see what's happening in Farmington right now. If you tell me what it's been like   hot and dry, or getting some rain lately   I can give you a much better answer.",
+      "timestamp": "2026-03-30T18:50:19.650Z"
+    },
+    {
+      "role": "user",
+      "text": "up the weather from the past week.",
+      "timestamp": "2026-03-30T18:50:19.650Z"
+    },
+    {
+      "role": "slarti",
+      "text": "I don't have the ability to look up current weather data   that's outside what I can do. You could check Weather.gov or your phone's weather app for Farmington's recent conditions, then bring that back to me and I'll translate it into a watering recommendation for the Black Knight.",
+      "timestamp": "2026-03-30T18:50:19.650Z"
+    }
+  ],
+  "raw_transcript": "USER: If I was going to plant in.\nSLARTI: Sounds like that thought got cut off   finish it when you're ready. What were you thinking about planting?\nUSER: How often would I need to water it?\nSLARTI: Still missing the first part   what plant or bed were you thinking about? Once I know what and where, I can give you a real answer.\nUSER: Black Knight Butterfly Bush.\nSLARTI: Got it! Black Knight Butterfly Bush is a good one.  Once established   usually after the first full season   it's pretty drought-tolerant. In Farmington summers you'd probably water deeply once or twice a week during hot, dry stretches, less when you get rain. The first year is the critical one: keep it consistently moist while it's getting roots down, so maybe every 2 3 days if it's dry and hot.  Where were you thinking of putting it?\nUSER: With the current weather, how often would I need to water it?\nSLARTI: I don't have a live weather feed, so I can't see what's happening in Farmington right now. If you tell me what it's been like   hot and dry, or getting some rain lately   I can give you a much better answer.\nUSER: up the weather from the past week.\nSLARTI: I don't have the ability to look up current weather data   that's outside what I can do. You could check Weather.gov or your phone's weather app for Farmington's recent conditions, then bring that back to me and I'll translate it into a watering recommendation for the Black Knight.",
+  "extraction_status": "complete",
+  "extracted_events": [
+    "2026-03-30_preference_black-knight-butterfly-bush_f247bffb.json"
+  ],
+  "discord_synced": false,
+  "extracted_at": "2026-03-30T18:50:23.162319Z"
+}

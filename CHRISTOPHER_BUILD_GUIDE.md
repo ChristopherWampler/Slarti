@@ -1,7 +1,8 @@
 # Slarti — Christopher's Build Guide
 
-**Your working document. Use this alongside `Slarti_v5_2.md`.**
-The spec has all the detail. This has all the steps, in order, with what to actually do and when.
+> **Historical reference.** This guide was used during the initial build (Phases 1-13, completed March 2026). All phases are complete. For current operational reference, see `CLAUDE.md` and `AGENTS.md`.
+
+The spec had all the detail. This had all the steps, in order, with what to actually do and when.
 
 ---
 
@@ -215,7 +216,7 @@ Read the response. Does it sound like Slarti? Warm and grounded? Not robotic?
 3. Enable Privileged Gateway Intents: **Message Content Intent** ← critical, don't skip
 4. Create private Discord server
 5. Create all 7 channels (exact names matter for routing):
-   - `#garden-chat` `#garden-design` `#garden-lab` `#garden-photos`
+   - `#garden-chat` `#garden-design` `#garden-photos` `#garden-builds`
    - `#garden-builds` `#garden-log` `#admin-log`
 6. OAuth2 → URL Generator → Scopes: `bot` → Permissions: `Send Messages`, `Read Message History`, `Attach Files`, `Mention Everyone` → invite to your server
 
@@ -321,7 +322,7 @@ Configure Agent 1 in OpenClaw to run at 6:00 AM daily.
 
 **Test each mode:**
 - Mode A: upload a garden photo in `#garden-photos` → Slarti describes what it sees with confidence language
-- Mode B: upload a photo in `#garden-lab` + *"show me with a trellis on the north side"* → mockup returned
+- Mode B: upload a photo in `#garden-photos` + *"show me with a trellis on the north side"* → mockup returned
 - Mode C: describe a design in `#garden-design` (no photo) → concept visual + "Does this match your vision?"
 - Mode D: *"@Slarti what is this plant?"* with a photo → identification with Zone 6b notes
 

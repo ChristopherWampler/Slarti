@@ -1,0 +1,14 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "voice_session",
+  "session_id": "vs-pwa-20260330-180211-b55f30",
+  "author": "christopher",
+  "channel": "pwa_voice",
+  "started_at": "2026-03-30T18:01:51.636Z",
+  "ended_at": "2026-03-30T18:02:11.881814Z",
+  "transcript": [],
+  "raw_transcript": "",
+  "extraction_status": "skipped",
+  "extracted_events": [],
+  "discord_synced": false
+}

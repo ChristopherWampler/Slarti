@@ -29,6 +29,9 @@ SCRIPT_DIR = pathlib.Path(__file__).parent
 SLARTI_ROOT = SCRIPT_DIR.parent
 load_dotenv(dotenv_path=SLARTI_ROOT / '.env')
 
+sys.path.insert(0, str(SCRIPT_DIR))
+import discord_alert
+
 APP_CONFIG_PATH = SLARTI_ROOT / 'config' / 'app_config.json'
 HEALTH_STATUS_PATH = SLARTI_ROOT / 'data' / 'system' / 'health_status.json'
 WEATHER_TODAY_PATH = SLARTI_ROOT / 'data' / 'system' / 'weather_today.json'
@@ -355,6 +358,10 @@ def main():
         periods = fetch_hourly_forecast(lat, lng)
     except RuntimeError as e:
         print(f'ERROR: {e}', file=sys.stderr)
+        try:
+            discord_alert.send('admin-log', f'[weather_agent] NWS API failed: {str(e)[:150]}')
+        except Exception:
+            pass
         sys.exit(1)
 
     summary = compute_daily_summary(periods)

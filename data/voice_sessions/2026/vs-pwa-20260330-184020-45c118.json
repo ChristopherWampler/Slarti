@@ -1,0 +1,25 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "voice_session",
+  "session_id": "vs-pwa-20260330-184020-45c118",
+  "author": "christopher",
+  "channel": "pwa_voice",
+  "started_at": "2026-03-30T18:38:05.951Z",
+  "ended_at": "2026-03-30T18:40:20.236556Z",
+  "transcript": [
+    {
+      "role": "user",
+      "text": "Can you hear me?",
+      "timestamp": "2026-03-30T18:40:20.656Z"
+    },
+    {
+      "role": "slarti",
+      "text": "Loud and clear! What's going on in the garden today?",
+      "timestamp": "2026-03-30T18:40:20.656Z"
+    }
+  ],
+  "raw_transcript": "USER: Can you hear me?\nSLARTI: Loud and clear! What's going on in the garden today?",
+  "extraction_status": "complete",
+  "extracted_events": [],
+  "discord_synced": false
+}

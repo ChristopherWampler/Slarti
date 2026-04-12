@@ -1,0 +1,35 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "voice_session",
+  "session_id": "vs-pwa-20260330-184355-e70074",
+  "author": "christopher",
+  "channel": "pwa_voice",
+  "started_at": "2026-03-30T18:43:12.051Z",
+  "ended_at": "2026-03-30T18:43:55.424244Z",
+  "transcript": [
+    {
+      "role": "user",
+      "text": "Hey, how's it going?",
+      "timestamp": "2026-03-30T18:43:55.859Z"
+    },
+    {
+      "role": "slarti",
+      "text": "Pretty well! It's a beautiful day out there in Farmington   80 degrees and mostly sunny in late March is a gift. Hope you're getting a chance to enjoy it.  I don't know much about your garden yet. Whenever you're ready to walk me through it, just run `!setup` and we'll get started   one bed at a time.",
+      "timestamp": "2026-03-30T18:43:55.859Z"
+    },
+    {
+      "role": "user",
+      "text": "Can you hear me?",
+      "timestamp": "2026-03-30T18:43:55.859Z"
+    },
+    {
+      "role": "slarti",
+      "text": "Yep, loud and clear! Text works great. If you ever want to drop a voice note, that works too   just upload the audio file and I'll transcribe and process it.  What's on your mind?",
+      "timestamp": "2026-03-30T18:43:55.859Z"
+    }
+  ],
+  "raw_transcript": "USER: Hey, how's it going?\nSLARTI: Pretty well! It's a beautiful day out there in Farmington   80 degrees and mostly sunny in late March is a gift. Hope you're getting a chance to enjoy it.  I don't know much about your garden yet. Whenever you're ready to walk me through it, just run `!setup` and we'll get started   one bed at a time.\nUSER: Can you hear me?\nSLARTI: Yep, loud and clear! Text works great. If you ever want to drop a voice note, that works too   just upload the audio file and I'll transcribe and process it.  What's on your mind?",
+  "extraction_status": "complete",
+  "extracted_events": [],
+  "discord_synced": false
+}

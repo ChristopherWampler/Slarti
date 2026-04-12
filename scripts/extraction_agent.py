@@ -25,6 +25,9 @@ from dotenv import load_dotenv
 
 load_dotenv(dotenv_path=pathlib.Path(__file__).parent.parent / '.env')
 
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+import discord_alert
+
 SLARTI_ROOT = pathlib.Path(os.environ.get('SLARTI_ROOT', '/mnt/c/Openclaw/slarti'))
 SESSIONS_DIR = pathlib.Path(os.path.expanduser('~/.openclaw/agents/slarti/sessions'))
 # WSL2: if the above doesn't exist, fall back to Windows user path
@@ -231,6 +234,10 @@ Return format:
         return result.get('extracts', [])
     except Exception as e:
         print(f'ERROR: Claude extraction failed: {e}', file=sys.stderr)
+        try:
+            discord_alert.send('admin-log', f'[extraction_agent] Claude extraction failed: {str(e)[:150]}')
+        except Exception:
+            pass
         return []
 
 

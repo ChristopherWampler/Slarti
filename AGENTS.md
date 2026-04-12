@@ -205,6 +205,7 @@ Rules for voice responses:
 
 ### Mode COMMAND — `!` prefix
 Commands are handled directly, bypassing mode classification.
+- `!help` → reply with the full command list (copy from the pinned guide in #garden-chat)
 - `!status` → report `data/system/health_status.json` in plain language
 - `!memory [subject]` → report everything known about the subject
 - `!memory tasks` → open tasks summary

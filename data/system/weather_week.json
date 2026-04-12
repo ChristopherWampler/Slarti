@@ -1,47 +1,47 @@
 {
   "days": [
     {
-      "date": "2026-03-29",
-      "temp_high": 71,
-      "temp_low": 37,
-      "precip_chance_max": 2
+      "date": "2026-04-12",
+      "temp_high": 79,
+      "temp_low": 60,
+      "precip_chance_max": 19
     },
     {
-      "date": "2026-03-30",
-      "temp_high": 81,
-      "temp_low": 55,
-      "precip_chance_max": 6
+      "date": "2026-04-13",
+      "temp_high": 83,
+      "temp_low": 65,
+      "precip_chance_max": 16
     },
     {
-      "date": "2026-03-31",
+      "date": "2026-04-14",
+      "temp_high": 86,
+      "temp_low": 66,
+      "precip_chance_max": 18
+    },
+    {
+      "date": "2026-04-15",
+      "temp_high": 82,
+      "temp_low": 67,
+      "precip_chance_max": 57
+    },
+    {
+      "date": "2026-04-16",
       "temp_high": 84,
-      "temp_low": 63,
-      "precip_chance_max": 34
+      "temp_low": 62,
+      "precip_chance_max": 62
     },
     {
-      "date": "2026-04-01",
-      "temp_high": 66,
-      "temp_low": 51,
-      "precip_chance_max": 75
+      "date": "2026-04-17",
+      "temp_high": 87,
+      "temp_low": 61,
+      "precip_chance_max": 35
     },
     {
-      "date": "2026-04-02",
-      "temp_high": 64,
-      "temp_low": 49,
-      "precip_chance_max": 73
-    },
-    {
-      "date": "2026-04-03",
-      "temp_high": 76,
-      "temp_low": 49,
-      "precip_chance_max": 56
-    },
-    {
-      "date": "2026-04-04",
-      "temp_high": 70,
-      "temp_low": 55,
-      "precip_chance_max": 58
+      "date": "2026-04-18",
+      "temp_high": 80,
+      "temp_low": 64,
+      "precip_chance_max": 53
     }
   ],
-  "last_updated": "2026-03-29T07:03:54.050857-05:00"
+  "last_updated": "2026-04-12T06:00:06.400317-05:00"
 }

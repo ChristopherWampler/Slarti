@@ -1,0 +1,50 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "voice_session",
+  "session_id": "vs-pwa-20260330-192851-1925f6",
+  "author": "christopher",
+  "channel": "pwa_voice",
+  "started_at": "2026-03-30T19:27:03.933Z",
+  "ended_at": "2026-03-30T19:28:51.090291Z",
+  "transcript": [
+    {
+      "role": "user",
+      "text": "\uc2dc\uccad\ud574 \uc8fc\uc154\uc11c \uac10\uc0ac\ud569\ub2c8\ub2e4.",
+      "timestamp": "2026-03-30T19:28:44.994Z"
+    },
+    {
+      "role": "slarti",
+      "text": "!                     I'm only set up to chat in English, I'm afraid.  Is there something I can help you with in the garden today? It's a beautiful one out there right now   80\u00b0 and mostly sunny in Farmington.",
+      "timestamp": "2026-03-30T19:28:44.994Z"
+    },
+    {
+      "role": "user",
+      "text": "Can you hear me?",
+      "timestamp": "2026-03-30T19:28:44.994Z"
+    },
+    {
+      "role": "slarti",
+      "text": "Yes! Loud and clear. What's on your mind   garden question, update, something you're seeing out there today?",
+      "timestamp": "2026-03-30T19:28:44.994Z"
+    },
+    {
+      "role": "user",
+      "text": "Okay, so with the weather, how it's been lately, will I need to water any bushes that are in the ground or something?",
+      "timestamp": "2026-03-30T19:28:44.994Z"
+    },
+    {
+      "role": "slarti",
+      "text": "Great question for this time of year. Let me check what the recent weather has been like in Farmington.",
+      "timestamp": "2026-03-30T19:28:44.994Z"
+    },
+    {
+      "role": "user",
+      "text": "\u30c1\u30e3\u30f3\u30cd\u30eb\u767b\u9332\u3092\u304a\u9858\u3044\u3044\u305f\u3057\u307e\u3059\u3002",
+      "timestamp": "2026-03-30T19:28:44.994Z"
+    }
+  ],
+  "raw_transcript": "USER: \uc2dc\uccad\ud574 \uc8fc\uc154\uc11c \uac10\uc0ac\ud569\ub2c8\ub2e4.\nSLARTI: !                     I'm only set up to chat in English, I'm afraid.  Is there something I can help you with in the garden today? It's a beautiful one out there right now   80\u00b0 and mostly sunny in Farmington.\nUSER: Can you hear me?\nSLARTI: Yes! Loud and clear. What's on your mind   garden question, update, something you're seeing out there today?\nUSER: Okay, so with the weather, how it's been lately, will I need to water any bushes that are in the ground or something?\nSLARTI: Great question for this time of year. Let me check what the recent weather has been like in Farmington.\nUSER: \u30c1\u30e3\u30f3\u30cd\u30eb\u767b\u9332\u3092\u304a\u9858\u3044\u3044\u305f\u3057\u307e\u3059\u3002",
+  "extraction_status": "complete",
+  "extracted_events": [],
+  "discord_synced": false
+}

@@ -1,7 +1,7 @@
 # Slarti Build Log
 
 Complete record of what was built, what decisions were made, and where everything lives.
-Last updated: 2026-03-29
+Last updated: 2026-04-12
 
 ---
 
@@ -260,7 +260,7 @@ The spec assumed a custom `openclaw.yaml` with a `soul_path` field. In practice,
 | Discord application | Created at discord.com/developers — bot named Slarti |
 | Bot token | Set as `DISCORD_BOT_TOKEN` in `.env` and Windows env var |
 | Guild (server) | Slarti Garden — ID set as `DISCORD_GUILD_ID` |
-| 7 channels | #garden-chat, #garden-photos, #garden-design, #garden-log, #plant-alerts, #weekly-summary, #admin-log |
+| 8 channels | #garden-chat, #garden-photos, #garden-design, #garden-log, #garden-builds, #plant-alerts, #weekly-summary, #admin-log |
 | Admin webhook | Created for #admin-log — set as `DISCORD_ADMIN_WEBHOOK` |
 | Christopher's Discord ID | `314576001306722314` — set in `config/discord_users.json` |
 | Emily's Discord ID | **⏳ Pending** — placeholder still in `config/discord_users.json` |
@@ -303,8 +303,9 @@ The spec assumed a custom `openclaw.yaml` with a `soul_path` field. In practice,
 ### Database
 
 - `timeline_events` table created in Postgres with pgvector `vector(768)` column
-- IVFFlat index on embedding column for cosine similarity search
+- HNSW index on embedding column for cosine similarity search (switched from IVFFlat — works on empty tables)
 - Indexes on `subject_id`, `author`, `event_type`, `created_at`
+- Schema initialization automated via `scripts/init_db.py` (idempotent, runs on every restart)
 
 ### Extraction agent
 
@@ -646,8 +647,49 @@ py scripts/populate_plants.py --dry-run  # 61 plants validated, 0 errors
 
 ---
 
+## April 2026 Improvements
+
+**Completed:** 2026-04-12
+
+### Heartbeat Agent (Agent 3) — Proactive Companion Engine
+
+| File | Purpose |
+|---|---|
+| `scripts/heartbeat_agent.py` | 8-check proactive pipeline (treatments, timing, blockers, photos) — runs every 30 min via cron |
+| `scripts/init_db.py` | Idempotent pgvector schema initialization — runs on every restart |
+| `scripts/pgvector_search.py` | Semantic search over timeline_events via cosine similarity — used by agents |
+| `scripts/setup_discord_channels.py` | One-time Discord channel topic setter + pinned guide |
+
+- **Friend test** before every proactive post: Claude Haiku evaluates "would a friend say this?"
+- **2/week cap** enforced via `health_status.json` counter, reset Sunday midnight
+- **8-check pipeline:** weather, treatment follow-ups, fabrication blockers, stale observations, design stalls, seasonal plant timing, bed photo freshness
+
+### Image Generation Fallback
+
+`scripts/image_agent.py` — when both Gemini and DALL-E 3 fail, now posts a friendly text fallback to Discord instead of failing silently. Also alerts `#admin-log` via `discord_alert.py`.
+
+### Admin-Log Error Alerts
+
+`scripts/weather_agent.py` and `scripts/extraction_agent.py` now alert `#admin-log` on fatal errors instead of only printing to stderr.
+
+### Discord Server Setup
+
+- 8 channels created with descriptive topics via `setup_discord_channels.py`
+- `#garden-builds` channel added (was missing from original setup)
+- Pinned guide message in `#garden-chat` with command list
+
+### Cron entries (WSL2)
+
+```
+*/30 * * * * cd /mnt/c/Openclaw/slarti && python3 scripts/heartbeat_agent.py >> logs/daily/heartbeat.log 2>&1
+```
+
+---
+
 ## What's Left
 
-All 13 phases are complete. Plant database is at 61 NRCS-referenced entries.
+All 13 phases are complete. Heartbeat agent is live. Plant database is at 61 NRCS-referenced entries.
 
-The remaining deferred item is **Emily's Discord ID** — still a placeholder in `config/discord_users.json`. Add it when Emily is ready to use the bot, then restart the OpenClaw gateway.
+**Remaining:**
+- **Emily's Discord ID** — still a placeholder in `config/discord_users.json`. Add when Emily is ready, then restart the OpenClaw gateway.
+- **Emily's onboarding** — run `!setup` in `#garden-chat` to populate garden beds

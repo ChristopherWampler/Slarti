@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "timestamp": "2026-03-30T18:50:22.157108Z",
+    "file": "2026-03-30_preference_black-knight-butterfly-bush_f247bffb.json",
+    "category": "PREFERENCE",
+    "author": "christopher",
+    "subject_id": "Black Knight Butterfly Bush",
+    "confidence": 0.6
+  }
+]

@@ -153,10 +153,10 @@ def build_prompt(soul: str, mode_instructions: str, events: list[dict],
         days = weather_week.get('days', [])
         if days:
             for day in days:
-                hi = day.get('temp_high_f', '?')
-                lo = day.get('temp_low_f', '?')
-                hi_feels = day.get('heat_index_max_f')
-                precip = day.get('precip_chance_pct', 0)
+                hi = day.get('temp_high', '?')
+                lo = day.get('temp_low', '?')
+                hi_feels = day.get('heat_index_max')
+                precip = day.get('precip_chance_max', 0)
                 line = f'  {day.get("date","")}: {lo}°–{hi}°F'
                 if hi_feels and hi_feels > hi:
                     line += f' (feels like {hi_feels}°)'

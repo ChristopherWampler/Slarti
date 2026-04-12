@@ -1,0 +1,25 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "voice_session",
+  "session_id": "vs-pwa-20260330-183700-0f4082",
+  "author": "christopher",
+  "channel": "pwa_voice",
+  "started_at": "2026-03-30T18:34:15.081Z",
+  "ended_at": "2026-03-30T18:37:00.902087Z",
+  "transcript": [
+    {
+      "role": "user",
+      "text": "Hello, can you hear me?",
+      "timestamp": "2026-03-30T18:37:00.968Z"
+    },
+    {
+      "role": "slarti",
+      "text": "Hey! Yes, loud and clear.    Looks like the garden is still waiting to be introduced to me   we haven't done the walkthrough yet. When you're ready, just say `!setup` and we'll go bed by bed and get everything recorded.  Also   80 degrees at the end of March in Farmington? That's a warm one. Hope the garden is enjoying it.",
+      "timestamp": "2026-03-30T18:37:00.968Z"
+    }
+  ],
+  "raw_transcript": "USER: Hello, can you hear me?\nSLARTI: Hey! Yes, loud and clear.    Looks like the garden is still waiting to be introduced to me   we haven't done the walkthrough yet. When you're ready, just say `!setup` and we'll go bed by bed and get everything recorded.  Also   80 degrees at the end of March in Farmington? That's a warm one. Hope the garden is enjoying it.",
+  "extraction_status": "complete",
+  "extracted_events": [],
+  "discord_synced": false
+}
