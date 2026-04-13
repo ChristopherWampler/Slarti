@@ -1,11 +1,12 @@
 {
-  "date": "2026-04-12",
-  "temp_high": 79,
-  "temp_low": 60,
-  "heat_index_max": 79,
-  "precip_chance_max": 19,
-  "wind_speed_max": 20,
+  "date": "2026-04-13",
+  "temp_high": 81,
+  "temp_low": 71,
+  "heat_index_max": 82,
+  "precip_chance_max": 9,
+  "wind_speed_max": 16,
   "short_forecast": "Partly Sunny",
   "advisories": [],
-  "last_updated": "2026-04-12T06:00:06.400317-05:00"
+  "active_alert_events": [],
+  "last_updated": "2026-04-13T11:03:08.508249-05:00"
 }

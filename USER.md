@@ -54,3 +54,12 @@ a system that just works.
 - **Garden:** Residential yard being transformed over time
 - **Both users share one Discord server** — Slarti responds in shared channels
   and respects each user's role (Emily = design authority; Christopher = build authority)
+---
+
+## Today's Conditions — Farmington, MO
+*Last refreshed: 11:03 AM CDT. Auto-updated by weather_agent.py. Do not edit manually.*
+
+Date: 2026-04-13
+Forecast: Partly Sunny | High: 81°F / Low: 71°F
+Heat index: 82°F | Precip chance: 9% | Wind: 16 mph
+Advisories: None

@@ -1,47 +1,54 @@
 {
   "days": [
     {
-      "date": "2026-04-12",
-      "temp_high": 79,
-      "temp_low": 60,
-      "precip_chance_max": 19
-    },
-    {
       "date": "2026-04-13",
-      "temp_high": 83,
-      "temp_low": 65,
-      "precip_chance_max": 16
+      "temp_high": 81,
+      "temp_low": 71,
+      "precip_chance_max": 9,
+      "short_forecast": "Partly Sunny"
     },
     {
       "date": "2026-04-14",
-      "temp_high": 86,
-      "temp_low": 66,
-      "precip_chance_max": 18
+      "temp_high": 85,
+      "temp_low": 67,
+      "precip_chance_max": 13,
+      "short_forecast": "Mostly Sunny"
     },
     {
       "date": "2026-04-15",
-      "temp_high": 82,
+      "temp_high": 83,
       "temp_low": 67,
-      "precip_chance_max": 57
+      "precip_chance_max": 50,
+      "short_forecast": "Chance Showers And Thunderstorms"
     },
     {
       "date": "2026-04-16",
-      "temp_high": 84,
+      "temp_high": 83,
       "temp_low": 62,
-      "precip_chance_max": 62
+      "precip_chance_max": 70,
+      "short_forecast": "Chance Showers And Thunderstorms"
     },
     {
       "date": "2026-04-17",
       "temp_high": 87,
-      "temp_low": 61,
-      "precip_chance_max": 35
+      "temp_low": 62,
+      "precip_chance_max": 29,
+      "short_forecast": "Partly Sunny"
     },
     {
       "date": "2026-04-18",
-      "temp_high": 80,
-      "temp_low": 64,
-      "precip_chance_max": 53
+      "temp_high": 74,
+      "temp_low": 55,
+      "precip_chance_max": 55,
+      "short_forecast": "Chance Rain Showers"
+    },
+    {
+      "date": "2026-04-19",
+      "temp_high": 67,
+      "temp_low": 43,
+      "precip_chance_max": 27,
+      "short_forecast": "Sunny"
     }
   ],
-  "last_updated": "2026-04-12T06:00:06.400317-05:00"
+  "last_updated": "2026-04-13T11:03:08.508249-05:00"
 }
