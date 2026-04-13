@@ -30,6 +30,7 @@ load_dotenv(dotenv_path=SLARTI_ROOT / '.env')
 APP_CONFIG_PATH     = SLARTI_ROOT / 'config' / 'app_config.json'
 HEALTH_STATUS_PATH  = SLARTI_ROOT / 'data' / 'system' / 'health_status.json'
 WEATHER_TODAY_PATH  = SLARTI_ROOT / 'data' / 'system' / 'weather_today.json'
+KNOWLEDGE_NEWS_PATH = SLARTI_ROOT / 'data' / 'system' / 'knowledge_news.json'
 EVENTS_DIR          = SLARTI_ROOT / 'data' / 'events' / '2026'
 BEDS_DIR            = SLARTI_ROOT / 'data' / 'beds'
 PROJECTS_DIR        = SLARTI_ROOT / 'data' / 'projects'
@@ -477,6 +478,28 @@ def check_5_design_no_tasks(config: dict, health: dict) -> dict | None:
     return None
 
 
+def _get_knowledge_context(plant_name: str) -> str:
+    """Try to get regional knowledge context for a plant to enrich the message."""
+    try:
+        from pgvector_search import search_knowledge
+        results = search_knowledge(
+            query=f'{plant_name} Zone 6b Missouri planting',
+            plant=plant_name.lower().replace(' ', '-'),
+            limit=1,
+            min_similarity=0.6,
+        )
+        if results:
+            content = results[0].get('content', '')
+            source = results[0].get('source_id', '')
+            # Extract a useful snippet (first 150 chars)
+            snippet = content[:150].rsplit(' ', 1)[0] if len(content) > 150 else content
+            if snippet and source:
+                return f' According to {source.replace("_", " ").title()}, {snippet.lower()}'
+    except Exception:
+        pass
+    return ''
+
+
 def check_6_seasonal_timing(config: dict, health: dict) -> dict | None:
     """Seasonal plant timing — action needed in next 14 days."""
     plants = load_all_json(PLANTS_DIR)
@@ -527,10 +550,11 @@ def check_6_seasonal_timing(config: dict, health: dict) -> dict | None:
         if weeks_before:
             start_date = last_frost - datetime.timedelta(weeks=weeks_before)
             if window_start <= start_date <= window_end:
+                knowledge = _get_knowledge_context(name)
                 draft = (
                     f"Just a heads up — if you're planning to grow {name} this year, "
                     f"now's about the time to start seeds indoors. Last frost is "
-                    f"roughly {last_frost.strftime('%B %d')} for Farmington."
+                    f"roughly {last_frost.strftime('%B %d')} for Farmington.{knowledge}"
                 )
                 return {
                     'check': 6,
@@ -544,10 +568,11 @@ def check_6_seasonal_timing(config: dict, health: dict) -> dict | None:
         if weeks_after:
             sow_date = last_frost + datetime.timedelta(weeks=weeks_after)
             if window_start <= sow_date <= window_end:
+                knowledge = _get_knowledge_context(name)
                 draft = (
                     f"Getting close to direct sow time for {name} — "
                     f"about {(sow_date - today).days} days out, "
-                    f"weather permitting. Worth keeping an eye on the forecast."
+                    f"weather permitting. Worth keeping an eye on the forecast.{knowledge}"
                 )
                 return {
                     'check': 6,
@@ -615,6 +640,52 @@ def check_7_bed_photos(config: dict, health: dict) -> dict | None:
     return None
 
 
+def check_8_knowledge_news(config: dict, health: dict) -> dict | None:
+    """Surface new regional knowledge items that haven't been shared yet."""
+    news = load_json_safe(KNOWLEDGE_NEWS_PATH)
+    if not news or not isinstance(news, dict):
+        return None
+
+    items = news.get('items', [])
+    unsurfaced = [
+        item for item in items
+        if not item.get('surfaced') and item.get('relevance_score', 0) >= 0.80
+    ]
+
+    if not unsurfaced:
+        return None
+
+    # Pick the most relevant unsurfaced item
+    unsurfaced.sort(key=lambda x: x.get('relevance_score', 0), reverse=True)
+    item = unsurfaced[0]
+
+    source = item.get('source_id', 'regional knowledge')
+    title = item.get('title', 'new gardening information')
+
+    if item.get('plant_slug'):
+        # Plant discovery news
+        draft = (
+            f"I came across some interesting information about "
+            f"{title.replace('Discovered new plant: ', '')} while reading through "
+            f"regional gardening resources. I've added it to the plant database — "
+            f"want me to tell you more about it?"
+        )
+    else:
+        # General knowledge news
+        draft = (
+            f"Something interesting from {source.replace('_', ' ').title()}: "
+            f"{title}. Thought you'd want to know!"
+        )
+
+    return {
+        'check': 8,
+        'channel': 'garden-chat',
+        'subject_id': f'knowledge-news-{item.get("detected_at", "")[:10]}',
+        'draft': draft,
+        '_news_item_index': items.index(item),  # track for marking surfaced
+    }
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 CHECK_FUNCTIONS = [
@@ -625,6 +696,7 @@ CHECK_FUNCTIONS = [
     check_5_design_no_tasks,
     check_6_seasonal_timing,
     check_7_bed_photos,
+    check_8_knowledge_news,
 ]
 
 
@@ -635,7 +707,7 @@ def main():
     parser.add_argument('--force', action='store_true',
                         help='Ignore weekly limit and season restrictions')
     parser.add_argument('--check', type=int, metavar='N',
-                        help='Run only check N (1-7) for debugging')
+                        help='Run only check N (1-8) for debugging')
     args = parser.parse_args()
 
     config = load_app_config()
@@ -680,6 +752,18 @@ def main():
             post_to_discord(channel, draft)
             mark_posted(health, subject_id)
             print(f'  Posted to #{channel}')
+
+            # Mark knowledge news as surfaced after posting
+            if result.get('check') == 8 and '_news_item_index' in result:
+                try:
+                    news = load_json_safe(KNOWLEDGE_NEWS_PATH)
+                    if news and 'items' in news:
+                        idx = result['_news_item_index']
+                        if 0 <= idx < len(news['items']):
+                            news['items'][idx]['surfaced'] = True
+                            atomic_write_json(KNOWLEDGE_NEWS_PATH, news)
+                except Exception:
+                    pass
 
         break  # Stop at first match (HEARTBEAT.md rule)
     else:

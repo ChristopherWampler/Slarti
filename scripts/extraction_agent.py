@@ -242,9 +242,10 @@ Return format:
 
 
 def get_embedding(text: str) -> Optional[list[float]]:
-    """Get text embedding from Google text-embedding-004."""
+    """Get text embedding from Google gemini-embedding-001 (768 dims)."""
     try:
         from google import genai
+        from google.genai import types
     except ImportError:
         return None
 
@@ -255,8 +256,9 @@ def get_embedding(text: str) -> Optional[list[float]]:
     try:
         client = genai.Client(api_key=api_key)
         result = client.models.embed_content(
-            model='models/text-embedding-004',
-            contents=text
+            model='models/gemini-embedding-001',
+            contents=text,
+            config=types.EmbedContentConfig(output_dimensionality=768),
         )
         return result.embeddings[0].values
     except Exception as e:

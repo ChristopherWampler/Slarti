@@ -38,6 +38,9 @@ TASKS_DIR           = SLARTI_ROOT / 'data' / 'tasks'
 SOUL_PATH           = SLARTI_ROOT / 'SOUL.md'
 WEEKLY_MODE_PATH    = SLARTI_ROOT / 'prompts' / 'system' / 'weekly_summary_mode.md'
 
+sys.path.insert(0, str(SCRIPT_DIR))
+from pgvector_search import search_knowledge
+
 
 def load_app_config() -> dict:
     with open(APP_CONFIG_PATH) as f:
@@ -132,6 +135,29 @@ def load_treatment_followups() -> list[dict]:
     return followups
 
 
+def load_regional_knowledge(week_end_date: datetime.date) -> list[dict]:
+    """Query regional knowledge for seasonal tips relevant to the next 2 weeks."""
+    month = week_end_date.month
+    season_map = {1: 'winter', 2: 'winter', 3: 'spring', 4: 'spring',
+                  5: 'spring', 6: 'summer', 7: 'summer', 8: 'summer',
+                  9: 'fall', 10: 'fall', 11: 'fall', 12: 'winter'}
+    current_season = season_map.get(month, 'spring')
+    month_name = week_end_date.strftime('%B')
+
+    try:
+        # Search for seasonally relevant knowledge
+        results = search_knowledge(
+            query=f'{month_name} gardening tasks Zone 6b Missouri',
+            season=current_season,
+            limit=5,
+            min_similarity=0.6,  # slightly lower threshold for broader results
+        )
+        return results
+    except Exception as e:
+        print(f'NOTE: Regional knowledge search failed: {e}', file=sys.stderr)
+        return []
+
+
 def build_prompt(soul: str, mode_instructions: str, events: list[dict],
                  beds: list[dict], tasks: list[dict], followups: list[dict],
                  weather_week: dict | None, week_end_date: datetime.date) -> str:
@@ -214,6 +240,23 @@ def build_prompt(soul: str, mode_instructions: str, events: list[dict],
                 line += f' ({status})'
             sections.append(line)
         sections.append('')
+
+    # Regional knowledge — seasonal tips and timely advice
+    knowledge = load_regional_knowledge(week_end_date)
+    if knowledge:
+        sections.append(f'## Regional Knowledge — Timely for This Week ({len(knowledge)} items)')
+        sections.append('*Use these to enrich the narrative with specific, authoritative advice. '
+                        'Cite the source naturally when referencing this information.*')
+        for item in knowledge[:3]:  # Cap at 3 to avoid prompt bloat
+            source = item.get('source_id', 'unknown')
+            title = item.get('title', '')
+            content = item.get('content', '')[:500]
+            url = item.get('source_url', '')
+            sections.append(f'  [{source}] {title}')
+            sections.append(f'  {content}')
+            if url:
+                sections.append(f'  Source: {url}')
+            sections.append('')
 
     sections.append('---')
     sections.append('Now write the weekly summary in Slarti\'s voice. Follow the mode instructions above exactly.')
