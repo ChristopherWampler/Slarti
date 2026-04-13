@@ -14,11 +14,13 @@ Requires DISCORD_BOT_TOKEN and DISCORD_GUILD_ID in .env
 import sys
 import os
 import json
+import pathlib
 from urllib import request as urllib_request
 from urllib.error import HTTPError
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
+SCRIPT_DIR = pathlib.Path(__file__).parent
+load_dotenv(dotenv_path=SCRIPT_DIR.parent / '.env')
 
 DISCORD_API = 'https://discord.com/api/v10'
 

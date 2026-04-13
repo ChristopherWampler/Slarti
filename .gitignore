@@ -30,6 +30,10 @@ __pycache__/
 # Atomic write temp files
 data/system/*.tmp
 
+# Knowledge agent runtime caches — regenerated on each run
+data/system/knowledge_cache.json
+data/system/knowledge_news.json
+
 # Runtime logs — all ephemeral, never commit
 logs/
 !logs/.gitkeep
