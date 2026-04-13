@@ -36,8 +36,24 @@ APP_CONFIG_PATH = SLARTI_ROOT / 'config' / 'app_config.json'
 HEALTH_STATUS_PATH = SLARTI_ROOT / 'data' / 'system' / 'health_status.json'
 WEATHER_TODAY_PATH = SLARTI_ROOT / 'data' / 'system' / 'weather_today.json'
 WEATHER_WEEK_PATH = SLARTI_ROOT / 'data' / 'system' / 'weather_week.json'
+WEATHER_ALERTS_PATH = SLARTI_ROOT / 'data' / 'system' / 'weather_alerts.json'
 WEATHER_MD_PATH = SLARTI_ROOT / 'WEATHER.md'
 USER_MD_PATH = SLARTI_ROOT / 'USER.md'
+
+CRITICAL_ALERT_EVENTS = {
+    'Tornado Warning',
+    'Tornado Watch',
+    'Severe Thunderstorm Warning',
+    'Flash Flood Warning',
+    'Flash Flood Emergency',
+    'Extreme Wind Warning',
+    'Winter Storm Warning',
+    'Blizzard Warning',
+    'Ice Storm Warning',
+    'Freezing Rain Advisory',
+    'Hard Freeze Warning',
+    'Freeze Warning',
+}
 
 
 def load_app_config():
@@ -237,6 +253,32 @@ def determine_advisories(summary, config, args):
                   f'heat_index_max {heat_index_max}°F). Use --force to override.')
 
     return advisories
+
+
+def fetch_active_alerts(lat, lng):
+    """Fetch active NWS alerts for the given point. Returns list of critical alert dicts."""
+    url = f'https://api.weather.gov/alerts/active?point={lat},{lng}'
+    try:
+        data = fetch_with_retry(url)
+    except Exception as e:
+        print(f'WARNING: Could not fetch NWS alerts: {e}', file=sys.stderr)
+        return []
+
+    critical = []
+    for feature in data.get('features', []):
+        props = feature.get('properties', {})
+        if props.get('status') != 'Actual':
+            continue
+        event = props.get('event', '')
+        if event in CRITICAL_ALERT_EVENTS:
+            critical.append({
+                'id': props.get('id', ''),
+                'event': event,
+                'severity': props.get('severity', ''),
+                'headline': props.get('headline', ''),
+                'expires': props.get('expires', ''),
+            })
+    return critical
 
 
 def generate_advisory_message(summary, advisory_type, config):
@@ -459,6 +501,13 @@ def main():
 
     advisories = determine_advisories(summary, config, args)
 
+    print(f'Checking NWS active alerts for {lat},{lng}...')
+    active_alerts = fetch_active_alerts(lat, lng)
+    if active_alerts:
+        print(f'Active critical alerts: {[a["event"] for a in active_alerts]}')
+    else:
+        print('No active critical alerts.')
+
     weather_today = {
         'date': today_str,
         'temp_high': summary['temp_high'],
@@ -468,6 +517,7 @@ def main():
         'wind_speed_max': summary['wind_speed_max'],
         'short_forecast': summary['short_forecast'],
         'advisories': advisories,
+        'active_alert_events': [a['event'] for a in active_alerts],
         'last_updated': now_iso,
     }
 
@@ -493,17 +543,26 @@ def main():
     else:
         print('No advisories today.')
 
+    weather_alerts = {
+        'alerts': active_alerts,
+        'last_checked': now_iso,
+        'point': {'lat': lat, 'lng': lng},
+    }
+
     if not args.dry_run:
         atomic_write_json(WEATHER_TODAY_PATH, weather_today)
         atomic_write_json(WEATHER_WEEK_PATH, weather_week)
+        atomic_write_json(WEATHER_ALERTS_PATH, weather_alerts)
         write_weather_md(weather_today)
         update_user_md_weather(weather_today)
         update_health_status(now_iso)
-        print('Wrote weather_today.json, weather_week.json, WEATHER.md, USER.md, updated health_status.json')
+        print('Wrote weather_today.json, weather_week.json, weather_alerts.json, WEATHER.md, USER.md, updated health_status.json')
     else:
         print('[dry-run] Would write weather_today.json:')
         print(json.dumps(weather_today, indent=2))
         print('[dry-run] Would write weather_week.json with', len(week_days), 'days')
+        print('[dry-run] Would write weather_alerts.json:')
+        print(json.dumps(weather_alerts, indent=2))
 
 
 if __name__ == '__main__':

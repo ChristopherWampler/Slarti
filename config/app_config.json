@@ -20,7 +20,7 @@
   "weekly_summary_time_local": "18:00",
   "max_proactive_posts_per_week": 2,
   "weather_api": "NWS",
-  "nws_lat": 37.78,
+  "nws_lat": 37.68,
   "nws_lng": -90.42,
   "last_frost_date_approx": "04-25",
   "pwa_port": 8080,
