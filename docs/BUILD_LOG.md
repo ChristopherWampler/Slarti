@@ -686,10 +686,65 @@ py scripts/populate_plants.py --dry-run  # 61 plants validated, 0 errors
 
 ---
 
+## April 2026 — Weather Pipeline Engineering
+
+**Completed:** 2026-04-13
+
+### Problem: Weather Data Not Reaching Claude
+
+Root cause: OpenClaw only auto-loads `SOUL.md` and `AGENTS.md` into Claude's system context. `USER.md` — where weather data was being injected — is never loaded. Claude fell back to tool calls to find the data, and OpenClaw renders all tool calls as visible `<tool_call>` XML blocks in Discord responses.
+
+### Solution: AGENTS.md Injection
+
+`weather_agent.py` now appends a `## Live Conditions — Farmington, MO` section to the bottom of `AGENTS.md` on every run. Since `AGENTS.md` is guaranteed to be in Claude's context, the current weather is always present without any tool call. `USER.md` is kept as a human-readable reference copy only.
+
+### NWS Active Alerts
+
+Added `fetch_active_alerts()` using the NWS alerts API (`api.weather.gov/alerts/active?point=37.68,-90.42`). Critical alert types (tornado, severe thunderstorm, flash flood, freeze warnings) are saved to `data/system/weather_alerts.json`. The heartbeat agent reads this file on every 30-min run.
+
+### Emergency Heartbeat Tier
+
+The heartbeat now has two tiers:
+
+- **Emergency** (no post limit): New NWS critical alert → post to `#garden-chat` immediately with a concrete garden or safety action. Deduplicates via `posted_alert_ids` in `health_status.json`.
+- **Routine** (2/week cap): Existing garden-companion checks plus new triggers for heavy rain with recent transplants and extended dry stretches.
+
+### !weather Command
+
+Added `!weather` to the command list — runs `weather_agent.py` via the exec tool, then reads the freshly written `weather_today.json` for a live NWS reading on demand.
+
+### Scheduling
+
+Three Windows Task Scheduler tasks replace the single 6 AM WSL2 cron entry:
+- `Weather Agent 0600` — daily 6:00 AM
+- `Weather Agent 1200` — daily 12:00 PM
+- `Weather Agent 1600` — daily 4:00 PM
+- `Gateway Watchdog` — every 5 min, auto-restarts OpenClaw if health check fails
+
+### Coordinates Fixed
+
+NWS coordinates corrected from city center (`37.78, -90.42`) to actual property location (`37.68, -90.42`) for accurate NWS polygon alert matching.
+
+### Discord User ID
+
+Emily's real Discord ID (`1493050506535370764`) confirmed and hardcoded directly into `AGENTS.md`. Eliminates the `config/discord_users.json` read call that was rendering as XML in Discord.
+
+### What Changed
+
+| File | Change |
+|---|---|
+| `scripts/weather_agent.py` | `update_agents_md_weather()`, `fetch_active_alerts()`, freshness timestamp, `active_alert_events` in today's summary |
+| `AGENTS.md` | Discord IDs hardcoded, weather instruction updated to reference bottom of document, Live Conditions section appended |
+| `scripts/restart.sh` | Step 1c — weather refresh before gateway start |
+| `scripts/gateway_watchdog.ps1` | New — Windows PowerShell watchdog, registered in Task Scheduler |
+| `config/app_config.json` | NWS coordinates corrected to property location |
+| `data/system/weather_alerts.json` | New — active NWS alerts, checked by heartbeat on every run |
+
+---
+
 ## What's Left
 
-All 13 phases are complete. Heartbeat agent is live. Plant database is at 61 NRCS-referenced entries.
+All 13 phases are complete. Weather pipeline is live and posting clean responses. Heartbeat agent is live. Plant database is at 61 NRCS-referenced entries.
 
 **Remaining:**
-- **Emily's Discord ID** — still a placeholder in `config/discord_users.json`. Add when Emily is ready, then restart the OpenClaw gateway.
 - **Emily's onboarding** — run `!setup` in `#garden-chat` to populate garden beds

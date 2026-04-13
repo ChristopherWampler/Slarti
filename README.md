@@ -27,7 +27,8 @@ Slarti knows the difference. It knows the garden, the decisions, the history. It
 - **Analyzes garden photos** — drop a photo in Discord and Slarti describes what it sees, flags anything wrong, and recommends what to do. Confidence-scored. Specific to Zone 6b.
 - **Generates visual mockups** — describe a bed redesign or attach a photo with a change request. Slarti generates a concept image via Google Gemini and posts it to Discord.
 - **Identifies plants** — send a photo of something unfamiliar and Slarti identifies the species and gives Zone 6b-appropriate care advice for Farmington's climate.
-- **Watches the weather** — every morning at 6:00 AM it queries the NWS forecast API and posts a frost or heat advisory to `#garden-log` when conditions matter.
+- **Watches the weather** — queries the NWS forecast API 3× daily (6 AM, noon, 4 PM) and posts frost and heat advisories to `#garden-log` when conditions matter. Type `!weather` for a live reading anytime.
+- **Watches for emergencies** — monitors active NWS alerts (tornado warnings, severe thunderstorm warnings, flash flood warnings, hard freeze warnings) and posts immediately to Discord with a concrete garden or safety action — no weekly post cap applies.
 - **Remembers everything** — plants, decisions, observations, and conversations are extracted into a timeline, embedded with Google text-embedding-004, and stored in pgvector for semantic retrieval.
 - **Talks on the phone** — a voice PWA served over HTTPS lets you tap once and speak freely. Voice Activity Detection handles the silence. Whisper transcribes. Claude responds. OpenAI TTS reads it back.
 - **Interviews Emily about the garden** — `!setup` launches a conversational onboarding wizard that asks one question at a time and builds structured bed records from the conversation.
@@ -79,7 +80,7 @@ Three tiers, assembled fresh on every Claude call:
 **Hot** — always loaded:
 - `SOUL.md` — personality, values, what Slarti notices and cares about
 - `docs/garden.md` — auto-generated garden state: all beds, plants, and known history
-- `data/system/weather_today.json` + `weather_week.json` — current conditions
+- `AGENTS.md` Live Conditions section — NWS conditions refreshed 3× daily, injected directly into Claude's system context
 - `data/plants/` — 61 NRCS-referenced plant entries for Zone 6b
 
 **Warm** — loaded on demand when the subject matches:
@@ -169,14 +170,20 @@ slarti/
 ├── scripts/
 │   ├── voice_webhook.py           ← FastAPI server — Mode P, port 8080
 │   ├── extraction_agent.py        ← Session → memory pipeline (runs every 5 min)
-│   ├── weather_agent.py           ← Daily NWS forecast + frost/heat advisories
+│   ├── heartbeat_agent.py         ← Proactive garden checks every 30 min (two-tier: emergency + routine)
+│   ├── weather_agent.py           ← NWS forecast 3× daily + emergency alert monitoring
 │   ├── weekly_summary_agent.py    ← Sunday evening narrative summary
 │   ├── voice_session_writer.py    ← Mode V audio transcription
 │   ├── onboarding_writer.py       ← !setup bed record builder
 │   ├── photo_agent.py             ← Photo metadata and EXIF extraction
 │   ├── image_agent.py             ← Gemini / DALL-E image generation
+│   ├── pgvector_search.py         ← Semantic timeline search via cosine similarity
+│   ├── discord_alert.py           ← Fatal error alerts to #admin-log
+│   ├── init_db.py                 ← Idempotent pgvector schema init
 │   ├── populate_plants.py         ← Seeds data/plants/ from plant_sources/
 │   ├── plant_lookup.py            ← NRCS CSV search utility
+│   ├── restart.sh                 ← Full system restart sequence
+│   ├── gateway_watchdog.ps1       ← Windows Task Scheduler restart loop
 │   └── git_push.sh                ← Nightly pg_dump + git commit + push
 └── logs/daily/                    ← Runtime logs (git-ignored)
 ```
@@ -198,7 +205,7 @@ slarti/
 | 7 | Discord bot + 7 channels |
 | 8 | Memory layer — pgvector schema, extraction agent, garden.md |
 | 9 | Onboarding wizard — `!setup` conversational bed interviewer |
-| 10 | Daily weather agent — NWS API, frost + heat advisories |
+| 10 | Weather agent — NWS API, 3× daily refresh, emergency alerts |
 | 11 | Image modes A/B/C/D — Gemini mockups, plant ID |
 | 12 | Voice notes (Mode V), plant database, weekly summary |
 | 13 | Voice PWA — FastAPI, iPhone, VAD, Whisper STT, OpenAI TTS |
@@ -228,11 +235,20 @@ nohup python3 /mnt/c/Openclaw/slarti/scripts/voice_webhook.py \
 
 Scheduled agents run via WSL2 cron — no manual start needed:
 
+WSL2 cron:
 ```
 */5 * * * *   python3 .../extraction_agent.py
-0 6 * * *     python3 .../weather_agent.py
+*/30 * * * *  python3 .../heartbeat_agent.py
 0 18 * * 0    python3 .../weekly_summary_agent.py
 0 3 * * *     bash .../git_push.sh
+```
+
+Windows Task Scheduler:
+```
+Weather Agent 0600   — daily 6:00 AM   → weather_agent.py
+Weather Agent 1200   — daily 12:00 PM  → weather_agent.py
+Weather Agent 1600   — daily 4:00 PM   → weather_agent.py
+Gateway Watchdog     — every 5 min     → gateway_watchdog.ps1
 ```
 
 ---
