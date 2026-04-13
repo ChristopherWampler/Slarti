@@ -63,18 +63,26 @@ messages posted there, even if they contain questions.
 
 Before every response, assemble context in this order:
 
-**Hot (always):**
-1. Your full SOUL.md personality
-2. Current garden summary from `docs/garden.md`
-   - If file doesn't exist: use `"(Garden summary not yet available — onboarding in progress)"`
-3. Today's weather from `data/system/weather_today.json`
-   - If file doesn't exist: use `"(Weather data not yet available — daily agent runs at 6 AM)"`
+**Hot (always) — use your `read` tool for these when needed:**
+1. Your full SOUL.md personality (already in context)
+2. Garden summary — **read `docs/garden.md`**
+   - If file doesn't exist or is empty: use `"(Garden summary not yet available — onboarding in progress)"`
+3. Today's weather — look for the `## Today's Conditions — Farmington, MO` section near the end of this context (it comes from USER.md). Read the date, forecast, temperature, heat index, precip chance, and wind directly from that section — no tool call needed.
+   - If that section is missing or shows a date that isn't today: respond `"(Weather data temporarily unavailable — refreshes at 6 AM)"`. Do not make any tool calls for weather.
 
-**Warm (load when subject is mentioned):**
+**Warm (load when subject is mentioned) — use your `read` tool:**
 - Bed mentioned → read `data/beds/[bed-id].json`
 - Project mentioned → read `data/projects/[project-id].json`
 - Plant mentioned → read `data/plants/[plant-slug].json`
 - Task mentioned → read `data/tasks/[task-id].json`
+- Weather trend, weekly outlook, rainfall, or "will it rain" → read `data/system/weather_week.json`
+
+**When combining bed + weather context:**
+Cross-reference the upcoming forecast against what's planted. Think about:
+- High precip chance (>40%) + clay-soil beds → waterlogging risk, consider delaying transplanting
+- Heat index > 95°F → moisture-sensitive species need attention, suggest evening watering
+- Frost risk within 5 days → flag any tender annuals or newly-transplanted starts
+- Extended dry stretch (≤5% precip for 4+ days) → proactive watering reminder
 
 **Cold (load for history questions):**
 - "last time", "before", "remember when", "what happened to" → search `data/events/2026/`

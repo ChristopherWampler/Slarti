@@ -36,6 +36,8 @@ APP_CONFIG_PATH = SLARTI_ROOT / 'config' / 'app_config.json'
 HEALTH_STATUS_PATH = SLARTI_ROOT / 'data' / 'system' / 'health_status.json'
 WEATHER_TODAY_PATH = SLARTI_ROOT / 'data' / 'system' / 'weather_today.json'
 WEATHER_WEEK_PATH = SLARTI_ROOT / 'data' / 'system' / 'weather_week.json'
+WEATHER_MD_PATH = SLARTI_ROOT / 'WEATHER.md'
+USER_MD_PATH = SLARTI_ROOT / 'USER.md'
 
 
 def load_app_config():
@@ -187,11 +189,17 @@ def compute_week_summary(periods):
         day_periods = days[date_str]
         temps = [parse_temp(p) for p in day_periods]
         precip_probs = [parse_precip(p) for p in day_periods]
+        noon_period = next(
+            (p for p in day_periods
+             if '12:' in p.get('startTime', '') or '13:' in p.get('startTime', '')),
+            day_periods[len(day_periods) // 2] if day_periods else None
+        )
         result.append({
             'date': date_str,
             'temp_high': round(max(temps)) if temps else None,
             'temp_low': round(min(temps)) if temps else None,
             'precip_chance_max': round(max(precip_probs)) if precip_probs else 0,
+            'short_forecast': noon_period.get('shortForecast', 'Unknown') if noon_period else 'Unknown',
         })
     return result
 
@@ -337,6 +345,80 @@ def update_health_status(timestamp_iso):
         print(f'WARNING: Could not update health_status.json: {e}', file=sys.stderr)
 
 
+def write_weather_md(weather_today: dict):
+    """Write WEATHER.md to workspace root for OpenClaw context injection.
+
+    OpenClaw injects all workspace root .md files into Claude's context on
+    every request. This file is the hot-context delivery mechanism for daily
+    weather — it is a rendering of weather_today.json, not the source of truth.
+    """
+    date = weather_today.get('date', 'unknown')
+    high = weather_today.get('temp_high', '?')
+    low = weather_today.get('temp_low', '?')
+    forecast = weather_today.get('short_forecast', 'unknown')
+    precip = weather_today.get('precip_chance_max', '?')
+    wind = weather_today.get('wind_speed_max', '?')
+    heat_index = weather_today.get('heat_index_max', '?')
+    advisories = weather_today.get('advisories', [])
+    updated = weather_today.get('last_updated', 'unknown')
+
+    advisory_line = ', '.join(advisories) if advisories else 'None'
+
+    content = (
+        '# WEATHER.md — Today\'s Conditions\n\n'
+        '*Auto-updated daily at 6 AM by weather_agent.py. Do not edit manually.*\n\n'
+        f'## Farmington, Missouri — {date}\n\n'
+        f'**Today:** {high}°F high / {low}°F low | {forecast}\n'
+        f'**Precipitation:** {precip}% chance | **Wind:** {wind} mph max | **Heat index:** {heat_index}°F\n'
+        f'**Advisories:** {advisory_line}\n\n'
+        f'*Updated: {updated}*\n'
+    )
+
+    tmp_path = str(WEATHER_MD_PATH) + '.tmp'
+    with open(tmp_path, 'w') as f:
+        f.write(content)
+    os.replace(tmp_path, WEATHER_MD_PATH)
+
+
+def update_user_md_weather(weather_today: dict):
+    """Append/replace Today's Conditions section in USER.md for OpenClaw context injection.
+
+    USER.md is loaded by OpenClaw on every Claude request. This ensures today's weather
+    is always in context even if the read tool is unavailable.
+    """
+    date = weather_today.get('date', 'unknown')
+    high = weather_today.get('temp_high', '?')
+    low = weather_today.get('temp_low', '?')
+    forecast = weather_today.get('short_forecast', 'unknown')
+    precip = weather_today.get('precip_chance_max', '?')
+    wind = weather_today.get('wind_speed_max', '?')
+    heat_index = weather_today.get('heat_index_max', '?')
+    advisories = weather_today.get('advisories', [])
+    advisory_line = ', '.join(advisories) if advisories else 'None'
+    refreshed_at = datetime.now().strftime('%-I:%M %p CDT')
+
+    new_section = (
+        '\n---\n\n'
+        "## Today's Conditions \u2014 Farmington, MO\n"
+        f'*Last refreshed: {refreshed_at}. Auto-updated by weather_agent.py. Do not edit manually.*\n\n'
+        f'Date: {date}\n'
+        f'Forecast: {forecast} | High: {high}\u00b0F / Low: {low}\u00b0F\n'
+        f'Heat index: {heat_index}\u00b0F | Precip chance: {precip}% | Wind: {wind} mph\n'
+        f'Advisories: {advisory_line}\n'
+    )
+
+    existing = USER_MD_PATH.read_text(encoding='utf-8') if USER_MD_PATH.exists() else ''
+    marker = "\n---\n\n## Today's Conditions"
+    idx = existing.find(marker)
+    base = existing[:idx] if idx != -1 else existing.rstrip()
+
+    content = base + new_section
+    tmp = str(USER_MD_PATH) + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        f.write(content)
+    os.replace(tmp, USER_MD_PATH)
+
+
 def main():
     parser = argparse.ArgumentParser(description='Slarti daily weather agent')
     parser.add_argument('--dry-run', action='store_true',
@@ -414,8 +496,10 @@ def main():
     if not args.dry_run:
         atomic_write_json(WEATHER_TODAY_PATH, weather_today)
         atomic_write_json(WEATHER_WEEK_PATH, weather_week)
+        write_weather_md(weather_today)
+        update_user_md_weather(weather_today)
         update_health_status(now_iso)
-        print('Wrote weather_today.json, weather_week.json, updated health_status.json')
+        print('Wrote weather_today.json, weather_week.json, WEATHER.md, USER.md, updated health_status.json')
     else:
         print('[dry-run] Would write weather_today.json:')
         print(json.dumps(weather_today, indent=2))
