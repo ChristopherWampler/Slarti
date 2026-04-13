@@ -4,8 +4,8 @@
 
 ## Farmington, Missouri — 2026-04-13
 
-**Today:** 81°F high / 71°F low | Partly Sunny
-**Precipitation:** 9% chance | **Wind:** 16 mph max | **Heat index:** 82°F
+**Today:** 82°F high / 71°F low | Partly Cloudy
+**Precipitation:** 9% chance | **Wind:** 14 mph max | **Heat index:** 84°F
 **Advisories:** None
 
-*Updated: 2026-04-13T11:03:08.508249-05:00*
+*Updated: 2026-04-13T16:00:13.639454-05:00*

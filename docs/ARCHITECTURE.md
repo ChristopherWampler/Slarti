@@ -24,7 +24,7 @@ Four providers. Each chosen for a specific reason.
 | Advisory messages (weather, heartbeat) | Anthropic | Claude Haiku 4.5 | ~0.0001¢/call for messages that don't need Sonnet's reasoning depth |
 | Photo analysis (Modes A, D) | Anthropic | Claude Sonnet 4.6 (multimodal) | Native multimodal passthrough via OpenClaw — no extra API call |
 | Image generation (Modes B, C) | Google | gemini-3.1-flash-image-preview | Only production model generating image+text in a single API call |
-| Embeddings | Google | text-embedding-004 | 768-dimension vectors, cost-effective, strong semantic performance |
+| Embeddings | Google | gemini-embedding-001 | 768-dimension vectors, cost-effective, strong semantic performance |
 | Voice output | OpenAI | gpt-4o-mini-tts | Pay-as-you-go fractions of a cent per response; no ElevenLabs subscription required |
 | Voice transcription | OpenAI | whisper-1 | Reliable, fast, minimal hallucination with explicit `language='en'` |
 | Image generation fallback | OpenAI | DALL-E 3 | Kicks in automatically when Gemini image generation fails |
@@ -95,7 +95,7 @@ extraction_agent.py  (WSL2 cron, every 5 min)
     │  Confidence gate: <0.50 skip; 0.50–0.79 surface; ≥0.80 auto-save
     │
     ▼
-Events embedded via text-embedding-004 (768 dimensions)
+Events embedded via gemini-embedding-001 (768 dimensions)
     │
     ▼
 pgvector (timeline_events table)

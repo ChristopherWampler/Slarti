@@ -5,7 +5,7 @@
   "active_provider": "anthropic",
   "fallback_active": false,
   "last_memory_write_at": null,
-  "last_weather_refresh_at": "2026-04-13T11:03:08.508249-05:00",
+  "last_weather_refresh_at": "2026-04-13T16:00:13.639454-05:00",
   "last_backup_at": null,
   "last_git_push_at": null,
   "git_push_failures_consecutive": 0,
@@ -14,13 +14,16 @@
   "file_integrity": "ok",
   "markitdown_last_used_at": null,
   "proactive_posts_this_week": 0,
-  "proactive_posts_week_of": null,
+  "proactive_posts_week_of": "2026-04-12",
   "last_heartbeat_post_at": null,
   "last_heartbeat_post_subject_id": null,
   "garden_md_regeneration_failed": false,
   "last_weekly_summary_at": "2026-04-12T23:00:13.699593Z",
   "weekly_summary_failures_consecutive": 0,
   "notes": "System initialized",
-  "last_heartbeat_run_at": "2026-04-13T16:00:05.659025+00:00",
-  "posted_alert_ids": []
+  "last_heartbeat_run_at": "2026-04-13T21:00:03.713673+00:00",
+  "posted_alert_ids": [],
+  "last_knowledge_refresh_at": "2026-04-13T20:14:59.217034+00:00",
+  "knowledge_chunks_total": 393,
+  "knowledge_sources": 3
 }

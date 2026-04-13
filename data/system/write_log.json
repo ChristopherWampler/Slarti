@@ -1,10 +1,96 @@
-[
-  {
-    "timestamp": "2026-03-30T18:50:22.157108Z",
-    "file": "2026-03-30_preference_black-knight-butterfly-bush_f247bffb.json",
-    "category": "PREFERENCE",
-    "author": "christopher",
-    "subject_id": "Black Knight Butterfly Bush",
-    "confidence": 0.6
-  }
-]
+{
+  "writes": [
+    {
+      "timestamp": "2026-03-30T18:50:22.157108Z",
+      "file": "2026-03-30_preference_black-knight-butterfly-bush_f247bffb.json",
+      "category": "PREFERENCE",
+      "author": "christopher",
+      "subject_id": "Black Knight Butterfly Bush",
+      "confidence": 0.6
+    },
+    {
+      "timestamp": "2026-04-13T19:13:31.890657+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "pear",
+      "content": "Dwarf pears can be created through grafting using quince rootstock as an example of compatible cross-species grafting."
+    },
+    {
+      "timestamp": "2026-04-13T19:13:31.902323+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "apple",
+      "content": "Used in high-density vertical axis orchard systems with dwarfing rootstocks B.9 and M.9 for early production.; Subject of backyard growing guide for Missouri, requiring careful planning and disease ma"
+    },
+    {
+      "timestamp": "2026-04-13T19:13:31.912836+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "apple",
+      "content": "Older apple cultivar mentioned as commanding lower prices than newer cultivars.; Apple cultivar extremely susceptible to fire blight in Missouri."
+    },
+    {
+      "timestamp": "2026-04-13T19:13:31.924101+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "apple",
+      "content": "Newer non-spur type cultivar suitable for vertical axis training systems.; Apple cultivar extremely susceptible to fire blight in Missouri."
+    },
+    {
+      "timestamp": "2026-04-13T19:13:31.934790+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "strawberry-june-bearing",
+      "content": "Ideal for home gardeners in Missouri, requiring minimal investment and producing good crops within 13 months with proper cultivar selection."
+    },
+    {
+      "timestamp": "2026-04-13T19:13:31.946102+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "peach",
+      "content": "Prized for flavor and texture but requires considerable care; one mature tree produces 120-150 pounds of fruit annually."
+    },
+    {
+      "timestamp": "2026-04-13T19:13:31.959122+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "apple",
+      "content": "Apple cultivar not recommended for Missouri due to poor performance in warm summers."
+    },
+    {
+      "timestamp": "2026-04-13T19:13:31.969614+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "sweet-corn",
+      "content": "Vegetable with specified nitrogen side-dressing timing in Table 2.; Crop affected by black cutworm larvae; susceptible to damage at seedling stage with economic thresholds for treatment; Subject to da"
+    },
+    {
+      "timestamp": "2026-04-13T19:13:31.981029+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "pepper-bell",
+      "content": "Warm-season vegetable used in hotbeds for starting"
+    },
+    {
+      "timestamp": "2026-04-13T19:13:31.991621+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "cantaloupe",
+      "content": "Can be infected by bacterial fruit blotch but is not the preferred host compared to watermelon."
+    },
+    {
+      "timestamp": "2026-04-13T19:13:32.001959+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "yarrow",
+      "content": "Identified as a submerged plant rooted below water surface that can grow 6 feet or more."
+    },
+    {
+      "timestamp": "2026-04-13T19:13:32.013428+00:00",
+      "author": "system",
+      "action": "knowledge_enrichment",
+      "subject_id": "sunflower",
+      "content": "Easy, fast-growing flower that can be grown for flowers or seed with varieties including Titan, Cyclops, Mammoth Russian, Teddy Bear, and Autumn Beauty."
+    }
+  ]
+}

@@ -29,7 +29,7 @@ Slarti knows the difference. It knows the garden, the decisions, the history. It
 - **Identifies plants** — send a photo of something unfamiliar and Slarti identifies the species and gives Zone 6b-appropriate care advice for Farmington's climate.
 - **Watches the weather** — queries the NWS forecast API 3× daily (6 AM, noon, 4 PM) and posts frost and heat advisories to `#garden-log` when conditions matter. Type `!weather` for a live reading anytime.
 - **Watches for emergencies** — monitors active NWS alerts (tornado warnings, severe thunderstorm warnings, flash flood warnings, hard freeze warnings) and posts immediately to Discord with a concrete garden or safety action — no weekly post cap applies.
-- **Remembers everything** — plants, decisions, observations, and conversations are extracted into a timeline, embedded with Google text-embedding-004, and stored in pgvector for semantic retrieval.
+- **Remembers everything** — plants, decisions, observations, and conversations are extracted into a timeline, embedded with Google gemini-embedding-001, and stored in pgvector for semantic retrieval.
 - **Talks on the phone** — a voice PWA served over HTTPS lets you tap once and speak freely. Voice Activity Detection handles the silence. Whisper transcribes. Claude responds. OpenAI TTS reads it back.
 - **Interviews Emily about the garden** — `!setup` launches a conversational onboarding wizard that asks one question at a time and builds structured bed records from the conversation.
 - **Summarizes the week** — every Sunday at 6:00 PM it reads the week's events, weather, and observations and writes a warm narrative recap to `#garden-log`.
@@ -64,7 +64,7 @@ Four providers. No subscriptions except Anthropic for conversation.
 | Conversation, agents, summaries | Anthropic | Claude Sonnet 4.6 |
 | Photo analysis (Modes A, D) | Anthropic | Claude Sonnet 4.6 (multimodal) |
 | Image generation (Modes B, C) | Google | gemini-3.1-flash-image-preview |
-| Embeddings (memory search) | Google | text-embedding-004 |
+| Embeddings (memory search) | Google | gemini-embedding-001 |
 | Advisory messages | Anthropic | Claude Haiku 4.5 |
 | Image generation fallback | OpenAI | DALL-E 3 |
 | Voice output | OpenAI | gpt-4o-mini-tts |

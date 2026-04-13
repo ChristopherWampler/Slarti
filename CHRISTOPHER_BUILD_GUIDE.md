@@ -248,7 +248,7 @@ GOOGLE_API_KEY=your_key_here
 ```
 
 1. Configure OpenClaw to use Agent 2 (extraction) after every conversation
-2. Configure text-embedding-004 for pgvector in OpenClaw config
+2. Configure gemini-embedding-001 for pgvector in OpenClaw config
 3. Set up `garden.md` auto-regeneration trigger (fires after BED_FACT or DECISION extraction, and daily at 9 AM)
 
 **Test:**

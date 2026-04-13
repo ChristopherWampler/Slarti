@@ -1,7 +1,7 @@
 # Slarti Build Log
 
 Complete record of what was built, what decisions were made, and where everything lives.
-Last updated: 2026-04-12
+Last updated: 2026-04-13
 
 ---
 
@@ -14,7 +14,7 @@ Last updated: 2026-04-12
 | File | Purpose |
 |---|---|
 | `SOUL.md` | Slarti's personality — injected into every Claude call by OpenClaw |
-| `prompts/system/SOUL.md` | Legacy copy (pre-OpenClaw); now superseded by root `SOUL.md` |
+| `prompts/system/SOUL.md` | *(deleted 2026-04-13 — was legacy copy, superseded by root `SOUL.md`)* |
 | `config/app_config.json` | App settings: location (Farmington MO), model name, NWS coordinates, schedule times, port numbers |
 | `config/provider_policy.json` | Four-provider routing rules (Anthropic / Google / OpenAI fallback / ElevenLabs voice) |
 | `config/confidence_thresholds.json` | Memory write gates: <0.50 requires confirmation; 0.50–0.79 surfaces first; ≥0.80 auto-saves |
@@ -225,7 +225,7 @@ All credentials live in `C:\Openclaw\slarti\.env` (never committed to git).
 | Credential | Status | Where used |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | ✅ Set | Claude Sonnet — all conversation, agents, summaries |
-| `GOOGLE_API_KEY` | ✅ Set | Gemini Flash (photos), text-embedding-004 (pgvector) |
+| `GOOGLE_API_KEY` | ✅ Set | Gemini Flash (photos), gemini-embedding-001 (pgvector) |
 | `OPENAI_API_KEY` | ✅ Set | DALL-E 3 fallback, web search plant lookup |
 | `ELEVENLABS_API_KEY` | ✅ Set | Voice output (Phase 13) |
 | `DISCORD_BOT_TOKEN` | ✅ Set | OpenClaw Discord channel |
@@ -742,9 +742,50 @@ Emily's real Discord ID (`1493050506535370764`) confirmed and hardcoded directly
 
 ---
 
+## Phase 14 — Regional Knowledge System
+
+**Completed:** 2026-04-13
+
+### What was built
+
+| Component | Description |
+|---|---|
+| `scripts/knowledge_agent.py` | 4-phase knowledge pipeline: ingest → plant discovery → enrichment → AGENTS.md digest |
+| `scripts/mcp_knowledge_server.py` | MCP server exposing `search_knowledge` tool to Claude via OpenClaw |
+| `.mcp.json` | MCP server registration for OpenClaw workspace |
+| `regional_knowledge` table | pgvector table with HNSW index, season/plant tags, authority scoring, expiration |
+| `requirements.txt` | Python dependency manifest |
+
+### Sources ingested
+
+| Source | Chunks | Authority |
+|---|---|---|
+| MU Extension (236 publications) | 236 | 1.0 |
+| Farmer's Almanac (Farmington calendar) | 96 | 1.0 |
+| Plant database (61 plants) | 61 | 1.0 |
+| **Total** | **393** | |
+
+### Key decisions
+
+- **MCP over exec:** Claude's `{{exec}}` tags leaked into Discord as text. MCP server gives clean tool access.
+- **Similarity threshold 0.55:** Google's `gemini-embedding-001` produces lower similarity scores than the deprecated `text-embedding-004`. 0.55 catches relevant results without noise.
+- **MOBOT removed:** Their robots.txt blocks AI crawlers. Code preserved in git history.
+- **Almanac via browser UA:** The Almanac API blocks bot agents but works with standard browser User-Agent headers.
+- **Seasonal digest in AGENTS.md:** Top 6 priority crops + MU Extension tip injected on every knowledge run. Claude has baseline seasonal knowledge without needing a tool call.
+
+### Cron schedule
+
+| Schedule | Command |
+|---|---|
+| Sunday 2 AM | `knowledge_agent.py` (full weekly run) |
+| Wednesday 2 AM (May-Oct) | `knowledge_agent.py --growing-season-only` (growing season extra) |
+
+---
+
 ## What's Left
 
-All 13 phases are complete. Weather pipeline is live and posting clean responses. Heartbeat agent is live. Plant database is at 61 NRCS-referenced entries.
+All 14 phases are complete. Regional knowledge system is live — MCP server serving 393 chunks to Claude during conversation.
 
 **Remaining:**
 - **Emily's onboarding** — run `!setup` in `#garden-chat` to populate garden beds
+- **Knowledge expansion** — add more MU Extension publications, explore Tropicos API for MOBOT data
