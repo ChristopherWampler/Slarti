@@ -39,6 +39,7 @@ WEATHER_WEEK_PATH = SLARTI_ROOT / 'data' / 'system' / 'weather_week.json'
 WEATHER_ALERTS_PATH = SLARTI_ROOT / 'data' / 'system' / 'weather_alerts.json'
 WEATHER_MD_PATH = SLARTI_ROOT / 'WEATHER.md'
 USER_MD_PATH = SLARTI_ROOT / 'USER.md'
+AGENTS_MD_PATH = SLARTI_ROOT / 'AGENTS.md'
 
 CRITICAL_ALERT_EVENTS = {
     'Tornado Warning',
@@ -461,6 +462,49 @@ def update_user_md_weather(weather_today: dict):
     os.replace(tmp, USER_MD_PATH)
 
 
+def update_agents_md_weather(weather_today: dict):
+    """Append/replace Live Conditions section at the bottom of AGENTS.md.
+
+    AGENTS.md is loaded by OpenClaw on every request — this is the reliable
+    injection point for live weather data in Claude's context. USER.md is kept
+    as a human-readable reference copy.
+    """
+    date = weather_today.get('date', 'unknown')
+    high = weather_today.get('temp_high', '?')
+    low = weather_today.get('temp_low', '?')
+    forecast = weather_today.get('short_forecast', 'unknown')
+    precip = weather_today.get('precip_chance_max', '?')
+    wind = weather_today.get('wind_speed_max', '?')
+    heat_index = weather_today.get('heat_index_max', '?')
+    advisories = weather_today.get('advisories', [])
+    alert_events = weather_today.get('active_alert_events', [])
+    advisory_line = ', '.join(advisories) if advisories else 'None'
+    alerts_line = ', '.join(alert_events) if alert_events else 'None'
+    refreshed_at = datetime.now().strftime('%-I:%M %p CDT')
+
+    new_section = (
+        '\n---\n\n'
+        '## Live Conditions \u2014 Farmington, MO\n'
+        f'*Last refreshed: {refreshed_at}. Auto-updated by weather_agent.py. Do not edit manually.*\n\n'
+        f'Date: {date}\n'
+        f'Forecast: {forecast} | High: {high}\u00b0F / Low: {low}\u00b0F\n'
+        f'Heat index: {heat_index}\u00b0F | Precip chance: {precip}% | Wind: {wind} mph\n'
+        f'Advisories: {advisory_line}\n'
+        f'Active NWS alerts: {alerts_line}\n'
+    )
+
+    existing = AGENTS_MD_PATH.read_text(encoding='utf-8') if AGENTS_MD_PATH.exists() else ''
+    marker = '\n---\n\n## Live Conditions'
+    idx = existing.find(marker)
+    base = existing[:idx] if idx != -1 else existing.rstrip()
+
+    content = base + new_section
+    tmp = str(AGENTS_MD_PATH) + '.tmp'
+    with open(tmp, 'w', encoding='utf-8') as f:
+        f.write(content)
+    os.replace(tmp, AGENTS_MD_PATH)
+
+
 def main():
     parser = argparse.ArgumentParser(description='Slarti daily weather agent')
     parser.add_argument('--dry-run', action='store_true',
@@ -555,8 +599,9 @@ def main():
         atomic_write_json(WEATHER_ALERTS_PATH, weather_alerts)
         write_weather_md(weather_today)
         update_user_md_weather(weather_today)
+        update_agents_md_weather(weather_today)
         update_health_status(now_iso)
-        print('Wrote weather_today.json, weather_week.json, weather_alerts.json, WEATHER.md, USER.md, updated health_status.json')
+        print('Wrote weather_today.json, weather_week.json, weather_alerts.json, WEATHER.md, AGENTS.md, USER.md, updated health_status.json')
     else:
         print('[dry-run] Would write weather_today.json:')
         print(json.dumps(weather_today, indent=2))

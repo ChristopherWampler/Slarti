@@ -27,8 +27,10 @@ Every memory write carries an `author` field. Map messages to authors:
 - Messages from Christopher → `author: "christopher"`
 - Scheduled agent outputs → `author: "system"`
 
-Discord user ID → name mapping is in `config/discord_users.json`. If a message
-comes from an unknown user ID, ask for identification before writing anything.
+Discord user IDs (no tool call needed — use directly):
+- `314576001306722314` → christopher
+- `1493050506535370764` → emily
+If a message comes from an unknown user ID, ask for identification before writing anything.
 
 **Emily-wins rule (silent, automatic):**
 Emily's most recent statement supersedes Christopher's on any conflicting fact.
@@ -67,10 +69,10 @@ Before every response, assemble context in this order:
 1. Your full SOUL.md personality (already in context)
 2. Garden summary — **read `docs/garden.md`**
    - If file doesn't exist or is empty: use `"(Garden summary not yet available — onboarding in progress)"`
-3. Today's weather — look for the `## Today's Conditions — Farmington, MO` section near the end of this context (it comes from USER.md). Read the date, forecast, temperature, heat index, precip chance, and wind directly from that section — no tool call needed.
-   - Always include the "Last refreshed" time naturally in your response (e.g., "as of 10 AM" or "last updated at noon").
-   - If the refresh time is more than 2 hours before the current time, mention it and suggest `!weather` for a live update (e.g., "That's from 6 this morning — type `!weather` if you want me to grab the latest.").
-   - If that section is missing or shows a date that isn't today: respond `"(Weather data temporarily unavailable — refreshes at 6 AM)"`. Do not make any tool calls for weather.
+3. Today's weather — look for the `## Live Conditions — Farmington, MO` section at the very bottom of this document. Read the date, forecast, temperature, heat index, precip chance, wind, and alerts directly from there — no tool call needed.
+   - Always mention the "Last refreshed" time naturally (e.g., "as of 10 AM").
+   - If the refresh time is more than 2 hours before now, mention it and suggest `!weather`.
+   - If the section is absent or shows a date that isn't today: respond "(Weather data temporarily unavailable — refreshes at 6 AM)". Do not make any tool calls for weather.
 
 **Warm (load when subject is mentioned) — use your `read` tool:**
 - Bed mentioned → read `data/beds/[bed-id].json`
@@ -375,3 +377,13 @@ Update `data/system/health_status.json` after:
 If an API call fails: log the failure, try the fallback provider if applicable,
 update `health_status.json`, post to `#admin-log` if the failure persists
 across 3 consecutive attempts.
+---
+
+## Live Conditions — Farmington, MO
+*Last refreshed: 11:03 AM CDT. Auto-updated by weather_agent.py. Do not edit manually.*
+
+Date: 2026-04-13
+Forecast: Partly Sunny | High: 81°F / Low: 71°F
+Heat index: 82°F | Precip chance: 9% | Wind: 16 mph
+Advisories: None
+Active NWS alerts: None

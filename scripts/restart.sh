@@ -15,6 +15,11 @@ echo '1b. Initializing database schema...'
 cd /mnt/c/Openclaw/slarti && python3 scripts/init_db.py 2>&1
 echo '   Schema: OK'
 
+echo '1c. Refreshing weather data...'
+cd /mnt/c/Openclaw/slarti && python3 scripts/weather_agent.py 2>&1 \
+  || echo '   WARNING: Weather refresh failed — gateway will use cached data'
+echo '   Weather: OK'
+
 echo '2. Starting OpenClaw gateway...'
 openclaw gateway start --daemon 2>&1 || true
 sleep 3
