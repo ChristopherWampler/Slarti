@@ -42,6 +42,38 @@ SCHEMA_SQL = [
     "CREATE INDEX IF NOT EXISTS idx_timeline_events_subject ON timeline_events (subject_id);",
     "CREATE INDEX IF NOT EXISTS idx_timeline_events_type ON timeline_events (event_type);",
     "CREATE INDEX IF NOT EXISTS idx_timeline_events_created ON timeline_events (created_at);",
+
+    # ── Regional Knowledge ────────────────────────────────────────────────────
+    # External horticultural knowledge (MU Extension, MOBOT, Almanac, etc.)
+    # Separate from timeline_events: different lifecycle, authority scores, expiration.
+
+    """CREATE TABLE IF NOT EXISTS regional_knowledge (
+        id TEXT PRIMARY KEY,
+        source_id TEXT NOT NULL,
+        source_url TEXT,
+        title TEXT NOT NULL,
+        content TEXT NOT NULL,
+        content_hash TEXT NOT NULL,
+        category TEXT NOT NULL,
+        season_tags TEXT[],
+        plant_tags TEXT[],
+        relevance_zone TEXT DEFAULT '6b',
+        authority_score REAL DEFAULT 0.7,
+        fetched_at TIMESTAMPTZ NOT NULL,
+        expires_at TIMESTAMPTZ,
+        embedding vector(768),
+        created_at TIMESTAMPTZ DEFAULT NOW()
+    );""",
+
+    """CREATE INDEX IF NOT EXISTS idx_rk_embedding
+        ON regional_knowledge USING hnsw (embedding vector_cosine_ops)
+        WITH (m = 16, ef_construction = 64);""",
+
+    "CREATE INDEX IF NOT EXISTS idx_rk_source ON regional_knowledge (source_id);",
+    "CREATE INDEX IF NOT EXISTS idx_rk_category ON regional_knowledge (category);",
+    "CREATE INDEX IF NOT EXISTS idx_rk_expires ON regional_knowledge (expires_at);",
+    "CREATE INDEX IF NOT EXISTS idx_rk_season ON regional_knowledge USING gin (season_tags);",
+    "CREATE INDEX IF NOT EXISTS idx_rk_plants ON regional_knowledge USING gin (plant_tags);",
 ]
 
 

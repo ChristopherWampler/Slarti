@@ -1,0 +1,26 @@
+# Slarti — Python dependencies
+# Install: pip install -r requirements.txt --break-system-packages
+
+# AI providers
+anthropic>=0.40.0
+google-genai>=1.0.0
+openai>=1.0.0
+
+# Database
+psycopg2-binary>=2.9.0
+
+# Web framework (voice PWA)
+fastapi>=0.104.0
+uvicorn>=0.24.0
+
+# MCP server (knowledge tool for OpenClaw)
+mcp>=1.0.0
+
+# HTML parsing
+beautifulsoup4>=4.12.0
+
+# File conversion (audio, PDF)
+markitdown[all]>=0.1.0
+
+# Environment
+python-dotenv>=1.0.0

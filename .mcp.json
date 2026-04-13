@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "slarti-knowledge": {
+      "command": "python3",
+      "args": ["/mnt/c/Openclaw/slarti/scripts/mcp_knowledge_server.py"]
+    }
+  }
+}
