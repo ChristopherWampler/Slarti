@@ -1,5 +1,27 @@
 # Slarti
 
+**A compound AI garden companion for Zone 6b** — built for a family in Farmington, Missouri.
+
+Slarti combines conversational AI, semantic memory, live weather intelligence, and a regional horticultural knowledge engine into a system that genuinely knows one specific garden and two specific people. It runs in production on Discord with voice support, automated monitoring, and proactive seasonal advice grounded in university extension data.
+
+### At a glance
+
+| Layer | What | How |
+|---|---|---|
+| **Conversation** | Multi-modal chat (text, photo, voice) | Claude Sonnet via OpenClaw gateway |
+| **Vision** | Photo analysis, plant ID, design mockups | Google Gemini |
+| **Memory** | Semantic search over garden history | PostgreSQL + pgvector (768-dim embeddings) |
+| **Knowledge** | 390+ regional authority chunks | MU Extension, Farmer's Almanac, USDA plant DB |
+| **Voice** | Speak-to-Slarti from iPhone | FastAPI PWA + OpenAI TTS via Siri Shortcut |
+| **Monitoring** | Weather, frost, emergency alerts | NWS API (3x daily) + heartbeat agent (every 30 min) |
+| **Knowledge Tool** | Real-time search during conversation | MCP server exposing pgvector to Claude |
+
+### What makes it interesting
+
+This isn't a chatbot wrapper. It's a compound AI system that solves the **contextual continuity** problem — the gap between a generic AI assistant and one that genuinely knows a specific place. Every component (weather, memory, knowledge, scheduled agents) contributes to making responses grounded in the actual conditions of this garden, this zone, this week.
+
+---
+
 > *"He had spent the last five hundred years creating the coastlines of Norway, and had done so with such a sense of personal involvement that he had requested — and been awarded — a fjord. His attention to detail was legendary."*
 >
 > — Douglas Adams, *The Hitchhiker's Guide to the Galaxy*
