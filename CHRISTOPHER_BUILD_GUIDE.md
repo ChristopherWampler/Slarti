@@ -292,7 +292,7 @@ Upload a reference photo for each bed:
 
 Test NWS API first:
 ```bash
-curl 'https://api.weather.gov/points/37.78,-90.42'
+curl 'https://api.weather.gov/points/37.68,-90.42'
 ```
 Should return a JSON object with `properties.forecastHourly` URL.
 

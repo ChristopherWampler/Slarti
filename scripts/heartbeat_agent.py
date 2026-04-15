@@ -707,7 +707,7 @@ def main():
     parser.add_argument('--force', action='store_true',
                         help='Ignore weekly limit and season restrictions')
     parser.add_argument('--check', type=int, metavar='N',
-                        help='Run only check N (1-8) for debugging')
+                        help='Run only check N (1-9) for debugging')
     args = parser.parse_args()
 
     config = load_app_config()
@@ -716,6 +716,50 @@ def main():
     timestamp = now_utc().isoformat()
     print(f'heartbeat: {timestamp}')
 
+    # ── Check 9: User-requested reminders (bypass proactive post cap) ────────
+    # Runs BEFORE the main check loop so reminders are independent of the
+    # 2/week budget and the "stop at first match" break rule.
+    if not args.check or args.check == 9:
+        reminder_tasks = load_all_json(TASKS_DIR)
+        today = datetime.date.today()
+        for task_data in reminder_tasks:
+            if task_data.get('type') != 'reminder' or task_data.get('status') != 'pending':
+                continue
+            try:
+                due = datetime.date.fromisoformat(task_data['due_date'])
+                if due <= today:
+                    channel = task_data.get('channel', 'garden-chat')
+                    desc = task_data.get('description', '')
+                    subject = task_data.get('subject_id', 'garden')
+                    draft = f"Reminder — {desc}"
+
+                    print(f'  Check 9 (reminder): {subject} due {task_data["due_date"]} -> #{channel}')
+
+                    if args.dry_run:
+                        print(f'  [dry-run] Would post reminder to #{channel}:')
+                        print(f'    {draft}')
+                    else:
+                        post_to_discord(channel, draft)
+                        # Mark as posted — update the task file
+                        task_data['status'] = 'posted'
+                        task_data['posted_at'] = now_utc().isoformat()
+                        task_id = task_data.get('task_id', '')
+                        if task_id:
+                            task_path = TASKS_DIR / f'{task_id}.json'
+                            if task_path.exists():
+                                atomic_write_json(task_path, task_data)
+                        print(f'  Reminder posted to #{channel}')
+            except Exception as e:
+                print(f'  WARNING: Reminder check failed: {e}', file=sys.stderr)
+
+    if args.check == 9:
+        # Skip the main loop if only running check 9
+        health['last_heartbeat_run_at'] = timestamp
+        if not args.dry_run:
+            atomic_write_json(HEALTH_STATUS_PATH, health)
+        return
+
+    # ── Checks 1-8: Proactive checks (WITH budget cap, WITH break) ───────────
     for i, check_fn in enumerate(CHECK_FUNCTIONS, 1):
         if args.check and args.check != i:
             continue

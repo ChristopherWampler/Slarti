@@ -1,0 +1,14 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "reminder",
+  "task_id": "task-20260413-174600-pinch",
+  "type": "reminder",
+  "description": "Beetle Bed — watch for Ozark Beauty flowers and pinch them off so the plant builds strength for next year's harvest. Quinault and Eversweet can fruit this year.",
+  "due_date": "2026-05-04",
+  "subject_id": "beetle-bed",
+  "author": "emily",
+  "source": "chat",
+  "status": "pending",
+  "channel": "garden-chat",
+  "created_at": "2026-04-13T17:46:00-05:00"
+}

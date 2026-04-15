@@ -4,7 +4,7 @@
 
 - Address: Farmington, Missouri
 - USDA Zone: 6b (primary) / 7a (influence in warm microclimates)
-- NWS coordinates: 37.78, -90.42
+- NWS coordinates: 37.68, -90.42
 - Last spring frost: late April / early May
 - First fall frost: mid to late October
 - Growing window: ~170 days

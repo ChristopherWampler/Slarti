@@ -1,12 +1,14 @@
 # gateway_watchdog.ps1 — Slarti gateway health check + auto-restart
 # Runs every 5 minutes via Windows Task Scheduler.
 # Logs to logs/daily/gateway_watchdog-YYYY-MM-DD.log
-# Alerts #admin-log via Discord webhook if a restart occurs.
+# Alerts #admin-log via Discord webhook on first restart of the day,
+# every 10th restart, and on restart failures.
 
 $SlartRoot = 'C:\Openclaw\slarti'
 $LogDir    = "$SlartRoot\logs\daily"
 $EnvFile   = "$SlartRoot\.env"
 $LogFile   = "$LogDir\gateway_watchdog-$(Get-Date -Format 'yyyy-MM-dd').log"
+$StateFile = "$LogDir\gateway_restart_state.json"
 
 if (-not (Test-Path $LogDir)) { New-Item -ItemType Directory -Force -Path $LogDir | Out-Null }
 
@@ -34,17 +36,47 @@ function Send-DiscordAlert($msg) {
     }
 }
 
+# -- Restart state management --------------------------------------------------
+
+function Get-RestartState {
+    $today = Get-Date -Format 'yyyy-MM-dd'
+    if (Test-Path $StateFile) {
+        try {
+            $state = Get-Content $StateFile -Raw | ConvertFrom-Json
+            if ($state.date -eq $today) {
+                return $state
+            }
+        } catch {
+            # Corrupt state file — start fresh
+        }
+    }
+    # New day or missing/corrupt file — start fresh
+    return @{
+        date = $today
+        restarts_today = 0
+        last_restart_at = $null
+    }
+}
+
+function Save-RestartState($state) {
+    try {
+        $state | ConvertTo-Json -Compress | Set-Content -Path $StateFile -Force
+    } catch {
+        Write-Log "WARNING: Could not save restart state: $_"
+    }
+}
+
 # -- Health check --------------------------------------------------------------
 
 $healthOutput = & openclaw gateway health 2>&1
 $healthy = ($LASTEXITCODE -eq 0)
 
 if ($healthy) {
-    # Normal -- log nothing (silent on healthy to keep log clean)
+    # Normal — log nothing (silent on healthy to keep log clean)
     exit 0
 }
 
-# -- Gateway is down -- restart ------------------------------------------------
+# -- Gateway is down — restart -------------------------------------------------
 
 Write-Log "Gateway unhealthy -- restarting. Health output: $healthOutput"
 
@@ -54,8 +86,29 @@ Start-Sleep -Seconds 8
 $healthOutput2 = & openclaw gateway health 2>&1
 if ($LASTEXITCODE -eq 0) {
     Write-Log "Gateway restarted successfully: $healthOutput2"
-    Send-DiscordAlert "[gateway_watchdog] Gateway was down and has been restarted. $(Get-Date -Format 'HH:mm') CDT"
+
+    # Update restart state and decide whether to alert Discord
+    $state = Get-RestartState
+    $state.restarts_today++
+    $state.last_restart_at = (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
+
+    $shouldAlert = $false
+    $alertMsg = ""
+
+    if ($state.restarts_today -eq 1) {
+        # First restart of the day — always alert
+        $shouldAlert = $true
+        $alertMsg = "[gateway_watchdog] Gateway restarted (first today). $(Get-Date -Format 'HH:mm') CDT"
+    } elseif ($state.restarts_today % 10 -eq 0) {
+        # Every 10th restart — summary alert
+        $shouldAlert = $true
+        $alertMsg = "[gateway_watchdog] Gateway has restarted $($state.restarts_today) times today. $(Get-Date -Format 'HH:mm') CDT"
+    }
+
+    if ($shouldAlert) { Send-DiscordAlert $alertMsg }
+    Save-RestartState $state
 } else {
+    # Restart FAILED — always alert (critical)
     Write-Log "Gateway STILL DOWN after restart attempt: $healthOutput2"
     Send-DiscordAlert "[gateway_watchdog] ALERT: Gateway is down and restart FAILED. Manual intervention needed. $(Get-Date -Format 'HH:mm') CDT"
 }

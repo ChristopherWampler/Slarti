@@ -14,11 +14,13 @@ stores embeddings in pgvector, and triggers garden.md regeneration when needed.
 import sys
 import os
 import json
+import re
 import uuid
 import argparse
 import datetime
 import pathlib
 import glob as glob_module
+import subprocess as _sp
 from typing import Optional
 
 from dotenv import load_dotenv
@@ -41,8 +43,10 @@ GARDEN_MD    = SLARTI_ROOT / 'docs' / 'garden.md'
 USERS_FILE   = SLARTI_ROOT / 'config' / 'discord_users.json'
 CONF_FILE    = SLARTI_ROOT / 'config' / 'confidence_thresholds.json'
 PROCESSED_LOG = SLARTI_ROOT / 'data' / 'system' / 'processed_sessions.json'
+TASKS_DIR    = SLARTI_ROOT / 'data' / 'tasks'
 
 EVENTS_DIR.mkdir(parents=True, exist_ok=True)
+TASKS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Load model name from config (fall back to hardcoded if config missing)
 try:
@@ -545,6 +549,51 @@ def process_voice_session(session_path: pathlib.Path) -> int:
     return count
 
 
+# ── Image generation marker parsing ──────────────────────────────────────────
+
+def extract_design_requests(raw_text: str) -> list[dict]:
+    """Parse [DESIGN_REQUEST: description={text}] markers from raw session text."""
+    results = []
+    for match in re.finditer(r'\[DESIGN_REQUEST:\s*description=(.+?)\]', raw_text, re.DOTALL):
+        description = match.group(1).strip()
+        if description:
+            results.append({'mode': 'c', 'description': description})
+    return results
+
+
+def extract_mockup_requests(raw_text: str) -> list[dict]:
+    """Parse [MOCKUP_REQUEST: ...] markers. Extracts request text and optional bed ID.
+    Photo path is resolved from session photo attachments, not from the marker."""
+    results = []
+    for match in re.finditer(
+        r'\[MOCKUP_REQUEST:\s*(?:photo=[^,]*,\s*)?request=([^,\]]+)(?:,\s*bed=([^\]]+))?\]',
+        raw_text, re.DOTALL
+    ):
+        request = match.group(1).strip()
+        bed = match.group(2).strip() if match.group(2) else None
+        if request:
+            results.append({'mode': 'b', 'request': request, 'bed': bed})
+    return results
+
+
+# ── Reminder marker parsing ──────────────────────────────────────────────────
+
+def extract_reminders(raw_text: str) -> list[dict]:
+    """Parse [REMINDER: date=..., subject=..., channel=..., text=...] markers."""
+    results = []
+    for match in re.finditer(
+        r'\[REMINDER:\s*date=([^,]+),\s*subject=([^,]+),\s*channel=([^,]+),\s*text=(.+?)\]',
+        raw_text, re.DOTALL
+    ):
+        results.append({
+            'date': match.group(1).strip(),
+            'subject': match.group(2).strip(),
+            'channel': match.group(3).strip(),
+            'text': match.group(4).strip(),
+        })
+    return results
+
+
 def process_session(session_path: pathlib.Path) -> int:
     """Process one session file. Returns count of facts extracted."""
     session_id = session_path.stem
@@ -601,25 +650,86 @@ def process_session(session_path: pathlib.Path) -> int:
         print('  Triggering garden.md regeneration...')
         regenerate_garden_md()
 
-    # Check raw session for onboarding bed markers
-    try:
-        raw = session_path.read_text(encoding='utf-8')
-        if '[ONBOARDING_BED:' in raw:
-            print('  Onboarding bed marker detected — triggering onboarding_writer...')
-            import subprocess as _subprocess
-            _subprocess.Popen(
-                [sys.executable,
-                 str(SLARTI_ROOT / 'scripts' / 'onboarding_writer.py'),
-                 '--session', str(session_path)],
-                stdout=_subprocess.DEVNULL, stderr=_subprocess.DEVNULL,
-            )
-    except Exception as _e:
-        print(f'WARNING: Onboarding marker check failed: {_e}', file=sys.stderr)
-
-    # Process any photo attachments found in this session
+    # Process any photo attachments found in this session (before marker checks
+    # so we have local paths available for Mode B mockup requests)
     if photo_attachments:
         print(f'  Found {len(photo_attachments)} photo attachment(s) — processing...')
         process_photos(photo_attachments, session_id)
+
+    # Check raw session for structured markers
+    try:
+        raw = session_path.read_text(encoding='utf-8')
+
+        # Onboarding bed markers → onboarding_writer.py
+        if '[ONBOARDING_BED:' in raw:
+            print('  Onboarding bed marker detected — triggering onboarding_writer...')
+            _sp.Popen(
+                [sys.executable,
+                 str(SLARTI_ROOT / 'scripts' / 'onboarding_writer.py'),
+                 '--session', str(session_path)],
+                stdout=_sp.DEVNULL, stderr=_sp.DEVNULL,
+            )
+
+        # Design request markers (Mode C) → image_agent.py --mode c
+        design_requests = extract_design_requests(raw)
+        for dr in design_requests:
+            print(f'  DESIGN_REQUEST marker detected — triggering image_agent...')
+            _sp.Popen(
+                [sys.executable,
+                 str(SLARTI_ROOT / 'scripts' / 'image_agent.py'),
+                 '--mode', 'c',
+                 '--description', dr['description'],
+                 '--channel', 'garden-design'],
+                stdout=_sp.DEVNULL, stderr=_sp.DEVNULL,
+            )
+
+        # Mockup request markers (Mode B) → image_agent.py --mode b
+        mockup_requests = extract_mockup_requests(raw)
+        for mr in mockup_requests:
+            cmd = [sys.executable,
+                   str(SLARTI_ROOT / 'scripts' / 'image_agent.py'),
+                   '--mode', 'b',
+                   '--request', mr['request'],
+                   '--channel', 'garden-photos']
+            # Resolve photo path from the session's processed photos
+            if photo_attachments:
+                photo_meta_dir = SLARTI_ROOT / 'data' / 'photos' / 'metadata'
+                latest_photo = sorted(photo_meta_dir.glob('*.json'))[-1] if photo_meta_dir.exists() else None
+                if latest_photo:
+                    try:
+                        meta = json.loads(latest_photo.read_text())
+                        storage_path = meta.get('storage_path', '')
+                        if storage_path and pathlib.Path(storage_path).exists():
+                            cmd.extend(['--photo', storage_path])
+                    except Exception:
+                        pass
+            print(f'  MOCKUP_REQUEST marker detected — triggering image_agent...')
+            _sp.Popen(cmd, stdout=_sp.DEVNULL, stderr=_sp.DEVNULL)
+
+        # Reminder markers → create task files in data/tasks/
+        reminders = extract_reminders(raw)
+        for rem in reminders:
+            task_id = f"task-{datetime.datetime.now().strftime('%Y%m%d-%H%M%S')}-{uuid.uuid4().hex[:6]}"
+            task = {
+                'schema_version': '5.2',
+                'entity_type': 'reminder',
+                'task_id': task_id,
+                'type': 'reminder',
+                'description': rem['text'],
+                'due_date': rem['date'],
+                'subject_id': rem['subject'],
+                'author': turns[0]['author'] if turns else 'system',
+                'source': 'chat',
+                'status': 'pending',
+                'channel': rem['channel'],
+                'created_at': datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            }
+            task_path = TASKS_DIR / f'{task_id}.json'
+            save_json_atomic(task_path, task)
+            print(f'  REMINDER marker detected — created {task_id} (due {rem["date"]})')
+
+    except Exception as _e:
+        print(f'WARNING: Marker check failed: {_e}', file=sys.stderr)
 
     return count
 

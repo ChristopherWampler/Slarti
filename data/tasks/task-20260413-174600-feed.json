@@ -1,0 +1,14 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "reminder",
+  "task_id": "task-20260413-174600-feed",
+  "type": "reminder",
+  "description": "Beetle Bed — time to consider a light balanced fertilizer for the strawberries if they look settled and healthy. Half the recommended rate of a 10-10-10.",
+  "due_date": "2026-05-04",
+  "subject_id": "beetle-bed",
+  "author": "emily",
+  "source": "chat",
+  "status": "pending",
+  "channel": "garden-chat",
+  "created_at": "2026-04-13T17:46:00-05:00"
+}

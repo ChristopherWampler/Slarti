@@ -1,7 +1,7 @@
 # Slarti Build Log
 
 Complete record of what was built, what decisions were made, and where everything lives.
-Last updated: 2026-04-13
+Last updated: 2026-04-15
 
 ---
 
@@ -782,6 +782,35 @@ Emily's real Discord ID (`1493050506535370764`) confirmed and hardcoded directly
 
 ---
 
+## Post-Launch Fixes — 2026-04-15
+
+**Context:** First 2 days of live testing (April 13-15) surfaced three issues. All fixed in one session.
+
+### Issue 1: Gateway crash loop
+- Gateway died every ~40 min (WebSocket 1006 abnormal closure). Watchdog restarted it but spammed #admin-log with 25-30 alerts/day.
+- **Fix:** Updated OpenClaw from `2026.3.24` to `2026.4.14`. Rewrote `gateway_watchdog.ps1` with restart counting — only alerts on first restart of the day and every 10th. Failed restarts always alert.
+- **Fix:** Disabled old `gateway_restart_loop.cmd` startup item. New OpenClaw version installs a clean direct-launch startup script. Watchdog is now the sole restart mechanism.
+
+### Issue 2: Image generation not working
+- Emily requested fairy cottage design mockups. Claude emitted `[DESIGN_REQUEST:]` markers correctly, but no background process picked them up. `image_agent.py` was fully functional but never triggered.
+- **Fix:** Added `[DESIGN_REQUEST:]` and `[MOCKUP_REQUEST:]` marker detection to `extraction_agent.py`, following the same pattern as `[ONBOARDING_BED:]` detection. Spawns `image_agent.py` with correct CLI args.
+- **Fix:** Updated Mode B marker to omit `photo={path}` — Claude doesn't know local paths. Extraction agent resolves photos from session metadata instead.
+
+### Issue 3: Behavioral issues + reminders
+- Claude used exec to try generating images inline, claimed images were posted when they weren't.
+- Emily asked Slarti to "set reminders" but no reminder system existed.
+- **Fix:** Strengthened exec prohibition in AGENTS.md. Added explicit "do not generate images yourself" rules to Modes B and C.
+- **Fix:** Built reminder system: `[REMINDER:]` marker in AGENTS.md, marker detection in `extraction_agent.py` creates task files in `data/tasks/`, `check_9_reminders` in `heartbeat_agent.py` posts when due (bypasses 2/week proactive cap). Added `!remind` command + natural language detection.
+- **Fix:** Backdated Emily's 4 Beetle Bed reminders (May 4 feeding, May 4 flower pinching, Aug 10 fall feeding, Oct 12 mulching).
+
+### Document cleanup
+- Fixed stale NWS coordinates (37.78 → 37.68) in HEARTBEAT.md, TOOLS.md, CHRISTOPHER_BUILD_GUIDE.md
+- Deleted orphaned `prompts/system/AGENTS.md` (146-line stale copy from March)
+- Updated CLAUDE.md gateway reference to point to `gateway_watchdog.ps1`
+- Trimmed AGENTS.md to 18,763 chars (94% of OpenClaw's 20,000 bootstrap limit)
+
+---
+
 ## What's Left
 
 All 14 phases are complete. Regional knowledge system is live — MCP server serving 393 chunks to Claude during conversation.
@@ -789,3 +818,4 @@ All 14 phases are complete. Regional knowledge system is live — MCP server ser
 **Remaining:**
 - **Emily's onboarding** — run `!setup` in `#garden-chat` to populate garden beds
 - **Knowledge expansion** — add more MU Extension publications, explore Tropicos API for MOBOT data
+- **Monitor gateway stability** — watch if OpenClaw 2026.4.14 fixes the ~40 min crash cycle

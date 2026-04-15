@@ -57,9 +57,9 @@ a system that just works.
 ---
 
 ## Today's Conditions — Farmington, MO
-*Last refreshed: 4:00 PM CDT. Auto-updated by weather_agent.py. Do not edit manually.*
+*Last refreshed: 6:00 AM CDT. Auto-updated by weather_agent.py. Do not edit manually.*
 
-Date: 2026-04-13
-Forecast: Partly Cloudy | High: 82°F / Low: 71°F
-Heat index: 84°F | Precip chance: 9% | Wind: 14 mph
+Date: 2026-04-15
+Forecast: Slight Chance Rain Showers | High: 82°F / Low: 69°F
+Heat index: 83°F | Precip chance: 64% | Wind: 14 mph
 Advisories: None

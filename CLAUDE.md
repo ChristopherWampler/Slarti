@@ -38,7 +38,7 @@ Slarti is a family garden companion AI for Christopher and Emily Wampler in Farm
 ## Architecture Quick Reference
 
 - **Gateway:** OpenClaw (Node.js) → `openclaw gateway start/stop/status`
-- **Gateway stability:** `~/.openclaw/gateway_restart_loop.cmd` auto-restarts on crash
+- **Gateway stability:** `scripts/gateway_watchdog.ps1` (Windows Task Scheduler, every 5 min) monitors + restarts with smart alerting
 - **Database:** Postgres 16 + pgvector in Docker → `cd db && docker compose up -d`
 - **Extraction agent:** runs every 5 min via WSL2 cron → `scripts/extraction_agent.py`
 - **Weather agent:** runs at 6 AM via WSL2 cron → `scripts/weather_agent.py`

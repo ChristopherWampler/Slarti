@@ -5,7 +5,7 @@
 
 ## Checklist (run in order, stop at first match this week)
 
-1. Has a weather advisory been posted today? If not and thresholds crossed: check NWS API for Farmington, MO (37.78, -90.42) and post advisory to #garden-log if heat index 85+ or temp ≤ 36°F during growing season (May–October).
+1. Has a weather advisory been posted today? If not and thresholds crossed: check NWS API for Farmington, MO (37.68, -90.42) and post advisory to #garden-log if heat index 85+ or temp ≤ 36°F during growing season (May–October).
 
 2. Treatment follow-up: any treatment events in data/events/2026/ where follow_up_required=true AND follow_up_resolved=false AND next_check_date within 48 hours? Post gentle check-in to #garden-chat.
 
@@ -19,7 +19,11 @@
 
 7. Any bed in data/beds/ with no photo in past 60 days during growing season? Gentle nudge.
 
-8. Nothing triggered: do nothing. Log cycle silently.
+8. Knowledge news: any unsurfaced items in knowledge_news.json with relevance ≥ 0.80? Post to #garden-chat.
+
+9. User-requested reminders: any tasks in data/tasks/ where type="reminder", status="pending", and due_date is today or past? Post reminder to the task's channel and mark as posted. **These bypass the 2/week proactive post cap** — they are user-requested, not unsolicited. Runs independently before checks 1-8.
+
+10. Nothing triggered: do nothing. Log cycle silently.
 
 ## Before every post
 

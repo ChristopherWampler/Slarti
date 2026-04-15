@@ -1,0 +1,14 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "reminder",
+  "task_id": "task-20260413-174600-mulch",
+  "type": "reminder",
+  "description": "Beetle Bed — mulch the strawberries before first frost. Aim for 4 inches of straw over the crowns to protect them through winter in Zone 6b.",
+  "due_date": "2026-10-12",
+  "subject_id": "beetle-bed",
+  "author": "emily",
+  "source": "chat",
+  "status": "pending",
+  "channel": "garden-chat",
+  "created_at": "2026-04-13T17:46:00-05:00"
+}

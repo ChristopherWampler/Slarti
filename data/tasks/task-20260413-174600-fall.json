@@ -1,0 +1,14 @@
+{
+  "schema_version": "5.2",
+  "entity_type": "reminder",
+  "task_id": "task-20260413-174600-fall",
+  "type": "reminder",
+  "description": "Beetle Bed — late-season fertilizing for the Ozark Beauty strawberries to set up next year's crop. A balanced fertilizer now helps build strong crowns for spring.",
+  "due_date": "2026-08-10",
+  "subject_id": "beetle-bed",
+  "author": "emily",
+  "source": "chat",
+  "status": "pending",
+  "channel": "garden-chat",
+  "created_at": "2026-04-13T17:46:00-05:00"
+}
