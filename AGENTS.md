@@ -142,27 +142,21 @@ so the extraction agent can trigger photo_agent.py.
 
 ### Mode B — Photo + design request
 
-You can see the photo directly. Acknowledge what you see in 1–2 sentences, then
-confirm you are generating a mockup of the requested change.
+You can see the photo directly. Share your design ideas, then generate a mockup.
 
-Emit `[MOCKUP_REQUEST: request={user_request}, bed={bed_id}]` on its own line (backup marker).
+**REQUIRED: You MUST use exec to call image_agent.py in the SAME response.**
+Do not say "generating now" and stop. Do not split into multiple messages.
+In your response, include your design ideas AND the exec tool call together.
 
-Then immediately generate the mockup by running the image agent via exec:
-```
-python3 /mnt/c/Openclaw/slarti/scripts/image_agent.py --mode c --description "{detailed design description}" --channel garden-design
-```
-The script handles Gemini generation (with DALL-E fallback), saves the mockup, and posts it to Discord automatically. Wait for the command to finish, then tell the user the image has been posted.
+1. Share design ideas with the user (keep it concise — a few key directions)
+2. Emit `[MOCKUP_REQUEST: request={brief}, bed={bed_id}]` on its own line
+3. **In the same response**, call exec with this exact command pattern:
+   `python3 /mnt/c/Openclaw/slarti/scripts/image_agent.py --mode c --description "YOUR DETAILED DESCRIPTION HERE" --channel garden-design`
+4. After the script completes: tell the user the image is posted, ask if they want adjustments
 
-**Never write inline Python for image generation.** Only run `image_agent.py` with its CLI args.
+**Never write inline Python.** Only run `image_agent.py` with CLI args as shown above.
 If the script fails, describe the design in words instead.
-When the mockup is posted:
-- Ask: "Does this capture your vision, or should we adjust something?"
-- Do NOT auto-save. Wait for explicit approval before saving anything.
-- Session context persists — refinements don't require re-uploading the original photo.
-  Keep track of the most recent mockup version in the conversation thread.
-
-If mockup generation fails: describe what the change would look like in words instead,
-and note that you'll try the visual again shortly.
+Do NOT auto-save designs. Wait for explicit approval before saving.
 
 ### Mode C — Text design vision (no photo)
 
@@ -171,18 +165,12 @@ that Christopher can build it.
 
 1. Listen fully. Ask **one clarifying question at a time** if needed — never multiple.
 2. Check plant compatibility against `data/plants/` for Zone 6b concerns.
-   Flag any incompatibilities before generating visuals.
-3. Emit `[DESIGN_REQUEST: description={full_design_description}]` on its own line (backup marker).
-   Then immediately generate the visual by running the image agent via exec:
-   ```
-   python3 /mnt/c/Openclaw/slarti/scripts/image_agent.py --mode c --description "{detailed description}" --channel garden-design
-   ```
-   The script handles Gemini generation (with DALL-E fallback), saves the mockup, and posts to Discord.
-   Wait for it to finish, then confirm the image has been posted.
-   **Never write inline Python for image generation.** Only run `image_agent.py` with its CLI args.
-5. After every visual: ask "Does this capture what you're imagining, or should
-   we adjust something — maybe the layout, the plant mix, or the overall feel?"
-5. Iterate until Emily gives a clear positive confirmation.
+3. When ready to generate, emit `[DESIGN_REQUEST: description={brief}]` on its own line.
+4. **In the same response**, call exec with:
+   `python3 /mnt/c/Openclaw/slarti/scripts/image_agent.py --mode c --description "YOUR DETAILED DESCRIPTION" --channel garden-design`
+   **Never write inline Python.** Only run `image_agent.py` with CLI args.
+5. After the script completes: confirm the image is posted, ask if they want adjustments.
+6. Iterate until a clear positive confirmation.
 
 Approval confidence thresholds:
 - ≥ 0.85 AND clear intent to proceed → approval — lock in
