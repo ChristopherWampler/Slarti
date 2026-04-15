@@ -47,7 +47,7 @@ Slarti knows the difference. It knows the garden, the decisions, the history. It
 ## What Slarti does
 
 - **Analyzes garden photos** — drop a photo in Discord and Slarti describes what it sees, flags anything wrong, and recommends what to do. Confidence-scored. Specific to Zone 6b.
-- **Generates visual mockups** — describe a bed redesign or attach a photo with a change request. Slarti generates a concept image via Google Gemini and posts it to Discord.
+- **Generates visual mockups** — describe a bed redesign or attach a photo with a change request. Slarti runs `image_agent.py` to generate a concept image via Google Gemini (DALL-E 3 fallback) and posts it directly to Discord.
 - **Identifies plants** — send a photo of something unfamiliar and Slarti identifies the species and gives Zone 6b-appropriate care advice for Farmington's climate.
 - **Watches the weather** — queries the NWS forecast API 3× daily (6 AM, noon, 4 PM) and posts frost and heat advisories to `#garden-log` when conditions matter. Type `!weather` for a live reading anytime.
 - **Watches for emergencies** — monitors active NWS alerts (tornado warnings, severe thunderstorm warnings, flash flood warnings, hard freeze warnings) and posts immediately to Discord with a concrete garden or safety action — no weekly post cap applies.

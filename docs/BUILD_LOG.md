@@ -803,11 +803,16 @@ Emily's real Discord ID (`1493050506535370764`) confirmed and hardcoded directly
 - **Fix:** Built reminder system: `[REMINDER:]` marker in AGENTS.md, marker detection in `extraction_agent.py` creates task files in `data/tasks/`, `check_9_reminders` in `heartbeat_agent.py` posts when due (bypasses 2/week proactive cap). Added `!remind` command + natural language detection.
 - **Fix:** Backdated Emily's 4 Beetle Bed reminders (May 4 feeding, May 4 flower pinching, Aug 10 fall feeding, Oct 12 mulching).
 
+### Image generation approach revised (same day)
+- Testing showed Slarti ignored the "emit marker only" instruction and wrote inline Python to call DALL-E directly (with bugs — URL encoding errors in Discord API calls)
+- The marker-based pipeline (5-min cron) was too slow for "create an image for me" requests
+- **Fix:** Changed AGENTS.md Modes B and C to have Slarti run `image_agent.py` directly via exec with CLI args. This gives immediate generation using the tested script (Gemini + DALL-E fallback, Discord posting). Marker emission kept as backup for extraction_agent.
+- **Key rule:** "Never write inline Python via exec — only run image_agent.py with its CLI args"
+
 ### Document cleanup
 - Fixed stale NWS coordinates (37.78 → 37.68) in HEARTBEAT.md, TOOLS.md, CHRISTOPHER_BUILD_GUIDE.md
 - Deleted orphaned `prompts/system/AGENTS.md` (146-line stale copy from March)
 - Updated CLAUDE.md gateway reference to point to `gateway_watchdog.ps1`
-- Trimmed AGENTS.md to 18,763 chars (94% of OpenClaw's 20,000 bootstrap limit)
 
 ---
 
