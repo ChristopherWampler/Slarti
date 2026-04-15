@@ -1,5 +1,6 @@
 @echo off
-rem Image watcher — runs every 1 minute via Task Scheduler
-rem Checks recent sessions for [DESIGN_REQUEST] and [MOCKUP_REQUEST] markers
-rem and spawns image_agent.py when found
-python C:\Openclaw\slarti\scripts\image_watcher.py >> C:\Openclaw\slarti\logs\daily\image_watcher.log 2>&1
+rem Image watcher daemon — polls every 3 seconds for image generation markers
+rem Runs as a background process, started by restart.sh or manually
+rem Logs to logs/daily/image_watcher.log
+cd /d C:\Openclaw\slarti
+python scripts\image_watcher.py >> logs\daily\image_watcher.log 2>&1

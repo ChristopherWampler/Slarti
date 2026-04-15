@@ -32,6 +32,11 @@ nohup python3 scripts/voice_webhook.py > logs/daily/voice_webhook.log 2>&1 &
 echo '   Voice webhook PID: '$!
 sleep 2
 
+echo '3b. Starting image watcher daemon...'
+cd /mnt/c/Openclaw/slarti
+nohup python3 scripts/image_watcher.py > logs/daily/image_watcher.log 2>&1 &
+echo '   Image watcher PID: '$!
+
 echo '4. Verifying voice webhook...'
 curl -s http://localhost:8080/health > /dev/null \
   && echo '   PWA: OK (http://localhost:8080)' \
