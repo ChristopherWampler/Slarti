@@ -11,7 +11,7 @@ Slarti combines conversational AI, semantic memory, live weather intelligence, a
 | **Conversation** | Multi-modal chat (text, photo, voice) | Claude Sonnet via OpenClaw gateway |
 | **Vision** | Photo analysis, plant ID, design mockups | Google Gemini |
 | **Memory** | Semantic search over garden history | PostgreSQL + pgvector (768-dim embeddings) |
-| **Knowledge** | 390+ regional authority chunks | MU Extension, Farmer's Almanac, USDA plant DB |
+| **Knowledge** | 393 regional authority chunks | MU Extension, Farmer's Almanac, USDA plant DB |
 | **Voice** | Speak-to-Slarti from iPhone | FastAPI PWA + OpenAI TTS via Siri Shortcut |
 | **Monitoring** | Weather, frost, emergency alerts | NWS API (3x daily) + heartbeat agent (every 30 min) |
 | **Knowledge Tool** | Real-time search during conversation | MCP server exposing pgvector to Claude |
@@ -53,6 +53,8 @@ Slarti knows the difference. It knows the garden, the decisions, the history. It
 - **Watches for emergencies** — monitors active NWS alerts (tornado warnings, severe thunderstorm warnings, flash flood warnings, hard freeze warnings) and posts immediately to Discord with a concrete garden or safety action — no weekly post cap applies.
 - **Remembers everything** — plants, decisions, observations, and conversations are extracted into a timeline, embedded with Google gemini-embedding-001, and stored in pgvector for semantic retrieval.
 - **Talks on the phone** — a voice PWA served over HTTPS lets you tap once and speak freely. Voice Activity Detection handles the silence. Whisper transcribes. Claude responds. OpenAI TTS reads it back.
+- **Remembers what you ask for** — say "remind me to fertilize in May" and Slarti creates a reminder. The heartbeat agent posts it to Discord when the date arrives. No weekly cap — user-requested reminders always fire.
+- **Searches regional knowledge** — every gardening question triggers a search across 393 chunks of Farmington-specific data from MU Extension publications, the Farmer's Almanac, and the plant database via an MCP tool server.
 - **Interviews Emily about the garden** — `!setup` launches a conversational onboarding wizard that asks one question at a time and builds structured bed records from the conversation.
 - **Summarizes the week** — every Sunday at 6:00 PM it reads the week's events, weather, and observations and writes a warm narrative recap to `#garden-log`.
 
@@ -71,7 +73,7 @@ Every message is classified into one of eight modes before Claude is called:
 | **E** | Casual conversation | Just Slarti — warm, knowledgeable, unhurried |
 | **V** | Audio file dropped in Discord | MarkItDown transcribes → treated as voice note → extracted to memory |
 | **P** | Voice PWA on iPhone | Live voice session — VAD, Whisper STT, OpenAI TTS, saved to memory |
-| **COMMAND** | `!` prefix | Direct commands: `!status`, `!memory [subject]`, `!timeline [subject]`, `!setup` |
+| **COMMAND** | `!` prefix | Direct commands: `!help`, `!status`, `!setup`, `!weather`, `!remind`, `!memory`, `!timeline`, `!projects` |
 
 ---
 
@@ -128,6 +130,9 @@ Discord message
     → Claude extracts structured events
     → Events embedded → pgvector
     → garden.md regenerated if beds or plants changed
+    → [DESIGN_REQUEST] / [MOCKUP_REQUEST] markers → image_agent.py
+    → [REMINDER] markers → task files in data/tasks/
+    → [ONBOARDING_BED] markers → onboarding_writer.py
 ```
 
 ---
@@ -167,10 +172,15 @@ slarti/
 ├── AGENTS.md                      ← Behavioral rules: modes, memory, commands, heartbeat
 ├── USER.md                        ← Emily and Christopher profiles
 ├── MEMORY.md                      ← Long-term memory (grows over time)
+├── TOOLS.md                       ← Environment reference (location, channels, paths)
+├── HEARTBEAT.md                   ← Heartbeat agent checklist (10 checks)
+├── IDENTITY.md                    ← Identity card (name, emoji, pointer to SOUL.md)
+├── .mcp.json                      ← MCP server registration for OpenClaw
 ├── Slarti_v5_2.md                 ← Master spec (Parts 1–15)
 ├── CHRISTOPHER_BUILD_GUIDE.md     ← Phase-by-phase build walkthrough with exact commands
 ├── config/
 │   ├── app_config.json            ← Model names, NWS coordinates, port, thresholds
+│   ├── confidence_thresholds.json ← Memory write gates (<0.50 / 0.50–0.79 / ≥0.80)
 │   ├── voice_profile.json         ← TTS provider, model, voice, spoken character instructions
 │   └── discord_users.json         ← Discord user ID → emily / christopher mapping
 ├── data/
@@ -178,7 +188,8 @@ slarti/
 │   ├── events/2026/               ← Timestamped extracted events from conversations
 │   ├── photos/                    ← Garden photos (metadata only; images git-ignored)
 │   ├── plants/                    ← 61 NRCS-referenced plant entries
-│   ├── projects/ + tasks/         ← Active garden work
+│   ├── projects/                  ← Approved garden designs and build plans
+│   ├── tasks/                     ← Reminder tasks (user-requested, posted by heartbeat agent)
 │   ├── voice_sessions/2026/       ← Voice note sessions with transcripts
 │   └── system/                    ← health_status.json, weather, write_log, onboarding_state
 ├── db/
@@ -198,14 +209,16 @@ slarti/
 │   ├── voice_session_writer.py    ← Mode V audio transcription
 │   ├── onboarding_writer.py       ← !setup bed record builder
 │   ├── photo_agent.py             ← Photo metadata and EXIF extraction
-│   ├── image_agent.py             ← Gemini / DALL-E image generation
+│   ├── image_agent.py             ← Gemini / DALL-E image generation (triggered by markers)
+│   ├── knowledge_agent.py         ← Regional knowledge ingestion (MU Extension, Almanac, plants)
+│   ├── mcp_knowledge_server.py    ← MCP server exposing search_knowledge tool to Claude
 │   ├── pgvector_search.py         ← Semantic timeline search via cosine similarity
 │   ├── discord_alert.py           ← Fatal error alerts to #admin-log
 │   ├── init_db.py                 ← Idempotent pgvector schema init
 │   ├── populate_plants.py         ← Seeds data/plants/ from plant_sources/
 │   ├── plant_lookup.py            ← NRCS CSV search utility
 │   ├── restart.sh                 ← Full system restart sequence
-│   ├── gateway_watchdog.ps1       ← Windows Task Scheduler restart loop
+│   ├── gateway_watchdog.ps1       ← Gateway health monitor + smart restart alerting
 │   └── git_push.sh                ← Nightly pg_dump + git commit + push
 └── logs/daily/                    ← Runtime logs (git-ignored)
 ```
@@ -214,7 +227,7 @@ slarti/
 
 ## Build
 
-13 phases. All complete.
+14 phases. All complete.
 
 | Phase | Description |
 |---|---|
@@ -231,6 +244,7 @@ slarti/
 | 11 | Image modes A/B/C/D — Gemini mockups, plant ID |
 | 12 | Voice notes (Mode V), plant database, weekly summary |
 | 13 | Voice PWA — FastAPI, iPhone, VAD, Whisper STT, OpenAI TTS |
+| 14 | Regional knowledge — MU Extension, Farmer's Almanac, MCP server, pgvector search |
 
 ---
 
