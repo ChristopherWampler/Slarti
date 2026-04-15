@@ -551,11 +551,21 @@ def process_voice_session(session_path: pathlib.Path) -> int:
 
 # ── Image generation marker parsing ──────────────────────────────────────────
 
+def extract_generate_image_markers(raw_text: str) -> list[dict]:
+    """Parse [GENERATE_IMAGE: caption] markers (primary format)."""
+    results = []
+    for match in re.finditer(r'\[GENERATE_IMAGE:\s*(.+?)\]', raw_text):
+        caption = match.group(1).strip()
+        if caption:
+            results.append({'mode': 'c', 'description': caption})
+    return results
+
+
 def extract_design_requests(raw_text: str) -> list[dict]:
-    """Parse [DESIGN_REQUEST: description={text}] markers from raw session text."""
+    """Parse [DESIGN_REQUEST: description={text}] markers (legacy format)."""
     results = []
     for match in re.finditer(r'\[DESIGN_REQUEST:\s*description=(.+?)\]', raw_text, re.DOTALL):
-        description = match.group(1).strip()
+        description = match.group(1).strip().strip('{}')
         if description:
             results.append({'mode': 'c', 'description': description})
     return results
@@ -670,7 +680,19 @@ def process_session(session_path: pathlib.Path) -> int:
                 stdout=_sp.DEVNULL, stderr=_sp.DEVNULL,
             )
 
-        # Design request markers (Mode C) → image_agent.py --mode c
+        # [GENERATE_IMAGE: caption] markers (primary) → image_agent.py --mode c
+        for gi in extract_generate_image_markers(raw):
+            print(f'  GENERATE_IMAGE marker detected — triggering image_agent...')
+            _sp.Popen(
+                [sys.executable,
+                 str(SLARTI_ROOT / 'scripts' / 'image_agent.py'),
+                 '--mode', 'c',
+                 '--description', gi['description'],
+                 '--channel', 'garden-design'],
+                stdout=_sp.DEVNULL, stderr=_sp.DEVNULL,
+            )
+
+        # Legacy [DESIGN_REQUEST:] markers → image_agent.py --mode c
         design_requests = extract_design_requests(raw)
         for dr in design_requests:
             print(f'  DESIGN_REQUEST marker detected — triggering image_agent...')
